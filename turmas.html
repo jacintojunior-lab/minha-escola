@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Turmas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-logo">
+<img src="assets/logo.jpg">
+<span>Sistema Escolar</span>
+</div>
+
+<nav class="sidebar-menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-chart-line"></i> Dashboard
+</a>
+
+<a href="cadastro.html">
+<i class="fa-solid fa-clipboard-list"></i> Cadastro
+</a>
+
+<a href="alunos.html">
+<i class="fa-solid fa-user-graduate"></i> Alunos
+</a>
+
+<a href="carometro.html">
+<i class="fa-solid fa-id-badge"></i> Carômetro
+</a>
+
+<a href="irmaos.html">
+<i class="fa-solid fa-people-roof"></i> Irmãos
+</a>
+
+<a href="relatorios.html">
+<i class="fa-solid fa-file-lines"></i> Relatórios
+</a>
+
+<a href="contato.html">
+    <i class="fa-brands fa-whatsapp"></i> Contato
+</a>
+
+<a href="declaracoes.html">
+<i class="fa-solid fa-file-signature"></i> Declarações
+</a>
+
+<a href="turmas.html" class="ativo">
+<i class="fa-solid fa-school"></i> Turmas
+</a>
+
+<a href="funcionarios.html">
+<i class="fa-solid fa-user-tie"></i> Funcionários
+</a>
+
+<a href="transporte.html">
+<i class="fa-solid fa-bus"></i> Transporte
+</a>
+
+<a href="saude.html">
+<i class="fa-solid fa-heart-pulse"></i> Saúde
+</a>
+
+<a href="configuracoes.html">
+<i class="fa-solid fa-gear"></i> Configurações
+</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTEÚDO -->
+<main class="conteudo">
+
+<!-- CADASTRO -->
+<section class="card">
+
+<h2><i class="fa-solid fa-plus"></i> Nova Turma</h2>
+
+<form id="formTurma" class="form-aluno">
+
+<input type="text" id="nomeTurma" placeholder="Nome (ex: 3A)" required>
+
+<select id="serie" class="select-estilizado" required>
+<option value="">Selecione a Série</option>
+<option>1º ANO</option>
+<option>2º ANO</option>
+<option>3º ANO</option>
+<option>4º ANO</option>
+<option>5º ANO</option>
+<option>6º ANO</option>
+<option>7º ANO</option>
+<option>8º ANO</option>
+<option>9º ANO</option>
+<option>1º EM</option>
+<option>2º EM</option>
+<option>3º EM</option>
+</select>
+
+<select id="tipoEnsino" class="select-estilizado" required>
+<option value="">Tipo de Ensino</option>
+<option>Ensino Fundamental de 9 anos</option>
+<option>Ensino Médio</option>
+</select>
+
+<select id="periodo" class="select-estilizado">
+<option>Manhã</option>
+<option>Tarde</option>
+<option>Integral</option>
+<option>Noite</option>
+</select>
+
+<input type="text" id="horario" placeholder="07:00 - 11:30">
+
+<input type="number" id="capacidade" placeholder="Capacidade máxima" required>
+
+<button type="submit">Salvar Turma</button>
+
+</form>
+
+</section>
+
+
+
+<!-- LISTA -->
+<section class="card">
+
+<h2><i class="fa-solid fa-school"></i> Turmas Cadastradas</h2>
+
+<div id="listaTurmas"></div>
+
+</section>
+
+<!-- IMPORTAR E EXPORTAR CSV -->
+<div style="margin-bottom:10px; display:flex; gap:10px;">
+
+<button class="btn-sec" id="btnExportarTurmas">
+<i class="fa-solid fa-file-csv"></i> Exportar
+</button>
+
+<input type="file" id="importarTurmasCSV" accept=".csv" style="display:none">
+
+<button class="btn-sec" onclick="document.getElementById('importarTurmasCSV').click()">
+<i class="fa-solid fa-upload"></i> Importar
+</button>
+
+</div>
+
+</main>
+
+</div>
+
+<footer>
+<p>© 2026 – Sistema Escolar</p>
+</footer>
+
+<script>
+function toggleSidebar() {
+document.getElementById("sidebar").classList.toggle("aberta");
+}
+</script>
+
+<div class="modal" id="modalTurma">
+<div class="modal-conteudo">
+
+<h3>Editar Turma</h3>
+
+<form id="formEditarTurma" class="form-aluno">
+
+<div class="campo-form">
+<label>Nome da Turma</label>
+<input type="text" id="editNome" required>
+</div>
+
+<div class="campo-form">
+<label>Série</label>
+<select id="editSerie">
+<option value="">Selecione uma opção</option>
+<option>1º ANO</option>
+<option>2º ANO</option>
+<option>3º ANO</option>
+<option>4º ANO</option>
+<option>5º ANO</option>
+<option>6º ANO</option>
+<option>7º ANO</option>
+<option>8º ANO</option>
+<option>9º ANO</option>
+<option>1º EM</option>
+<option>2º EM</option>
+<option>3º EM</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Tipo de Ensino</label>
+<select id="editTipoEnsino">
+<option value="">Selecione uma opção</option>
+<option>Ensino Fundamental de 9 anos</option>
+<option>Ensino Médio</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Período</label>
+<select id="editPeriodo">
+<option value="">Selecione uma opção</option>
+<option>Manhã</option>
+<option>Tarde</option>
+<option>Integral</option>
+<option>Noite</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Horário</label>
+<input type="text" id="editHorario">
+</div>
+
+<div class="campo-form">
+<label>Capacidade</label>
+<input type="number" id="editCapacidade" required>
+</div>
+
+<div class="modal-acoes">
+
+<button type="button"
+class="btn-danger"
+>
+<i class="fa-solid fa-trash"></i> Excluir
+</button>
+
+<button type="button"
+class="btn-cancelar"
+>
+Cancelar
+</button>
+
+<button type="submit" class="btn-sec">
+Salvar
+</button>
+
+</div>
+
+</form>
+
+</div>
+</div>
+
+<script type="module" src="js/modules/turmas.js"></script>
+
+</body>
+</html>

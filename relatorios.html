@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatórios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link id="favicon" rel="icon" type="image/png" href="data:,">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Ícones -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+<!-- BOTÃO MOBILE -->
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <img src="assets/logo.jpg" alt="Logo da Escola">
+            <span>Sistema Escolar</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-line"></i> Dashboard
+            </a>
+            <a href="cadastro.html">
+                <i class="fa-solid fa-clipboard-list"></i> Cadastro
+            </a>
+            <a href="alunos.html">
+                <i class="fa-solid fa-user-graduate"></i> Alunos
+            </a>
+            <a href="carometro.html">
+            <i class="fa-solid fa-id-badge"></i> Carômetro
+            </a>
+            <a href="irmaos.html">
+            <i class="fa-solid fa-people-roof"></i> Irmãos
+            </a>
+            <a href="relatorios.html" class="ativo">
+                <i class="fa-solid fa-file-lines"></i> Relatórios
+            </a>
+            <a href="contato.html">
+                <i class="fa-brands fa-whatsapp"></i> Contato
+            </a>
+            <a href="declaracoes.html">
+            <i class="fa-solid fa-file-signature"></i> Declarações
+            </a>
+            <a href="turmas.html">
+                <i class="fa-solid fa-school"></i> Turmas
+            </a>
+
+            <a href="funcionarios.html">
+            <i class="fa-solid fa-user-tie"></i> Funcionários
+            </a>
+            
+            <a href="transporte.html">
+                <i class="fa-solid fa-bus"></i> Transporte
+            </a>
+            <a href="saude.html">
+                <i class="fa-solid fa-heart-pulse"></i> Saúde
+            </a>
+            <a href="configuracoes.html">
+                <i class="fa-solid fa-gear"></i> Configurações
+            </a>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+        <section class="card">
+            <h2>
+                <i class="fa-solid fa-file-lines"></i>
+                Relatórios
+            </h2>
+
+            <p class="descricao">
+                Gere relatórios e arquivos a partir dos alunos cadastrados.
+            </p>
+
+            <!-- AÇÕES -->
+            <div class="acoes-relatorio">
+
+                <div class="campo-relatorio">
+                    <label for="turmaSelecionada">Turma</label>
+                    <select id="turmaSelecionada">
+                        <option value="">Selecione uma turma</option>
+                    </select>
+                </div>
+
+                <div class="botoes-relatorio">
+                    <!-- LISTA PILOTO - COMPLETA-->
+                    <button class="btn-sec" id="btnPDFGeral">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        LISTA PILOTO
+                    </button>
+
+                    <!-- LISTA PILOTO - TURMA-->
+                    <button class="btn-sec" id="btnPDFTurma">
+                        <i class="fa-solid fa-filter"></i>
+                        LISTA DA TURMA
+                    </button>
+
+                    <!-- GERAR CSV-->
+                    <button class="btn-sec" id="btnExcel">
+                        <i class="fa-solid fa-file-excel"></i>
+                        GERAR CSV
+                    </button>
+
+                    <!-- RELATÓRIO DE DVA-->
+                    <button class="btn-sec" id="btnSaude">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    RELATÓRIO DE DVAs
+                    </button>
+
+                    <!-- CARÔMETRO COMPLETO-->
+                    <button class="btn-sec" id="btnCarometroGeral">
+                        <i class="fa-solid fa-id-badge"></i>
+                        CARÔMETRO
+                    </button>
+
+                    <!-- CARÔMETRO POR TURMA-->
+                    <button class="btn-sec" id="btnCarometroTurma">
+                        <i class="fa-solid fa-id-card"></i>
+                        CARÔMETRO (TURMA)
+                    </button>
+
+                    <!-- Nº DO ESTUDANTE -->
+                    <button class="btn-sec" id="btnRGAEOLINEP">
+                        <i class="fa-solid fa-table"></i>
+                        RGA - EOL - INEP
+                    </button>
+
+                    <!-- Nº DO ESTUDANTE - Turma -->
+                    <button class="btn-sec" id="btnRGAEOLINEPTurma">
+                        <i class="fa-solid fa-filter"></i>
+                        RGA - EOL - INEP (TURMA)
+                    </button>
+
+                    <!-- LISTA TELEFÔNICA -->
+                    <button class="btn-sec" id="btnListaTelefonica">
+                        <i class="fa-solid fa-phone"></i>
+                        LISTA TELEFÔNICA
+                    </button>
+
+                    <button id="btnListaTelefonicaTurma" class="btn-sec">
+                    📞 LISTA TELEFÔNICA (TURMA)
+                    </button>
+                    
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer>
+    <p>© 2026 – Sistema Escolar</p>
+</footer>
+
+<!-- SCRIPT MENU -->
+<script>
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("aberta");
+}
+</script>
+
+<!-- SCRIPT DA PÁGINA -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script type="module" src="js/modules/relatorios.js"></script>
+
+</body>
+</html>

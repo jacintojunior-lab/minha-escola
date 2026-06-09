@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Configurações</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link id="favicon" rel="icon" type="image/png" href="data:,">
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- BOTÃO MOBILE -->
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <img src="assets/logo.jpg" alt="Logo da Escola">
+            <span>Sistema Escolar</span>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="dashboard.html">
+                <i class="fa-solid fa-chart-line"></i> Dashboard
+            </a>
+            <a href="cadastro.html">
+                <i class="fa-solid fa-clipboard-list"></i> Cadastro
+            </a>
+            <a href="alunos.html">
+                <i class="fa-solid fa-user-graduate"></i> Alunos
+            </a>
+            <a href="carometro.html">
+            <i class="fa-solid fa-id-badge"></i> Carômetro
+            </a>
+            <a href="irmaos.html">
+            <i class="fa-solid fa-people-roof"></i> Irmãos
+            </a>
+            <a href="relatorios.html">
+                <i class="fa-solid fa-file-lines"></i> Relatórios
+            </a>
+            <a href="contato.html">
+                <i class="fa-brands fa-whatsapp"></i> Contato
+            </a>
+            <a href="declaracoes.html">
+            <i class="fa-solid fa-file-signature"></i> Declarações
+            </a>
+            <a href="turmas.html">
+             <i class="fa-solid fa-school"></i> Turmas
+            </a>
+            <a href="funcionarios.html">
+            <i class="fa-solid fa-user-tie"></i> Funcionários
+            </a>
+            <a href="transporte.html">
+                <i class="fa-solid fa-bus"></i> Transporte
+            </a>
+            <a href="saude.html">
+                <i class="fa-solid fa-heart-pulse"></i> Saúde
+            </a>
+            <a href="configuracoes.html" class="ativo">
+                <i class="fa-solid fa-gear"></i> Configurações
+            </a>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <div class="abas-aluno">
+
+            <button class="aba ativa" data-aba="geral">
+            <i class="fa-solid fa-school"></i> Geral
+            </button>
+
+            <button class="aba" data-aba="importacao">
+            <i class="fa-solid fa-file-import"></i> Importação
+            </button>
+
+            <button class="aba" data-aba="backup">
+            <i class="fa-solid fa-database"></i> Backup
+            </button>
+
+        </div>
+
+        <!-- ABA GERAL -->
+        <div id="aba-geral" class="conteudo-aba ativo">
+
+            <!-- DADOS DA ESCOLA -->
+            <section class="card">
+                <form id="formEscola">
+
+                    <!-- =========================
+                    DADOS INSTITUCIONAIS
+                    ========================= -->
+
+                    <h3 class="dados-escola"><i class="fa-solid fa-building"></i> Dados Institucionais</h3>
+
+                    <div class="form-aluno">
+
+                        <div class="campo-form">
+                            <label>Prefeitura</label>
+                            <input type="text" id="escolaPrefeitura" placeholder="Prefeitura">
+                        </div>
+
+                        <div class="campo-form">
+                            <label>Secretaria</label>
+                            <input type="text" id="escolaSecretaria" placeholder="Secretaria">
+                        </div>
+
+                        <div class="campo-form">
+                            <label>Diretoria Regional</label>
+                            <input type="text" id="escolaDiretoria" placeholder="Diretoria Regional">
+                        </div>
+
+                        <div class="campo-form">
+                            <label>Nome da escola</label>
+                            <input type="text" id="escolaNome" placeholder="Nome da escola">
+                        </div>
+
+                        <div class="campo-form">
+                            <label>Telefone 1</label>
+                            <input type="text" id="escolaTelefone" placeholder="Telefone">
+                        </div>
+
+                        <div class="campo-form">
+                            <label>Telefone 2</label>
+                            <input type="text" id="escolaTelefone2" placeholder="Telefone 2">
+                        </div>
+
+                        <div class="campo-form">
+                            <label>Email</label>
+                            <input type="email" id="escolaEmail" placeholder="E-mail">
+                        </div>
+
+                    </div>
+
+                    <!-- =========================
+                    ENDEREÇO
+                    ========================= -->
+
+                    <h3 class="dados-escola">Endereço</h3>
+
+                    <div class="form-aluno">
+
+                    <div class="campo-form">
+                        <label>Rua</label>
+                        <input type="text" id="escolaEndereco" placeholder="Endereço">
+                    </div>
+
+                    <div class="campo-form">
+                        <label>Nº</label>
+                        <input type="text" id="escolaNumero" placeholder="Nº">
+                    </div>
+
+                    <div class="campo-form">
+                        <label>Bairro</label>
+                        <input type="text" id="escolaBairro" placeholder="Bairro">
+                    </div>
+
+                    <div class="campo-form">
+                        <label>CEP</label>
+                        <input type="text" id="escolaCep" placeholder="CEP">
+                    </div>
+
+                    <div class="campo-form">
+                        <label>Cidade</label>
+                        <input type="text" id="escolaCidade" placeholder="Cidade">
+                    </div>
+
+                    <div class="campo-form">
+                        <label>Estado</label>
+                        <input type="text" id="escolaEstado" placeholder="Estado">
+                    </div>
+
+                    </div>
+
+                    <!-- =========================
+                    IDENTIFICAÇÃO
+                    ========================= -->
+
+                    <h3 class="dados-escola">Identificação da Escola</h3>
+
+                    <div class="form-aluno">
+
+                    <div class="campo-form">
+                        <label>Nº EOL</label>
+                        <input type="text" id="escolaEol" placeholder="Nº EOL da escola">
+                    </div>
+
+                    <div class="campo-form">
+                        <label>Nº INEP</label>
+                        <input type="text" id="escolaInep" placeholder="Nº INEP da escola">
+                    </div>
+
+                    </div>
+
+                    <!-- =========================
+                    IDENTIDADE VISUAL
+                    ========================= -->
+
+                    <h3 class="dados-escola">Identidade Visual</h3>
+
+                    <div class="form-aluno">
+
+                    <div class="campo-form">
+                        <label>Logo da escola</label>
+
+                        <div class="upload-ui">
+                        <label for="escolaLogo" class="btn-upload">
+                            <i class="fa-solid fa-image"></i> Selecionar imagem
+                            <input type="file" id="escolaLogo" accept="image/*">
+                        </label>
+                        <span id="nomeArquivoEscola" class="nome-arquivo">Nenhum arquivo</span>
+                        </div>
+                    </div>
+
+                    <div class="campo-form">
+                        <label>Logo da Prefeitura</label>
+
+                        <div class="upload-ui">
+                        <label for="logoPrefeitura" class="btn-upload">
+                            <i class="fa-solid fa-building"></i> Selecionar imagem
+                            <input type="file" id="logoPrefeitura" accept="image/*">
+                        </label>
+                        <span id="nomeArquivoPrefeitura" class="nome-arquivo">Nenhum arquivo</span>
+                        </div>
+                    </div>
+
+                    </div>
+                    <h3 class="dados-escola">
+                    <i class="fa-solid fa-user"></i> Fotos Padrão do Carômetro
+                    </h3>
+
+                    <div class="form-aluno">
+
+                        <!-- FOTO MASCULINA -->
+                        <div class="campo-form">
+                            <label>Foto padrão masculina</label>
+
+                            <div class="upload-ui">
+                                <label for="fotoMasculina" class="btn-upload">
+                                    <i class="fa-solid fa-image"></i> Selecionar imagem
+                                    <input type="file" id="fotoMasculina" accept="image/*">
+                                </label>
+                                <span id="nomeFotoMasculina" class="nome-arquivo">Nenhum arquivo</span>
+                            </div>
+
+                            <img id="previewFotoMasculina" style="width:60px; margin-top:10px;">
+                        </div>
+
+                        <!-- FOTO FEMININA -->
+                        <div class="campo-form">
+                            <label>Foto padrão feminina</label>
+
+                            <div class="upload-ui">
+                                <label for="fotoFeminina" class="btn-upload">
+                                    <i class="fa-solid fa-image"></i> Selecionar imagem
+                                    <input type="file" id="fotoFeminina" accept="image/*">
+                                </label>
+                                <span id="nomeFotoFeminina" class="nome-arquivo">Nenhum arquivo</span>
+                            </div>
+
+                            <img id="previewFotoFeminina" style="width:60px; margin-top:10px;">
+                        </div>
+
+                    </div>
+
+                    <!-- BOTÃO -->
+                    <h3 class="dados-escola"></h3>
+                    <button type="submit" class="btn-principal" id="btnSalvarEscola">
+                    Salvar dados
+                    </button>
+
+                    
+
+                </form>
+
+            </section>
+            
+            <!-- PRÉ-VISUALIZAÇÃO -->
+            <section class="card">
+
+            <h2>
+            <i class="fa-solid fa-eye"></i>
+            Visualização do Cabeçalho e Rodapé
+            </h2>
+
+
+            <div id="previewEscola" class="preview-escola preview">
+
+                <!-- CABEÇALHO -->
+                <div class="relatorio-header">
+
+                    <img id="previewLogoPrefeitura">
+
+                    <div class="relatorio-info">
+                    <p id="previewPrefeitura"></p>
+                    <p id="previewSecretaria"></p>
+                    <p id="previewDiretoria"></p>
+                    <strong><p id="previewNome"></p></strong>
+                    
+                    </div>
+
+                    <img id="previewLogo">
+                </div>
+
+                <!-- CORPO SIMULADO -->
+                <div class="preview-corpo">
+                    <h4 style="text-align:center; margin-top:20px;">
+                    FOLHA MODELO
+                    </h4>
+
+                    <p style="margin-top:15px; text-align:justify;">
+                    (Pré-visualização do documento)
+                    </p>
+                </div>
+
+                <!-- RODAPÉ -->
+                <div class="relatorio-footer">
+                    <p><span id="previewEndereco"></span> – <span id="previewCidade"></span></p>
+                    <p><span id="previewTelefone"></span> – <span id="previewEmail"></span></p>
+                    
+                </div>
+
+            </div>
+
+            </section>
+
+            
+
+        </div>
+
+        <!-- ABA IMPORTAÇÕES -->
+        <div id="aba-importacao" class="conteudo-aba">
+
+            <!-- IMPORTAÇÃO COMPLETA -->
+            <section class="card">
+
+                <h2>
+                <i class="fa-solid fa-flask"></i>
+                Importação CSV Completo - Estudante
+                </h2>
+
+                <p class="descricao">
+                Importe um CSV contendo todos os campos do estudante.
+                </p>
+
+                <input type="file" id="csvTeste" accept=".csv">
+
+                <br><br>
+
+                <button class="btn-sec" id="btnImportarCompleto">
+                Importar CSV Completo
+                </button>
+
+            </section>
+
+            <!-- IMPORTAR CSV - SIMPLES (NOME, RGA E TURMA) -->
+            <section class="card">
+                <h2>
+                    <i class="fa-solid fa-file-csv"></i>
+                    Importar Alunos (CSV)
+                </h2>
+
+                <p class="descricao">
+                    (1) Importe um arquivo CSV contendo os alunos no formato:
+                    <strong>Nome;Matrícula;Turma</strong>
+                </p>
+                <p class="descricao">
+                    (2) Importe um arquivo CSV contendo os alunos no formato:
+                    <strong>Nome;Matrícula;Turma; RA; EOL; INEP; Data da Matrícula, Situação</strong>
+                </p>
+
+                <form class="form-aluno form-config">
+                    <input type="file" id="arquivoCSV" accept=".csv">
+                    <button type="button" class="btn-sec" id="btnImportarCSV">
+                        <i class="fa-solid fa-upload"></i> Importar
+                    </button>
+                    <button class="btn-sec" id="btnImportarNovo">
+                    <i class="fa-solid fa-upload"></i> Importar CSV Completo (Modelo Novo)
+                    </button>
+                </form>
+            </section>
+
+            <!-- IMPORTAR DADOS -  Importação Inteligente de Estudantes-->
+            <section class="card">
+
+                <h2>
+                <i class="fa-solid fa-file-import"></i>
+                Importação Inteligente de Estudantes
+                </h2>
+
+                <p class="descricao">
+                Importe uma planilha CSV ou Excel contendo os dados dos alunos.
+                O sistema detectará automaticamente os campos.
+                </p>
+
+                <input type="file" id="arquivoImportacao" accept=".csv,.xlsx">
+
+                <br><br>
+
+                <button class="btn-sec" id="btnLerPlanilha">
+                <i class="fa-solid fa-upload"></i>
+                Carregar Planilha
+                </button>
+
+            </section>
+
+            <!-- Pré-visualização da Importação -  Importação Inteligente de Alunos-->
+            <section class="card">
+
+                <h2>
+                <i class="fa-solid fa-table"></i>
+                Pré-visualização da Importação
+                </h2>
+
+                <div class="tabela-container">
+
+                <table>
+                <thead>
+                <tr>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Turma</th>
+                </tr>
+                </thead>
+
+                <tbody id="previewImportacao">
+                <tr>
+                <td colspan="3" style="text-align:center">
+                Nenhum arquivo carregado
+                </td>
+                </tr>
+                </tbody>
+
+                </table>
+
+                </div>
+
+                <br>
+
+                <button class="btn-principal" id="btnConfirmarImport">
+                Confirmar Importação
+                </button>
+
+            </section>
+
+        </div>
+
+        <!-- BACKUP + LIMPAR -->
+        <div id="aba-backup" class="conteudo-aba">
+
+            <!-- Backup -->
+            <section class="card">
+
+                <h2>
+                <i class="fa-solid fa-database"></i>
+                Backup do Sistema
+                </h2>
+
+                <p class="descricao">
+                Faça backup completo ou restaure os dados do sistema.
+                </p>
+
+                <div class="backup-acoes">
+
+                <button class="btn-sec" id="btnBackup">
+                <i class="fa-solid fa-download"></i>
+                Fazer Backup
+                </button>
+
+                <label class="btn-sec">
+                <i class="fa-solid fa-upload"></i>
+                Restaurar Backup
+                <input type="file" id="importarBackup" hidden>
+                </label>
+
+                </div>
+
+            </section>
+
+            <!-- GERENCIAMENTO -->
+            <section class="card">
+                <h2>
+                    <i class="fa-solid fa-database"></i>
+                    Gerenciamento de Dados
+                </h2>
+
+                <p class="descricao">
+                    Ações abaixo afetam todos os dados do sistema.
+                    Use com cuidado.
+                </p>
+
+                <button class="btn-danger" id="btnApagarAlunos">
+                    <i class="fa-solid fa-trash"></i>
+                    Apagar todos os alunos
+                </button>
+
+                <button class="btn-danger" id="btnResetarSistema">
+                    <i class="fa-solid fa-skull-crossbones"></i>
+                    Resetar TODO o sistema
+                </button>
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<footer>
+    <p>© 2026 – Sistema Escolar</p>
+</footer>
+
+<!-- SCRIPT MENU -->
+<script>
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("aberta");
+}
+</script>
+
+<!-- SCRIPT DA PÁGINA -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script type="module" src="js/modules/configuracoes/index.js"></script>
+
+</body>
+</html>

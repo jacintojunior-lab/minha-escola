@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Aluno</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-logo">
+<img src="assets/logo.jpg">
+<span>Sistema Escolar</span>
+</div>
+
+<nav class="sidebar-menu">
+<a href="dashboard.html">
+  <i class="fa-solid fa-chart-line"></i> Dashboard
+</a>
+
+<a href="cadastro.html">
+<i class="fa-solid fa-clipboard-list"></i> Cadastro
+</a>
+
+<a href="alunos.html" class="ativo">
+<i class="fa-solid fa-user-graduate"></i> Alunos
+</a>
+
+<a href="carometro.html">
+<i class="fa-solid fa-id-badge"></i> Carômetro
+</a>
+
+<a href="irmaos.html">
+<i class="fa-solid fa-people-roof"></i> Irmãos
+</a>
+
+<a href="relatorios.html">
+<i class="fa-solid fa-file-lines"></i> Relatórios
+</a>
+
+<a href="contato.html">
+  <i class="fa-brands fa-whatsapp"></i> Contato
+</a>
+
+<a href="declaracoes.html">
+<i class="fa-solid fa-file-signature"></i> Declarações
+</a>
+
+<a href="turmas.html">
+<i class="fa-solid fa-school"></i> Turmas
+</a>
+
+<a href="funcionarios.html">
+<i class="fa-solid fa-user-tie"></i> Funcionários
+</a>
+
+<a href="transporte.html">
+  <i class="fa-solid fa-bus"></i> Transporte
+</a>
+<a href="saude.html">
+  <i class="fa-solid fa-heart-pulse"></i> Saúde
+</a>
+<a href="configuracoes.html">
+<i class="fa-solid fa-gear"></i> Configurações
+</a>
+
+</nav>
+
+</aside>
+
+<main class="conteudo">
+
+<section class="card">
+
+<h2>Perfil do Aluno</h2>
+
+<!-- CABEÇALHO DO ALUNO -->
+
+<div class="perfil-card">
+
+  <div class="perfil-avatar" id="perfilAvatar">
+    <img id="fotoAluno" src="" onclick="abrirZoomFoto()" style="cursor: zoom-in;" alt="Foto do aluno">
+
+    <button class="btn-editar-foto" onclick="abrirModalFoto()">
+      <i class="fa-solid fa-camera"></i>
+    </button>
+  </div>
+
+  <div class="perfil-dados">
+
+    <div class="perfil-nome" id="perfilNome">
+      Nome do aluno
+    </div>
+
+    <div class="perfil-meta">
+
+      <span class="perfil-item">
+        <strong>RGA</strong> <span id="perfilRGA"></span>
+      </span>
+
+      <span class="perfil-item">
+        <strong>Turma</strong> <span id="perfilTurma"></span>
+      </span>
+
+      <span class="perfil-item">
+        <span id="perfilSituacao" class="status"></span>
+      </span>
+
+      <span class="perfil-item">
+        <strong>Idade</strong> <span id="perfilIdade"></span>
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ABAS -->
+
+<div class="abas-aluno">
+
+<button class="aba ativa" onclick="abrirAba('dados', this)">Dados Gerais</button>
+<button class="aba" onclick="abrirAba('pessoais', this)">Pessoais</button>
+<button class="aba" onclick="abrirAba('documentos', this)">Documentos</button>
+<button class="aba" onclick="abrirAba('familia', this)">Família</button>
+<button class="aba" onclick="abrirAba('endereco', this)">Endereço</button>
+<button class="aba" onclick="abrirAba('contato', this)">Contato</button>
+<button class="aba" onclick="abrirAba('saude', this)">Saúde</button>
+<button class="aba" onclick="abrirAba('irmaos', this)">Irmãos</button>
+<button class="aba" onclick="abrirAba('saida', this)">Saída</button>
+<button class="aba" onclick="abrirAba('teg', this)">TEG</button>
+
+</div>
+
+<form id="formAluno">
+
+<!-- =========================
+DADOS GERAIS
+========================= -->
+
+<div id="aba-dados" class="conteudo-aba ativo">
+
+<h3>Dados Gerais</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Nome do aluno</label>
+<input type="text" id="nome">
+</div>
+
+<div class="campo-form">
+<label>RGA</label>
+<input type="text" id="rga">
+</div>
+
+<div class="campo-form">
+<label>Turma</label>
+<input type="text" id="turma">
+</div>
+
+<div class="campo-form">
+<label>RA</label>
+<input type="text" id="ra">
+</div>
+
+<div class="campo-form">
+<label>EOL</label>
+<input type="text" id="eol">
+</div>
+
+<div class="campo-form">
+<label>INEP</label>
+<input type="text" id="inep">
+</div>
+
+</div>
+
+<h3>Dados Escolares</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Data da matrícula</label>
+<input type="date" id="matriculaData">
+</div>
+
+<div class="campo-form">
+<label>Situação</label>
+<select id="situacao">
+<option value="">Selecione uma opção</option>
+<option>Ativo</option>
+<option>Inativo</option>
+<option>Transferido</option>
+<option>Concluído</option>
+<option>Desistente</option>
+<option>Retido</option>
+<option>Não comparecimento</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Ano Letivo</label>
+<input type="number" id="anoLetivo">
+</div>
+
+<div class="campo-form">
+<label>Vaga Origem</label>
+
+<select id="vagaOrigem">
+
+<option value="">Selecione uma opção</option>
+<option>1º Ano</option>
+<option>Transferência</option>
+<option>Fora da Rede</option>
+<option>Preferencial</option>
+<option>Deslocamento</option>
+<option>Desconhecido</option>
+
+</select>
+
+</div>
+
+<div class="campo-form">
+
+<label>Observações</label>
+
+<input type="text" id="observacoes">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+INFORMAÇÕES PESSOAIS
+========================= -->
+
+<div id="aba-pessoais" class="conteudo-aba">
+
+<h3>Informações Pessoais</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Data de nascimento</label>
+<input type="date" id="nascimento">
+</div>
+
+<div class="campo-form">
+<label>Sexo</label>
+<select id="sexo">
+<option value="">Selecione uma opção</option>
+<option>Masculino</option>
+<option>Feminino</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Cidade</label>
+<input type="text" id="cidade">
+</div>
+
+<div class="campo-form">
+<label>Estado</label>
+<input type="text" id="estado">
+</div>
+
+<div class="campo-form">
+<label>UF</label>
+<input type="text" id="uf">
+</div>
+
+<div class="campo-form">
+<label>País</label>
+<input type="text" id="pais">
+</div>
+
+<div class="campo-form">
+<label>Nacionalidade</label>
+<input type="text" id="nacionalidade">
+</div>
+
+</div>
+
+</div>
+
+<div id="aba-documentos" class="conteudo-aba">
+
+<h3>RG</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Nº do documento</label>
+<input type="text" id="rgNumero">
+</div>
+
+<div class="campo-form">
+<label>Data de Expedição</label>
+<input type="date" id="rgData">
+</div>
+
+<div class="campo-form">
+<label>Órgão de Expedição</label>
+<input type="text" id="rgOrgao">
+</div>
+
+<div class="campo-form">
+<label>Estado de Expedição</label>
+<input type="text" id="rgEstado">
+</div>
+
+</div>
+
+<h3>CPF</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Nº do CPF</label>
+<input type="text" id="cpf">
+</div>
+
+</div>
+
+<h3>Certidão de Nascimento</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Número completo</label>
+<input type="text" id="certidaoCompleta">
+</div>
+
+<div class="campo-form">
+<label>Número da Certidão</label>
+<input type="text" id="certidaoNumero">
+</div>
+
+<div class="campo-form">
+<label>Folha</label>
+<input type="text" id="certidaoFolha">
+</div>
+
+<div class="campo-form">
+<label>Livro</label>
+<input type="text" id="certidaoLivro">
+</div>
+
+<div class="campo-form">
+<label>Data de Expedição</label>
+<input type="date" id="certidaoData">
+</div>
+
+<div class="campo-form">
+<label>Distrito</label>
+<input type="text" id="certidaoDistrito">
+</div>
+
+<div class="campo-form">
+<label>Estado</label>
+<input type="text" id="certidaoEstado">
+</div>
+
+</div>
+
+<h3>NIS</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Número do NIS</label>
+<input type="text" id="nis">
+</div>
+
+</div>
+
+</div>
+
+<div id="aba-familia" class="conteudo-aba">
+
+<h3>Filiação 1</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Nome</label>
+<input type="text" id="mae">
+</div>
+
+<div class="campo-form">
+<label>CPF</label>
+<input type="text" id="maeCpf">
+</div>
+
+<div class="campo-form">
+<label>RG</label>
+<input type="text" id="maeRg">
+</div>
+
+</div>
+
+<h3>Filiação 2</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Nome</label>
+<input type="text" id="pai">
+</div>
+
+<div class="campo-form">
+<label>CPF</label>
+<input type="text" id="paiCpf">
+</div>
+
+<div class="campo-form">
+<label>RG</label>
+<input type="text" id="paiRg">
+</div>
+
+</div>
+
+<h3>Responsável Legal</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Nome</label>
+<input type="text" id="responsavelNome">
+</div>
+
+<div class="campo-form">
+<label>CPF</label>
+<input type="text" id="responsavelCpf">
+</div>
+
+<div class="campo-form">
+<label>RG</label>
+<input type="text" id="responsavelRg">
+</div>
+
+</div>
+
+</div>
+
+<div id="aba-endereco" class="conteudo-aba">
+
+<h3>Endereço</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Rua</label>
+<input type="text" id="rua">
+</div>
+
+<div class="campo-form">
+<label>Nº</label>
+<input type="text" id="numero">
+</div>
+
+<div class="campo-form">
+<label>Complemento</label>
+<input type="text" id="complemento">
+</div>
+
+<div class="campo-form">
+<label>Bairro</label>
+<input type="text" id="bairro">
+</div>
+
+<div class="campo-form">
+<label>Cidade</label>
+<input type="text" id="cidadeEndereco">
+</div>
+
+<div class="campo-form">
+<label>Estado</label>
+<input type="text" id="estadoEndereco">
+</div>
+
+<div class="campo-form">
+<label>CEP</label>
+<input type="text" id="cep">
+</div>
+
+<div class="campo-form">
+<label>
+<input type="checkbox" id="enderecoAtualizado">
+Endereço atualizado
+</label>
+</div>
+
+</div>
+
+<h3>Distância</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Distância da residência até a escola</label>
+<input type="text" id="distanciaEscola">
+</div>
+
+</div>
+
+</div>
+
+<div id="aba-contato" class="conteudo-aba">
+
+<h3>Contato</h3>
+
+<h4>Telefones</h4>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Telefone Filiação 1</label>
+<input type="text" id="telefoneMae">
+</div>
+
+<div class="campo-form">
+<label>Telefone Filiação 2</label>
+<input type="text" id="telefonePai">
+</div>
+
+<div class="campo-form">
+<label>Telefone Responsável</label>
+<input type="text" id="telefoneResponsavel">
+</div>
+
+</div>
+
+<h4 class="grupo-contato">Telefones de recado</h4>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Telefone Recado 1</label>
+<input type="text" id="telefoneRecado1">
+</div>
+
+<div class="campo-form">
+<label>Nome do Recado 1</label>
+<input type="text" id="nomeRecado1">
+</div>
+
+<div class="campo-form">
+<label>Parentesco do Recado 1</label>
+<input type="text" id="parentescoRecado1">
+</div>
+
+</div>
+
+<div class="form-aluno linha-recado">
+
+<div class="campo-form">
+<label>Telefone Recado 2</label>
+<input type="text" id="telefoneRecado2">
+</div>
+
+<div class="campo-form">
+<label>Nome do Recado 2</label>
+<input type="text" id="nomeRecado2">
+</div>
+
+<div class="campo-form">
+<label>Parentesco do Recado 2</label>
+<input type="text" id="parentescoRecado2">
+</div>
+
+</div>
+
+<h4 class="grupo-contato">Emails</h4>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Email do estudante</label>
+<input type="email" id="emailAluno">
+</div>
+
+<div class="campo-form">
+<label>Email do responsável</label>
+<input type="email" id="emailResponsavel">
+</div>
+
+</div>
+
+</div>
+
+<div id="aba-irmaos" class="conteudo-aba">
+
+<h3>Irmãos</h3>
+
+<div class="irmaos-container">
+
+<div class="irmao-linha">
+<input 
+type="text" 
+placeholder="RGA Irmão 1" 
+id="irmao1Rga"
+onblur="preencherIrmao(1)">
+<input type="text" placeholder="Nome Irmão 1" id="irmao1Nome">
+<input type="text" placeholder="Turma Irmão 1" id="irmao1Turma">
+</div>
+
+<div class="irmao-linha">
+<input 
+type="text" 
+placeholder="RGA Irmão 2" 
+id="irmao2Rga"
+onblur="preencherIrmao(2)">
+<input type="text" placeholder="Nome Irmão 2" id="irmao2Nome">
+<input type="text" placeholder="Turma Irmão 2" id="irmao2Turma">
+</div>
+
+<div class="irmao-linha">
+<input 
+type="text" 
+placeholder="RGA Irmão 3" 
+id="irmao3Rga"
+onblur="preencherIrmao(3)">
+<input type="text" placeholder="Nome Irmão 3" id="irmao3Nome">
+<input type="text" placeholder="Turma Irmão 3" id="irmao3Turma">
+</div>
+
+<div class="irmao-linha">
+<input 
+type="text" 
+placeholder="RGA Irmão 4" 
+id="irmao4Rga"
+onblur="preencherIrmao(4)">
+<input type="text" placeholder="Nome Irmão 4" id="irmao4Nome">
+<input type="text" placeholder="Turma Irmão 4" id="irmao4Turma">
+</div>
+
+<div class="irmao-linha">
+<input 
+type="text" 
+placeholder="RGA Irmão 5" 
+id="irmao5Rga"
+onblur="preencherIrmao(5)">
+<input type="text" placeholder="Nome Irmão 5" id="irmao5Nome">
+<input type="text" placeholder="Turma Irmão 5" id="irmao5Turma">
+</div>
+
+</div>
+
+<h3>Irmãos detectados automaticamente</h3>
+
+<div id="listaIrmaosAuto" class="lista-irmaos-auto"></div>
+
+</div>
+
+<div id="aba-saude" class="conteudo-aba">
+
+<h3>Cartão SUS</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Número do Cartão SUS</label>
+<input type="text" id="cartaoSus">
+</div>
+
+</div>
+
+<h3>DVA</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>DVA entregue?</label>
+<select id="dvaEntregue">
+  <option>Não</option>
+  <option>Sim</option>
+  <option>Atualizar</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Data da próxima vacina</label>
+<input type="date" id="proximaVacina">
+</div>
+
+</div>
+
+<h3>Problemas de Saúde</h3>
+
+<div class="form-aluno">
+
+<input type="text" placeholder="Problemas de Saúde" id="problemasSaude">
+
+<input type="text" placeholder="Deficiência" id="deficiencia">
+
+<label>
+<input type="checkbox" id="ene">
+Estudante com necessidades especiais
+</label>
+
+</div>
+
+</div>
+
+<div id="aba-saida" class="conteudo-aba">
+
+<h3>Quem pode retirar o estudante?</h3>
+
+<div class="form-aluno">
+
+<input id="pessoaAutorizada1" type="text" placeholder="Pessoa autorizada 1">
+<input id="pessoaAutorizada2" type="text" placeholder="Pessoa autorizada 2">
+<input id="pessoaAutorizada3" type="text" placeholder="Pessoa autorizada 3">
+<input id="pessoaAutorizada4" type="text" placeholder="Pessoa autorizada 4">
+<input id="pessoaAutorizada5" type="text" placeholder="Pessoa autorizada 5">
+<input id="pessoaAutorizada6" type="text" placeholder="Pessoa autorizada 6">
+<input id="pessoaAutorizada7" type="text" placeholder="Pessoa autorizada 7">
+<input id="pessoaAutorizada8" type="text" placeholder="Pessoa autorizada 8">
+<input id="pessoaAutorizada9" type="text" placeholder="Pessoa autorizada 9">
+<input id="pessoaAutorizada10" type="text" placeholder="Pessoa autorizada 10">
+
+</div>
+
+</div>
+
+<div id="aba-teg" class="conteudo-aba">
+
+<h3>TEG</h3>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Classificado</label>
+
+<select id="tegClassificado">
+
+  <option value="">Selecione uma opção</option>
+  <option>Classificado</option>
+  <option>Não classificado</option>
+
+</select>
+
+</div>
+
+<div class="campo-form">
+
+<label>Motivo</label>
+
+<select id="tegMotivo">
+
+  <option value="">Selecione uma opção</option>
+  <option>Distância</option>
+  <option>Junção de Irmãos</option>
+  <option>DEFIC./A.H./T.G.D.</option>
+  <option>Doença Crônica</option>
+
+</select>
+
+</div>
+
+<div class="campo-form">
+
+<label>Situação</label>
+
+<select id="tegSituacao">
+
+  <option value="">Selecione uma opção</option>
+  <option>Pré-inscrito</option>
+  <option>Inscrito</option>
+  <option>Verificar</option>
+  <option>Sem Interesse</option>
+  <option>Irregular</option>
+  <option>Cancelado</option>
+
+</select>
+
+</div>
+
+<div class="campo-form">
+<label>Condutor</label>
+<input type="text" id="tegCondutor">
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="form-aluno">
+<button type="submit" class="btn-principal">
+Salvar Alterações
+</button>
+</div>
+
+</form>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+<p>© 2026 – Sistema Escolar</p>
+</footer>
+
+<!-- =========================
+MODAL FOTO ALUNO
+========================= -->
+<div class="modal-foto" id="modalFotoAluno">
+
+  <div class="modal-foto-content">
+
+    <h3>Foto do Aluno</h3>
+
+    <input type="file" id="inputFotoAluno" accept="image/*">
+
+    <div class="preview-foto">
+      <img id="previewFoto" src="">
+    </div>
+
+    <div class="acoes-modal">
+      <button onclick="salvarFotoAluno()" class="btn-principal">
+        Salvar
+      </button>
+      
+      <button onclick="excluirFotoAluno()" class="btn-sec" style="background:#e74c3c; color:white;">
+        Excluir Foto
+      </button>
+
+      <button onclick="fecharModalFoto()" class="btn-sec">
+        Cancelar
+      </button>
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- =========================
+MODAL VISUALIZAR FOTO
+========================= -->
+<div class="modal-zoom-foto" id="modalZoomFoto">
+
+  <img id="imgZoomFoto" src="">
+
+</div>
+
+<script>
+
+function toggleSidebar() {
+document.getElementById("sidebar").classList.toggle("aberta");
+}
+
+</script>
+
+<script type="module" src="js/modules/aluno.js"></script>
+
+</body>
+</html>

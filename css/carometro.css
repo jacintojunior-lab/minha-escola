@@ -1,0 +1,474 @@
+/* =====================
+   BASE (COPIADO DO STYLE)
+===================== */
+
+:root {
+  --azul: #2F326E;
+  --amarelo: #F5C400;
+  --preto: #2B2B2B;
+  --branco: #FFFFFF;
+  --cinza-claro: #F2F4F8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--cinza-claro);
+  color: var(--preto);
+}
+
+/* =====================
+   LAYOUT
+===================== */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* =====================
+   SIDEBAR
+===================== */
+.sidebar {
+    width: 240px;
+    background-color: var(--azul);
+    color: var(--branco);
+    padding: 20px 15px;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar-logo img {
+    height: 40px;
+}
+
+.sidebar-menu a {
+    display: block;
+    color: var(--branco);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.sidebar-menu a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.sidebar-menu a.ativo {
+    background-color: var(--amarelo);
+    color: var(--preto);
+}
+
+/* BOTÃO MOBILE */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: var(--azul);
+    color: white;
+    border: none;
+    font-size: 22px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    z-index: 1001;
+}
+
+/* =====================
+   CONTEÚDO
+===================== */
+
+.conteudo {
+  flex: 1;
+  padding: 30px;
+}
+
+/* =====================
+   FOOTER
+===================== */
+footer {
+    background-color: #e5e7eb;
+    text-align: center;
+    padding: 15px;
+}
+
+/* =====================
+   CARD
+===================== */
+
+.card {
+  background-color: var(--branco);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  color: var(--azul);
+  margin-bottom: 20px;
+}
+
+/* =====================
+   SELECT
+===================== */
+
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* =====================
+   FILTROS
+===================== */
+
+.filtros-contato {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.campo-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+}
+
+/* =====================
+   CARÔMETRO
+===================== */
+
+.grid-carometro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.card-aluno {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+
+.card-aluno:hover {
+  transform: translateY(-5px);
+}
+
+.foto-aluno {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid #eee;
+  cursor: zoom-in;
+}
+
+.nome-aluno {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.turma-aluno {
+  font-size: 13px;
+  color: #666;
+}
+
+/* =====================
+   BOTÕES
+===================== */
+
+.acoes-aluno {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.btn-mini {
+  padding: 6px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-foto {
+  background: var(--amarelo);
+}
+
+.btn-ver {
+  background: var(--azul);
+  color: white;
+}
+
+/* =====================
+   MODAL
+===================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+.modal[style*="flex"] {
+  opacity: 1;
+}
+
+.modal-conteudo {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-foto img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+body.modal-aberto {
+  overflow: hidden;
+}
+
+.btn-excluir {
+  background: #e74c3c;
+  color: white;
+}
+
+/* =========================
+   IMPRESSÃO A4
+========================= */
+
+@media print {
+
+  body {
+    background: white;
+  }
+
+  /* esconder elementos do sistema */
+  .sidebar,
+  .sidebar-toggle,
+  footer,
+  .card:first-child, /* filtro */
+  .acoes-aluno {
+    display: none !important;
+  }
+
+  .conteudo {
+    padding: 0;
+  }
+
+  .card {
+    box-shadow: none;
+    border: none;
+    padding: 10px;
+  }
+
+  /* GRID AJUSTADO PRA A4 */
+  .grid-carometro {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+
+  /* CARD */
+  .card-aluno {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    padding: 10px;
+    page-break-inside: avoid;
+  }
+
+  .foto-aluno {
+    width: 80px;
+    height: 80px;
+  }
+
+  .nome-aluno {
+    font-size: 12px;
+  }
+
+}
+
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+/* =========================
+   PDF
+========================= */
+
+#areaPDF {
+  background: white;
+  padding: 20px;
+}
+
+#tituloPDF {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--azul);
+}
+
+.pdf-mode .acoes-aluno {
+  display: none;
+}
+
+.pdf-mode .card-aluno {
+  box-shadow: none;
+  border: 1px solid #ddd;
+}
+
+/* =========================
+   MODAL ZOOM FOTO
+========================= */
+
+.modal-zoom-foto {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.modal-zoom-foto.ativo {
+  display: flex;
+}
+
+.modal-zoom-foto img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+body.zoom-aberto {
+  overflow: hidden;
+}
+
+/* =========================
+   BOTÕES PADRÃO SISTEMA
+========================= */
+
+.btn-sec,
+.btn-cancelar,
+.btn-excluir {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+/* SALVAR / PDF */
+.btn-sec {
+  background: var(--azul);
+  color: white;
+}
+
+.btn-sec:hover {
+  opacity: 0.9;
+}
+
+/* EXCLUIR */
+.btn-excluir {
+  background: #e74c3c;
+  color: white;
+}
+
+.btn-excluir:hover {
+  background: #c0392b;
+}
+
+/* CANCELAR */
+.btn-cancelar {
+  background: #ccc;
+}
+
+.btn-cancelar:hover {
+  background: #b5b5b5;
+}
+
+.btn-imprimir {
+  background: var(--amarelo);
+  color: var(--preto);
+}
+
+.btn-pdf {
+  background: var(--azul);
+  color: white;
+}
+
+/* =========================
+   MODAL AÇÕES
+========================= */
+
+.modal-acoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+/* =========================
+   INPUT FILE CUSTOM
+========================= */
+
+input[type="file"] {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* estilo do botão interno (Chrome) */
+input[type="file"]::file-selector-button {
+  background: var(--amarelo);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="file"]::file-selector-button:hover {
+  opacity: 0.9;
+}
+
+/* =========================
+   BOTÕES TOPO (IMPRIMIR / PDF)
+========================= */
+
+.card button.btn-sec {
+  margin-top: 10px;
+  margin-right: 10px;
+}

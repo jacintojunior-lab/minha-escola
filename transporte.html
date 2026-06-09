@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Transporte Escolar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-logo">
+<img src="assets/logo.jpg">
+<span>Sistema Escolar</span>
+</div>
+
+<nav class="sidebar-menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-chart-line"></i> Dashboard
+</a>
+
+<a href="cadastro.html">
+<i class="fa-solid fa-clipboard-list"></i> Cadastro
+</a>
+
+<a href="alunos.html">
+<i class="fa-solid fa-user-graduate"></i> Alunos
+</a>
+
+<a href="carometro.html">
+<i class="fa-solid fa-id-badge"></i> Carômetro
+</a>
+
+<a href="irmaos.html">
+<i class="fa-solid fa-people-roof"></i> Irmãos
+</a>
+
+<a href="relatorios.html">
+<i class="fa-solid fa-file-lines"></i> Relatórios
+</a>
+
+<a href="contato.html">
+    <i class="fa-brands fa-whatsapp"></i> Contato
+</a>
+
+<a href="declaracoes.html">
+<i class="fa-solid fa-file-signature"></i> Declarações
+</a>
+
+<a href="turmas.html">
+<i class="fa-solid fa-school"></i> Turmas
+</a>
+
+<a href="funcionarios.html">
+<i class="fa-solid fa-user-tie"></i> Funcionários
+</a>
+
+<a href="transporte.html" class="ativo">
+<i class="fa-solid fa-bus"></i> Transporte
+</a>
+
+<a href="saude.html">
+<i class="fa-solid fa-heart-pulse"></i> Saúde
+</a>
+
+<a href="configuracoes.html">
+<i class="fa-solid fa-gear"></i> Configurações
+</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTEÚDO -->
+<main class="conteudo">
+
+<section class="card">
+
+<h2>
+<i class="fa-solid fa-bus"></i>
+Transporte Escolar (TEG)
+</h2>
+
+<div class="filtros-contato">
+
+<select id="turmaFiltro">
+<option value="">Todas as turmas</option>
+</select>
+
+<select id="condutorFiltro">
+<option value="">Todos os condutores</option>
+</select>
+
+<select id="motivoFiltro">
+<option value="">Todos os motivos</option>
+<option>Distância</option>
+<option>Junção de Irmãos</option>
+<option>DEFIC./A.H./T.G.D.</option>
+<option>Doença Crônica</option>
+</select>
+
+<select id="situacaoFiltro">
+<option value="">Todas as situações</option>
+<option>Inscrito</option>
+<option>Verificar</option>
+<option>Cancelado</option>
+<option>Pré-inscrito</option>
+<option>Sem interesse</option>
+<option>Irregular</option>
+</select>
+
+<input type="search" id="buscaAluno" placeholder="Buscar aluno..." class="campo-busca">
+
+</div>
+
+</section>
+
+<section class="card">
+
+<table class="tabela-padrao">
+<thead>
+<tr>
+<th>Aluno</th>
+<th>Turma</th>
+<th>Classificação</th>
+<th>Motivo</th>
+<th>Situação</th>
+<th>Condutor</th>
+<th>Ação</th>
+</tr>
+</thead>
+
+<tbody id="listaTransporte"></tbody>
+
+</table>
+
+</section>
+
+</main>
+
+</div>
+
+<footer>
+<p>© 2026 – Sistema Escolar</p>
+</footer>
+
+<script type="module" src="js/modules/transporte.js"></script>
+
+<script>
+function toggleSidebar() {
+document.getElementById("sidebar").classList.toggle("aberta");
+}
+</script>
+
+</body>
+</html>

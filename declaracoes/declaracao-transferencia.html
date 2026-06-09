@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Declaração de Transferência</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background: #fff;
+margin: 0;
+padding: 0;
+}
+
+.documento{
+width: 210mm;
+min-height: 297mm;
+margin: auto;
+padding: 20mm;
+box-sizing: border-box;
+}
+
+/* CABEÇALHO */
+.cabecalho{
+text-align: center;
+margin-bottom: 20px;
+}
+
+.cabecalho p{
+margin: 2px 0;
+font-size: 14px;
+}
+
+/* TÍTULO */
+h2{
+text-align: center;
+margin: 30px 0 20px;
+margin-bottom: 25px;
+}
+
+/* TEXTO */
+.texto{
+font-size: 16px;
+line-height: 1.9;
+text-align: justify;
+text-indent: 40px;
+max-width: 720px;
+margin: 0 auto;
+}
+
+/* RODAPÉ */
+.rodape{
+margin-top: 60px;
+text-align: center;
+}
+
+.rodape p{
+margin-top: 30px;
+}
+
+.assinatura{
+margin-top: 60px;
+}
+
+.assinatura p:first-child{
+width: 250px;
+margin: 0 auto 5px;
+border-top: 1px solid #000;
+}
+
+.cabecalho{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+width: 80px;
+height: auto;
+}
+
+.texto-cabecalho{
+text-align: center;
+flex: 1;
+}
+
+.texto-cabecalho p{
+margin: 2px 0;
+font-size: 13px;
+}
+
+.info-escola{
+margin-top: 40px;
+font-size: 11px;
+text-align: center;
+color: #333;
+opacity: 0.8;
+}
+
+.rodape{
+margin-top: 160px;
+text-align: center;
+}
+
+.btn-print{
+position: fixed;
+top: 20px;
+right: 20px;
+background: #f4b400;
+border: none;
+padding: 10px 15px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.assinatura p{
+margin: 3px 0;
+line-height: 1.4;
+}
+
+.info-escola{
+position: fixed;
+bottom: 20px;
+left: 0;
+width: 100%;
+text-align: center;
+}
+
+hr{
+border: none;
+border-top: 1px solid #999;
+margin: 15px 0;
+}
+
+@media print {
+.btn-print{
+display: none;
+}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<div class="documento">
+
+<!-- CABEÇALHO -->
+<div class="cabecalho">
+
+<div class="logo-esquerda">
+<img id="logoPrefeitura" />
+</div>
+
+<div class="texto-cabecalho" id="cabecalhoEscola"></div>
+
+<div class="logo-direita">
+<img id="logoEscola" />
+</div>
+
+</div>
+
+<hr>
+
+<!-- TÍTULO -->
+<h2>DECLARAÇÃO DE TRANSFERÊNCIA</h2>
+
+<!-- TEXTO -->
+<p class="texto" id="textoDeclaracao"></p>
+
+<!-- RODAPÉ -->
+<div class="rodape">
+
+<p id="dataExtenso"></p>
+
+<div class="assinatura">
+<p>Nome do Responsável</p>
+<p>Cargo</p>
+</div>
+</div>
+<div class="info-escola" id="infoEscola"></div>
+
+</div>
+
+<script>
+function carregarDados(){
+
+const params = new URLSearchParams(window.location.search)
+
+const dadosEscola = JSON.parse(localStorage.getItem("escola")) || {}
+
+const turmaNome = params.get("turma")
+const alunoId = params.get("aluno")
+const funcionarioId = params.get("funcionario")
+
+const alunos = JSON.parse(localStorage.getItem("alunos")) || []
+const turmas = JSON.parse(localStorage.getItem("turmas")) || []
+const funcionarios = JSON.parse(localStorage.getItem("funcionarios")) || []
+
+const aluno = alunos.find(a => a.matricula === alunoId)
+const turma = turmas.find(t => t.nome === turmaNome)
+const funcionario = funcionarios.find(f => f.rf === funcionarioId)
+
+const historico = params.get("historico") === "true"
+
+let paragrafoExtra = ""
+
+if(historico){
+paragrafoExtra = "<p><strong>O(a) estudante supracitado(a) deve Histórico Escolar da escola anterior.</strong></p>"
+}else{
+paragrafoExtra = "<p><strong>O seu Histórico Escolar será entregue em até 60 dias.</strong></p>"
+}
+
+if(!aluno || !turma || !funcionario){
+alert("Erro ao carregar dados")
+return
+}
+
+
+if(dadosEscola.logoPrefeitura){
+document.getElementById("logoPrefeitura").src = dadosEscola.logoPrefeitura
+}
+
+if(dadosEscola.logo){
+document.getElementById("logoEscola").src = dadosEscola.logo
+}
+
+// CABEÇALHO
+
+document.getElementById("cabecalhoEscola").innerHTML = `
+<p><strong>${dadosEscola.prefeitura || ""}</strong></p>
+<p>${dadosEscola.secretaria || ""}</p>
+<p>${dadosEscola.diretoria || ""}</p>
+<p><strong>${dadosEscola.nome || ""}</strong></p>
+`
+
+// TEXTO OFICIAL
+document.getElementById("textoDeclaracao").innerHTML = `
+Declaramos para os devidos fins que <strong>${aluno.nome}</strong>, nascido(a) em <strong>${formatarData(aluno.nascimento)}</strong>, RA: <strong>${aluno.ra}</strong>, solicitou, nesta data, sua transferência para outra Unidade Escolar, com direito a matricular-se no <strong>${turma.serie}</strong> do ${turma.tipoEnsino}.
+
+${paragrafoExtra}
+`
+
+// DATA
+document.getElementById("dataExtenso").innerText =
+`São Paulo, ${dataPorExtenso()}`
+
+// ASSINATURA
+document.querySelector(".assinatura").innerHTML = `
+<p style="width:250px; margin:0 auto; border-top:1px solid #000;"></p>
+<p>${funcionario.nome}</p>
+<p>${funcionario.cargo}</p>
+<p>RF: ${funcionario.rf}</p>
+`
+
+
+// RODAPÉ
+document.getElementById("infoEscola").innerHTML = `
+<p>${dadosEscola.endereco || ""}, ${dadosEscola.numero || ""} – ${dadosEscola.bairro || ""} – ${dadosEscola.cidade || ""} – ${dadosEscola.estado || ""} – CEP: ${dadosEscola.cep || ""}</p>
+<p>Fone: ${dadosEscola.telefone || ""} ${dadosEscola.telefone2 ? "/ " + dadosEscola.telefone2 : ""} – E-mail: ${dadosEscola.email || ""}</p>
+`
+}
+
+window.onload = carregarDados
+
+function dataPorExtenso(){
+
+const meses = [
+"janeiro","fevereiro","março","abril","maio","junho",
+"julho","agosto","setembro","outubro","novembro","dezembro"
+]
+
+const hoje = new Date()
+
+return `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`
+}
+
+function formatarData(data){
+if(!data) return ""
+const partes = data.split("-")
+return `${partes[2]}/${partes[1]}/${partes[0]}`
+}
+
+</script>
+</body>
+</html>
+

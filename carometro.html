@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Carômetro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/carometro.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-logo">
+<img src="assets/logo.jpg">
+<span>Sistema Escolar</span>
+</div>
+
+<nav class="sidebar-menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-chart-line"></i> Dashboard
+</a>
+
+<a href="cadastro.html">
+<i class="fa-solid fa-clipboard-list"></i> Cadastro
+</a>
+
+<a href="alunos.html">
+<i class="fa-solid fa-user-graduate"></i> Alunos
+</a>
+
+<a href="carometro.html" class="ativo">
+<i class="fa-solid fa-id-badge"></i> Carômetro
+</a>
+
+<a href="irmaos.html">
+<i class="fa-solid fa-people-roof"></i> Irmãos
+</a>
+
+<a href="relatorios.html">
+<i class="fa-solid fa-file-lines"></i> Relatórios
+</a>
+
+<a href="contato.html">
+<i class="fa-brands fa-whatsapp"></i> Contato
+</a>
+
+<a href="declaracoes.html">
+<i class="fa-solid fa-file-signature"></i> Declarações
+</a>
+
+<a href="turmas.html">
+<i class="fa-solid fa-school"></i> Turmas
+</a>
+
+<a href="funcionarios.html">
+<i class="fa-solid fa-user-tie"></i> Funcionários
+</a>
+
+<a href="transporte.html">
+<i class="fa-solid fa-bus"></i> Transporte
+</a>
+
+<a href="saude.html" >
+<i class="fa-solid fa-heart-pulse"></i> Saúde
+</a>
+
+<a href="configuracoes.html">
+<i class="fa-solid fa-gear"></i> Configurações
+</a>
+
+</nav>
+
+</aside>
+
+<!-- CONTEÚDO -->
+<main class="conteudo">
+
+<!-- FILTRO -->
+<section class="card">
+
+<h2>
+<i class="fa-solid fa-id-badge"></i>
+Carômetro dos Alunos
+</h2>
+
+<div class="filtros-contato">
+
+<div class="campo-select">
+<label>Turma</label>
+<select id="filtroTurma">
+<option value="">Todas</option>
+</select>
+</div>
+
+</div>
+
+<button id="btnImprimir" class="btn-sec btn-imprimir">
+  <i class="fa-solid fa-print"></i> Imprimir
+</button>
+
+<button id="btnPDF" class="btn-sec btn-pdf">
+  <i class="fa-solid fa-file-pdf"></i> Exportar PDF
+</button>
+
+</section>
+
+<!-- GRID DE ALUNOS -->
+<div id="areaPDF">
+  <h1 id="tituloPDF"></h1>
+
+  <div id="gridCarometro" class="grid-carometro"></div>
+  <!-- preenchido via JS -->
+</div>
+
+
+</main>
+
+</div>
+
+<footer>
+<p>© 2026 – Sistema Escolar</p>
+</footer>
+
+
+
+<!-- MODAL -->
+<div id="modalFoto" class="modal">
+  <div class="modal-conteudo modal-foto">
+
+    <h3>Editar Foto</h3>
+
+    <img id="previewFoto">
+
+    <input type="file" id="inputFoto" accept="image/*">
+
+    <div class="modal-acoes">
+      <button class="btn-sec" id="btnSalvarFoto">Salvar</button>
+      <button class="btn-excluir" id="btnExcluirFoto"><i class="fa-solid fa-trash"></i> Excluir</button>
+      <button class="btn-cancelar" id="btnFecharModal">Cancelar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================
+ZOOM FOTO (VISUALIZAÇÃO)
+========================= -->
+<div id="modalZoomFoto" class="modal-zoom-foto">
+  <img id="imgZoomFoto">
+</div>
+
+<script>
+function toggleSidebar() {
+document.getElementById("sidebar").classList.toggle("aberta");
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="module" src="js/modules/carometro.js"></script>
+
+</body>
+</html>
