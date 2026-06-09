@@ -249,7 +249,7 @@ function abrirDeclaracaoImpressao(){
 
   const alunoId = document.getElementById("selectAluno").value
 
-    const url = `/declaracoes/declaracao-escolaridade.html?turma=${turma}&aluno=${alunoId}&funcionario=${funcionario}`
+    const url = `declaracoes/declaracao-escolaridade.html?turma=${turma}&aluno=${alunoId}&funcionario=${funcionario}`
 
   window.open(url, "_blank")
 }
@@ -311,7 +311,7 @@ const turma = document.getElementById("selectTurma").value
 const aluno = document.getElementById("selectAluno").value
 const funcionario = document.getElementById("selectFuncionario").value
 
-const url = `/declaracoes/declaracao-transferencia.html?turma=${turma}&aluno=${aluno}&funcionario=${funcionario}&historico=${deveHistorico}`
+const url = `declaracoes/declaracao-transferencia.html?turma=${turma}&aluno=${aluno}&funcionario=${funcionario}&historico=${deveHistorico}`
 
 window.open(url, "_blank")
 
