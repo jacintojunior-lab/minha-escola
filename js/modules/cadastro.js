@@ -88,6 +88,10 @@ function renderAlunos(){
             <i class="fa-solid fa-pen"></i>
           </button>
 
+          <button class="btn-acao btn-visualizar" title="Visualizar">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+
           <button class="btn-acao btn-excluir" title="Excluir">
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -99,6 +103,11 @@ function renderAlunos(){
     tr.querySelector(".btn-editar")
       .addEventListener("click", () => abrirModal(aluno.matricula))
 
+    tr.querySelector(".btn-visualizar")
+    .addEventListener("click", () => {
+      window.location.href = `aluno.html?rga=${aluno.matricula}`
+    })
+    
     tr.querySelector(".btn-excluir")
       .addEventListener("click", () => excluirAluno(aluno.matricula))
 
