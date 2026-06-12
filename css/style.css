@@ -2280,3 +2280,8 @@ body.zoom-aberto {
   gap: 10px;
   align-items: center;
 }
+
+.btn-visualizar{
+    background:#2563eb;
+    color:#fff;
+}
