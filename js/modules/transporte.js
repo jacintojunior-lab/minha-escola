@@ -14,6 +14,48 @@ const situacaoFiltro = document.getElementById("situacaoFiltro")
 const busca = document.getElementById("buscaAluno")
 const tabela = document.getElementById("listaTransporte")
 const condutorFiltro = document.getElementById("condutorFiltro")
+const STORAGE_KEY = "filtros_transporte"
+
+
+/* =========================
+   SALVAR FILTROS
+========================= */
+
+function salvarFiltros(){
+
+  const filtros = {
+    turma: turmaFiltro.value,
+    condutor: condutorFiltro.value,
+    motivo: motivoFiltro.value,
+    situacao: situacaoFiltro.value,
+    busca: busca.value
+  }
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(filtros)
+  )
+}
+
+/* =========================
+   CARREGAR FILTROS
+========================= */
+
+function carregarFiltros(){
+
+  const dados = localStorage.getItem(STORAGE_KEY)
+
+  if(!dados) return null
+
+  const filtros = JSON.parse(dados)
+
+  turmaFiltro.value = filtros.turma || ""
+  motivoFiltro.value = filtros.motivo || ""
+  situacaoFiltro.value = filtros.situacao || ""
+  busca.value = filtros.busca || ""
+
+  return filtros
+}
 
 /* =========================
    STATUS COLORIDO
@@ -143,25 +185,49 @@ tabela.appendChild(tr)
    EVENTOS
 ========================= */
 
-turmaFiltro.addEventListener("change", listar)
-situacaoFiltro.addEventListener("change", listar)
-busca.addEventListener("input", listar)
-condutorFiltro.addEventListener("change", listar)
-motivoFiltro.addEventListener("change", listar)
+turmaFiltro.addEventListener("change", () => {
+  salvarFiltros()
+  listar()
+})
+
+situacaoFiltro.addEventListener("change", () => {
+  salvarFiltros()
+  listar()
+})
+
+condutorFiltro.addEventListener("change", () => {
+  salvarFiltros()
+  listar()
+})
+
+motivoFiltro.addEventListener("change", () => {
+  salvarFiltros()
+  listar()
+})
+
+busca.addEventListener("input", () => {
+  salvarFiltros()
+  listar()
+})
 
 /* =========================
    INIT
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+
   aplicarFaviconDinamico()
-  
+
   carregarTurmas()
   carregarCondutores()
 
-  setTimeout(() => {
-    listar()
-  }, 0)
+  const filtros = carregarFiltros()
+
+  if(filtros?.condutor){
+    condutorFiltro.value = filtros.condutor
+  }
+
+  listar()
 })
 
 function carregarCondutores(){
