@@ -84,6 +84,7 @@ function renderAlunos(){
       <td>${aluno.turma}</td>
       <td class="acoes-aluno">
         <div class="acoes-grupo">
+
           <button class="btn-acao btn-editar" title="Editar">
             <i class="fa-solid fa-pen"></i>
           </button>
@@ -95,11 +96,14 @@ function renderAlunos(){
           <button class="btn-acao btn-excluir" title="Excluir">
             <i class="fa-solid fa-trash"></i>
           </button>
-        </div>
+
+      </div>
       </td>
     `
 
     // eventos (🔥 sem onclick)
+    
+    
     tr.querySelector(".btn-editar")
       .addEventListener("click", () => abrirModal(aluno.matricula))
 
@@ -107,7 +111,7 @@ function renderAlunos(){
     .addEventListener("click", () => {
       window.location.href = `aluno.html?rga=${aluno.matricula}`
     })
-    
+
     tr.querySelector(".btn-excluir")
       .addEventListener("click", () => excluirAluno(aluno.matricula))
 

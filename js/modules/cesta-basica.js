@@ -1,0 +1,360 @@
+import { getAlunos } from "../services/alunosService.js"
+import { getTurmas } from "../services/turmasService.js"
+import { aplicarFaviconDinamico } from "./utils/favicon.js"
+
+const STORAGE_KEY = "cesta_basica"
+
+const selectTurma = document.getElementById("selectTurmaCesta")
+const selectAluno = document.getElementById("selectAlunoCesta")
+const btnAdicionar = document.getElementById("btnAdicionarCesta")
+const tabela = document.getElementById("listaCestaBasica")
+const btnExportarCSV = document.getElementById("btnExportarCSV")
+const importarCSVInput = document.getElementById("importarCSV")
+
+let alunos = []
+let turmas = []
+let listaCesta = []
+
+function alunoAtivo(aluno){
+  return (aluno.situacao || "Ativo") === "Ativo"
+}
+
+function carregarLista(){
+  listaCesta = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+}
+
+function salvarLista(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(listaCesta))
+}
+
+function ordenarTurmas(lista){
+
+  return [...lista].sort((a, b) =>
+    (a.nome || "").localeCompare(
+      b.nome || "",
+      "pt-BR",
+      { numeric: true }
+    )
+  )
+
+}
+
+function carregarTurmas(){
+
+  selectTurma.innerHTML = `
+    <option value="">Selecione a turma</option>
+  `
+
+  const turmasAtivas = ordenarTurmas(
+    turmas.filter(t => (t.status || "Ativa") === "Ativa")
+  )
+
+  turmasAtivas.forEach(turma => {
+    const option = document.createElement("option")
+    option.value = turma.nome
+    option.textContent = turma.nome
+    selectTurma.appendChild(option)
+  })
+
+}
+
+function carregarAlunosDaTurma(){
+
+  const turmaSelecionada = selectTurma.value
+
+  selectAluno.innerHTML = `
+    <option value="">Selecione o estudante</option>
+  `
+
+  if(!turmaSelecionada) return
+
+  const alunosFiltrados = alunos
+    .filter(a =>
+      alunoAtivo(a) &&
+      a.turma === turmaSelecionada
+    )
+    .sort((a, b) =>
+      (a.nome || "").localeCompare(b.nome || "", "pt-BR")
+    )
+
+  alunosFiltrados.forEach(aluno => {
+    const option = document.createElement("option")
+    option.value = aluno.matricula
+    option.textContent = aluno.nome
+    selectAluno.appendChild(option)
+  })
+
+}
+
+function adicionarEstudante(){
+
+  const rga = selectAluno.value
+
+  if(!selectTurma.value){
+    alert("Selecione uma turma.")
+    return
+  }
+
+  if(!rga){
+    alert("Selecione um estudante.")
+    return
+  }
+
+  const aluno = alunos.find(a => a.matricula === rga)
+
+  if(!aluno){
+    alert("Estudante não encontrado.")
+    return
+  }
+
+  const jaExiste = listaCesta.some(item => item.rga === rga)
+
+  if(jaExiste){
+    alert("Este estudante já está na lista.")
+    return
+  }
+
+  listaCesta.push({
+    rga: aluno.matricula,
+    nome: aluno.nome,
+    turma: aluno.turma || "",
+    telefoneResponsavel: aluno.telefoneResponsavel || "",
+    telefoneMae: aluno.telefoneMae || "",
+    telefonePai: aluno.telefonePai || ""
+  })
+
+  salvarLista()
+  renderizarLista()
+
+  selectAluno.value = ""
+}
+
+function renderizarLista(){
+
+  tabela.innerHTML = ""
+
+  if(listaCesta.length === 0){
+    tabela.innerHTML = `
+      <tr>
+        <td colspan="4" style="text-align:center;">
+          Nenhum estudante adicionado.
+        </td>
+      </tr>
+    `
+    return
+  }
+
+  const listaOrdenada = [...listaCesta].sort((a, b) => {
+    if((a.turma || "") === (b.turma || "")){
+      return (a.nome || "").localeCompare(b.nome || "", "pt-BR")
+    }
+
+    return (a.turma || "").localeCompare(
+      b.turma || "",
+      "pt-BR",
+      { numeric: true }
+    )
+  })
+
+  listaOrdenada.forEach(item => {
+
+    const tr = document.createElement("tr")
+
+    tr.innerHTML = `
+      <td>${item.rga || ""}</td>
+      <td>${item.nome || ""}</td>
+      <td>${item.turma || "-"}</td>
+      <td>
+        <div class="acoes-saude">
+          <button class="btn-acao btn-whats" title="Enviar WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+
+          <button class="btn-acao btn-excluir" title="Excluir da lista">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    `
+
+    tr.querySelector(".btn-whats")
+      .addEventListener("click", () => enviarWhatsApp(item.rga))
+
+    tr.querySelector(".btn-excluir")
+      .addEventListener("click", () => removerEstudante(item.rga))
+
+    tabela.appendChild(tr)
+
+  })
+
+}
+
+function removerEstudante(rga){
+
+  if(!confirm("Deseja remover este estudante da lista?")) return
+
+  listaCesta = listaCesta.filter(item => item.rga !== rga)
+
+  salvarLista()
+  renderizarLista()
+}
+
+function enviarWhatsApp(rga){
+
+  const item = listaCesta.find(a => a.rga === rga)
+
+  if(!item) return
+
+  const telefone =
+    item.telefoneResponsavel ||
+    item.telefoneMae ||
+    item.telefonePai
+
+  if(!telefone){
+    alert("Este estudante não possui telefone cadastrado.")
+    return
+  }
+
+  const primeiroNome = (item.nome || "").split(" ")[0]
+
+  const mensagem =
+`Olá!
+
+A escola informa que o(a) estudante ${primeiroNome} está na lista de recebimento da cesta básica.
+
+Solicitamos que a família acompanhe as orientações da escola sobre a retirada.
+
+Obrigado.`
+
+  const numero = telefone.replace(/\D/g, "")
+
+  const url =
+    `https://wa.me/55${numero}?text=${encodeURIComponent(mensagem)}`
+
+  window.open(url, "_blank")
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  aplicarFaviconDinamico()
+
+  alunos = getAlunos()
+  turmas = getTurmas()
+
+  carregarLista()
+  carregarTurmas()
+  renderizarLista()
+
+  selectTurma.addEventListener("change", carregarAlunosDaTurma)
+  btnAdicionar.addEventListener("click", adicionarEstudante)
+
+  btnExportarCSV?.addEventListener(
+    "click",
+    exportarCSV
+  )
+
+  importarCSVInput?.addEventListener(
+    "change",
+    importarCSV
+  )
+
+})
+
+function exportarCSV(){
+
+  if(listaCesta.length === 0){
+    alert("Nenhum estudante para exportar.")
+    return
+  }
+
+  let csv =
+    "RGA;Nome;Turma\n"
+
+  listaCesta.forEach(item => {
+
+    csv +=
+      `${item.rga};` +
+      `${item.nome};` +
+      `${item.turma}\n`
+
+  })
+
+  const blob = new Blob(
+    [csv],
+    {
+      type:
+      "text/csv;charset=utf-8;"
+    }
+  )
+
+  const link =
+    document.createElement("a")
+
+  link.href =
+    URL.createObjectURL(blob)
+
+  link.download =
+    "cesta-basica.csv"
+
+  link.click()
+
+}
+
+
+function importarCSV(e){
+
+  const file = e.target.files[0]
+
+  if(!file) return
+
+  const reader = new FileReader()
+
+  reader.onload = function(event){
+
+    const linhas =
+      event.target.result.split("\n")
+
+    linhas.shift()
+
+    linhas.forEach(linha => {
+
+      if(!linha.trim()) return
+
+      const [
+        rga,
+        nome,
+        turma
+      ] = linha.split(";")
+
+      const rgaLimpo =
+        rga?.trim()
+
+      if(!rgaLimpo) return
+
+      const existe =
+        listaCesta.some(
+          item => item.rga === rgaLimpo
+        )
+
+      if(existe) return
+
+      listaCesta.push({
+        rga: rgaLimpo,
+        nome: nome?.trim() || "",
+        turma: turma?.trim() || ""
+      })
+
+    })
+
+    salvarLista()
+    renderizarLista()
+
+    alert(
+      "Importação concluída!"
+    )
+
+  }
+
+  reader.readAsText(file)
+
+}

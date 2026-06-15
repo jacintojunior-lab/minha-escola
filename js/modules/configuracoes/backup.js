@@ -9,7 +9,8 @@ export function gerarBackup(){
     alunos: JSON.parse(localStorage.getItem("alunos")) || [],
     turmas: JSON.parse(localStorage.getItem("turmas")) || [],
     funcionarios: JSON.parse(localStorage.getItem("funcionarios")) || [],
-    escola: JSON.parse(localStorage.getItem("escola")) || {}
+    escola: JSON.parse(localStorage.getItem("escola")) || {},
+    cesta_basica: JSON.parse(localStorage.getItem("cesta_basica")) || []
   }
 
   const json = JSON.stringify(backup, null, 2)
@@ -59,6 +60,7 @@ export function restaurarBackup(event){
     if(dados.turmas) localStorage.setItem("turmas", JSON.stringify(dados.turmas))
     if(dados.funcionarios) localStorage.setItem("funcionarios", JSON.stringify(dados.funcionarios))
     if(dados.escola) localStorage.setItem("escola", JSON.stringify(dados.escola))
+    if(dados.cesta_basica) localStorage.setItem("cesta_basica", JSON.stringify(dados.cesta_basica))
 
     alert("Backup restaurado com sucesso!")
     location.reload()
@@ -108,6 +110,7 @@ export function resetarSistema(){
     localStorage.removeItem("turmas")
     localStorage.removeItem("funcionarios")
     localStorage.removeItem("escola")
+    localStorage.removeItem("cesta_basica")
 
     alert("Sistema resetado com sucesso!")
 

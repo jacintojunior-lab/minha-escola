@@ -24,7 +24,6 @@ function carregarFiltros(){
   return dados ? JSON.parse(dados) : null
 }
 
-
 // =========================
 // PEGAR TURMA DA URL
 // =========================
@@ -235,13 +234,13 @@ function listarAlunos(alunos){
     tr.innerHTML = `
       <td>${aluno.matricula || ""}</td>
       <td>
-  ${aluno.nome || ""}
-    ${
-      aluno.ene
-        ? `<span class="selo-ene">ENE</span>`
-        : ""
-    }
-  </td>
+        ${aluno.nome || ""}
+        ${
+          aluno.ene
+            ? `<span class="selo-ene">ENE</span>`
+            : ""
+        }
+      </td>
       <td>${formatarData(aluno.nascimento)}</td>
       <td>${aluno.turma || "Sem turma"}</td>
       <td>${aluno.ra || aluno.RA || ""}</td>
@@ -358,7 +357,6 @@ function aplicarFiltros(){
 // =========================
 
 document.addEventListener("DOMContentLoaded", () => {
-
 
   state.alunos = getAlunos() // 🔥 CARREGA UMA VEZ
 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Cesta Básica</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-logo">
+<img src="assets/logo.jpg">
+<span>Sistema Escolar</span>
+</div>
+
+<nav class="sidebar-menu">
+<a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+<a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+<a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+<a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+<a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+<a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+<a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+<a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+<a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+<a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
+<a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+<a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+<a href="cesta-basica.html" class="ativo"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+<a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+<a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
+</nav>
+</aside>
+
+<main class="conteudo">
+
+<section class="card">
+<h2><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</h2>
+
+<div class="form-aluno">
+
+<div class="campo-form">
+<label>Selecione a turma</label>
+<select id="selectTurmaCesta">
+<option value="">Selecione a turma</option>
+</select>
+</div>
+
+<div class="campo-form">
+<label>Selecione o estudante</label>
+<select id="selectAlunoCesta">
+<option value="">Selecione o estudante</option>
+</select>
+</div>
+
+<button type="button" id="btnAdicionarCesta" class="btn-principal">
+<i class="fa-solid fa-plus"></i>
+Adicionar na lista
+</button>
+
+</div>
+</section>
+
+<section class="card">
+<h2>Lista de Estudantes - Cesta Básica</h2>
+
+<div class="tabela-container">
+<table>
+<thead>
+<tr>
+<th>RGA</th>
+<th>NOME DO(A) ESTUDANTE</th>
+<th>TURMA</th>
+<th>AÇÕES</th>
+</tr>
+</thead>
+
+<tbody id="listaCestaBasica">
+<tr>
+<td colspan="4" style="text-align:center;">
+Nenhum estudante adicionado.
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+<!-- BOTÕES CSV -->
+<div style="margin-top:15px; display:flex; gap:10px;">
+
+  <button class="btn-sec" id="btnExportarCSV">
+    <i class="fa-solid fa-file-csv"></i>
+    Exportar CSV
+  </button>
+
+  <input
+    type="file"
+    id="importarCSV"
+    accept=".csv"
+    style="display:none">
+
+  <button
+    class="btn-sec"
+    onclick="document.getElementById('importarCSV').click()">
+
+    <i class="fa-solid fa-upload"></i>
+    Importar CSV
+
+  </button>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+<footer>
+<p>© 2026 – Sistema Escolar</p>
+</footer>
+
+<script>
+function toggleSidebar() {
+document.getElementById("sidebar").classList.toggle("aberta");
+}
+</script>
+
+<script type="module" src="js/modules/cesta-basica.js"></script>
+
+</body>
+</html>
