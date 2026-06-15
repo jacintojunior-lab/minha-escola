@@ -260,7 +260,15 @@ const statusVacina = getStatusVacina(a.proximaVacina)
 
 let botaoWhats = ""
 
-if(statusVacina.texto === "Vencida"){
+const semDVA =
+  !a.dvaEntregue ||
+  a.dvaEntregue === "Não"
+
+if(
+  statusVacina.texto === "Vencida" ||
+  statusVacina.texto === "Próxima" ||
+  semDVA
+){
   botaoWhats = `
   <button class="btn-acao btn-whats" data-id="${a.matricula}" title="WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
@@ -365,16 +373,54 @@ return
 const status = getStatusVacina(aluno.proximaVacina)
 const primeiroNome = (aluno.nome || "").split(" ")[0]
 
-// mensagem padrão
-let mensagem = `Olá. Tudo bem?\n\n`
-if(status.texto === "Vencida"){
-mensagem += `O(A) estudante ${primeiroNome} está com a vacinação em atraso.\n`
-mensagem += `Pedimos que entregue uma DVA atualizada aqui na escola.\n`
+const semDVA =
+  !aluno.dvaEntregue ||
+  aluno.dvaEntregue === "Não"
+
+let mensagem = ""
+
+if(semDVA){
+
+  mensagem =
+`Olá!
+
+Informamos que ainda não recebemos a Declaração de Vacinação Atualizada (DVA) do(a) ${primeiroNome}.
+
+Solicitamos o envio o mais breve possível.
+
+Obrigado.`
+
+}else if(status.texto === "Vencida"){
+
+  mensagem =
+`Olá!
+
+Informamos que a vacinação do(a) ${primeiroNome} encontra-se em atraso.
+
+Pedimos que seja entregue uma DVA atualizada na escola.
+
+Obrigado.`
+
 }else if(status.texto === "Próxima"){
-mensagem += `O(A) estudante ${primeiroNome} está próximo da data de vacinação.\n`
-mensagem += `Pedimos atenção para atualização da DVA.\n`
+
+  mensagem =
+`Olá!
+
+Informamos que a data da próxima vacina do(a) ${primeiroNome} está chegando.
+
+Pedimos atenção para atualização da DVA.
+
+Obrigado.`
+
 }else{
-mensagem += `Contato referente à atualização de dados de saúde do(a) estudante ${primeiroNome}.`
+
+  mensagem =
+`Olá!
+
+Contato referente à atualização de dados de saúde do(a) estudante ${primeiroNome}.
+
+Obrigado.`
+
 }
 
 // formatar número
