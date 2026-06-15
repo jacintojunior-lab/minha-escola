@@ -114,6 +114,19 @@ function bindEventos(){
   document.getElementById("btnCancelarTransferencia")
     .addEventListener("click", fecharModalTransferenciaEscolar)
 
+  // =========================
+  // SALVAR INFORMAÇÃO - FUNCIONÁRIO SELECIONADO
+  // =========================
+  document.getElementById("selectFuncionario")
+  .addEventListener("change", function(){
+
+    localStorage.setItem(
+      STORAGE_FUNCIONARIO,
+      this.value
+    )
+
+  })
+
 }
 
 function getAlunoSelecionado(){
@@ -201,6 +214,12 @@ opt.value = f.rf
 opt.textContent = `${f.nome} - ${f.cargo}`
 select.appendChild(opt)
 })
+
+const funcionarioSalvo = localStorage.getItem(STORAGE_FUNCIONARIO)
+
+if(funcionarioSalvo){
+  select.value = funcionarioSalvo
+}
 
 }
 
