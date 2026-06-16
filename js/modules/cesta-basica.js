@@ -224,6 +224,10 @@ function renderizarLista(){
   listaOrdenada.forEach(item => {
 
     const tr = document.createElement("tr")
+    
+    if(item.entregue){
+      tr.classList.add("linha-entregue")
+    }
 
     tr.innerHTML = `
       <td>${item.rga || ""}</td>
@@ -238,19 +242,25 @@ function renderizarLista(){
       </td>
       <td>
         <div class="acoes-saude">
-          <button class="btn-acao btn-whats" title="Enviar WhatsApp">
-            <i class="fa-brands fa-whatsapp"></i>
-          </button>
+
+          ${!item.entregue ? `
+            <button class="btn-acao btn-whats" title="Enviar WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </button>
+          ` : ""}
 
           <button class="btn-acao btn-excluir" title="Excluir da lista">
             <i class="fa-solid fa-trash"></i>
           </button>
+
         </div>
       </td>
     `
 
     tr.querySelector(".btn-whats")
-      .addEventListener("click", () => enviarWhatsApp(item.rga))
+      ?.addEventListener("click", () =>
+        enviarWhatsApp(item.rga)
+      )
 
     tr.querySelector(".btn-excluir")
       .addEventListener("click", () => removerEstudante(item.rga))
@@ -279,7 +289,7 @@ function marcarEntrega(rga, entregue){
   item.entregue = entregue
 
   salvarLista()
-  atualizarCards()
+  renderizarLista()
 }
 
 function limparListaCesta(){
