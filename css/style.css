@@ -2301,3 +2301,17 @@ body.zoom-aberto {
   border-radius: 999px;
   vertical-align: middle;
 }
+
+/* CESTA BÁSICA - MUDANÇA DE COR */
+.linha-entregue{
+  background: #dcfce7;
+}
+
+.linha-entregue:hover{
+  background: #bbf7d0;
+}
+
+.linha-entregue td{
+  color: #166534;
+  font-weight: 600;
+}
