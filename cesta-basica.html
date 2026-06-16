@@ -63,12 +63,50 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </select>
 </div>
 
-<button type="button" id="btnAdicionarCesta" class="btn-principal">
+<button type="button" id="btnAdicionarCesta" class="btn-sec">
 <i class="fa-solid fa-plus"></i>
 Adicionar na lista
 </button>
 
+<div class="campo-form">
+<label>Adicionar pelo RGA</label>
+<input type="text" id="inputRgaCesta" placeholder="Digite o RGA">
 </div>
+
+<button type="button" id="btnAdicionarRgaCesta" class="btn-sec">
+<i class="fa-solid fa-magnifying-glass"></i>
+Adicionar por RGA
+</button>
+
+</div>
+</section>
+
+<section class="card">
+
+<h2>Resumo da Cesta Básica</h2>
+
+<div class="dashboard-kpis">
+
+  <div class="kpi">
+    <i class="fa-solid fa-users kpi-icon"></i>
+    <h3 id="countCadastrados">0</h3>
+    <p>Estudantes cadastrados</p>
+  </div>
+
+  <div class="kpi">
+    <i class="fa-solid fa-circle-check kpi-icon"></i>
+    <h3 id="countEntregues">0</h3>
+    <p>Cestas entregues</p>
+  </div>
+
+  <div class="kpi">
+    <i class="fa-solid fa-clock kpi-icon"></i>
+    <h3 id="countFaltam">0</h3>
+    <p>Faltam entregar</p>
+  </div>
+
+</div>
+
 </section>
 
 <section class="card">
@@ -81,13 +119,14 @@ Adicionar na lista
 <th>RGA</th>
 <th>NOME DO(A) ESTUDANTE</th>
 <th>TURMA</th>
+<th>ENTREGA</th>
 <th>AÇÕES</th>
 </tr>
 </thead>
 
 <tbody id="listaCestaBasica">
 <tr>
-<td colspan="4" style="text-align:center;">
+<td colspan="5" style="text-align:center;">
 Nenhum estudante adicionado.
 </td>
 </tr>
@@ -97,7 +136,7 @@ Nenhum estudante adicionado.
 </div>
 
 <!-- BOTÕES CSV -->
-<div style="margin-top:15px; display:flex; gap:10px;">
+<div style="margin-top:15px; display:flex; gap:10px; flex-wrap:wrap;">
 
   <button class="btn-sec" id="btnExportarCSV">
     <i class="fa-solid fa-file-csv"></i>
@@ -117,6 +156,11 @@ Nenhum estudante adicionado.
     <i class="fa-solid fa-upload"></i>
     Importar CSV
 
+  </button>
+
+  <button class="btn-danger" id="btnLimparCesta">
+    <i class="fa-solid fa-trash"></i>
+    Limpar Lista
   </button>
 
 </div>
