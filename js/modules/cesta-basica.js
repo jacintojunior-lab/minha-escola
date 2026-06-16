@@ -10,6 +10,9 @@ const btnAdicionar = document.getElementById("btnAdicionarCesta")
 const tabela = document.getElementById("listaCestaBasica")
 const btnExportarCSV = document.getElementById("btnExportarCSV")
 const importarCSVInput = document.getElementById("importarCSV")
+const inputRga = document.getElementById("inputRgaCesta")
+const btnAdicionarRga = document.getElementById("btnAdicionarRgaCesta")
+const btnLimparCesta = document.getElementById("btnLimparCesta")
 
 let alunos = []
 let turmas = []
@@ -25,6 +28,34 @@ function carregarLista(){
 
 function salvarLista(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(listaCesta))
+}
+
+function montarItemCesta(aluno){
+  return {
+    rga: aluno.matricula || aluno.rga || "",
+    nome: aluno.nome || "",
+    turma: aluno.turma || "",
+    entregue: false,
+    telefoneResponsavel: aluno.telefoneResponsavel || "",
+    telefoneMae: aluno.telefoneMae || "",
+    telefonePai: aluno.telefonePai || ""
+  }
+}
+
+function atualizarCards(){
+
+  const total = listaCesta.length
+
+  const entregues = listaCesta.filter(item =>
+    item.entregue === true
+  ).length
+
+  const faltam = total - entregues
+
+  document.getElementById("countCadastrados").textContent = total
+  document.getElementById("countEntregues").textContent = entregues
+  document.getElementById("countFaltam").textContent = faltam
+
 }
 
 function ordenarTurmas(lista){
@@ -114,19 +145,51 @@ function adicionarEstudante(){
     return
   }
 
-  listaCesta.push({
-    rga: aluno.matricula,
-    nome: aluno.nome,
-    turma: aluno.turma || "",
-    telefoneResponsavel: aluno.telefoneResponsavel || "",
-    telefoneMae: aluno.telefoneMae || "",
-    telefonePai: aluno.telefonePai || ""
-  })
+  listaCesta.push(montarItemCesta(aluno))
 
   salvarLista()
   renderizarLista()
 
   selectAluno.value = ""
+}
+
+function adicionarPorRGA(){
+
+  const rgaDigitado = inputRga.value.trim()
+
+  if(!rgaDigitado){
+    alert("Digite o RGA do estudante.")
+    return
+  }
+
+  const aluno = alunos.find(a =>
+    String(a.matricula || a.rga || "") === rgaDigitado
+  )
+
+  if(!aluno){
+    alert("Estudante não encontrado.")
+    return
+  }
+
+  const rgaAluno = aluno.matricula || aluno.rga
+
+  const jaExiste = listaCesta.some(item =>
+    String(item.rga) === String(rgaAluno)
+  )
+
+  if(jaExiste){
+    alert("Este estudante já está na lista.")
+    return
+  }
+
+  listaCesta.push(montarItemCesta(aluno))
+
+  salvarLista()
+  renderizarLista()
+
+  inputRga.value = ""
+
+  alert("Estudante adicionado com sucesso!")
 }
 
 function renderizarLista(){
@@ -136,11 +199,13 @@ function renderizarLista(){
   if(listaCesta.length === 0){
     tabela.innerHTML = `
       <tr>
-        <td colspan="4" style="text-align:center;">
+        <td colspan="5" style="text-align:center;">
           Nenhum estudante adicionado.
         </td>
       </tr>
     `
+
+    atualizarCards()
     return
   }
 
@@ -165,6 +230,13 @@ function renderizarLista(){
       <td>${item.nome || ""}</td>
       <td>${item.turma || "-"}</td>
       <td>
+        <input
+          type="checkbox"
+          class="check-entrega"
+          data-rga="${item.rga}"
+          ${item.entregue ? "checked" : ""}>
+      </td>
+      <td>
         <div class="acoes-saude">
           <button class="btn-acao btn-whats" title="Enviar WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
@@ -183,11 +255,55 @@ function renderizarLista(){
     tr.querySelector(".btn-excluir")
       .addEventListener("click", () => removerEstudante(item.rga))
 
+    tr.querySelector(".check-entrega")
+      .addEventListener("change", e => {
+        marcarEntrega(item.rga, e.target.checked)
+      })
+
     tabela.appendChild(tr)
 
   })
 
+   atualizarCards()
+
 }
+
+function marcarEntrega(rga, entregue){
+
+  const item = listaCesta.find(a =>
+    String(a.rga) === String(rga)
+  )
+
+  if(!item) return
+
+  item.entregue = entregue
+
+  salvarLista()
+  atualizarCards()
+}
+
+function limparListaCesta(){
+
+  if(listaCesta.length === 0){
+    alert("A lista já está vazia.")
+    return
+  }
+
+  const confirmar = confirm(
+    "Deseja apagar TODOS os estudantes da lista da cesta básica?"
+  )
+
+  if(!confirmar) return
+
+  listaCesta = []
+
+  salvarLista()
+  renderizarLista()
+
+  alert("Lista apagada com sucesso.")
+}
+
+
 
 function removerEstudante(rga){
 
@@ -201,30 +317,39 @@ function removerEstudante(rga){
 
 function enviarWhatsApp(rga){
 
-  const item = listaCesta.find(a => a.rga === rga)
+  const item = listaCesta.find(a =>
+    String(a.rga) === String(rga)
+  )
 
   if(!item) return
+
+  const alunoCadastro = alunos.find(a =>
+    String(a.matricula || a.rga || "") === String(rga)
+  )
 
   const telefone =
     item.telefoneResponsavel ||
     item.telefoneMae ||
-    item.telefonePai
+    item.telefonePai ||
+    alunoCadastro?.telefoneResponsavel ||
+    alunoCadastro?.telefoneMae ||
+    alunoCadastro?.telefonePai
 
   if(!telefone){
     alert("Este estudante não possui telefone cadastrado.")
     return
   }
 
-  const primeiroNome = (item.nome || "").split(" ")[0]
+  const primeiroNome = (item.nome || alunoCadastro?.nome || "").split(" ")[0]
 
   const mensagem =
-`Olá!
+    `Olá!
 
-A escola informa que o(a) estudante ${primeiroNome} está na lista de recebimento da cesta básica.
+    A escola informa que o(a) estudante ${primeiroNome} está na lista de recebimento da cesta básica.
 
-Solicitamos que a família acompanhe as orientações da escola sobre a retirada.
+    Solicitamos que a família acompanhe as orientações da escola sobre a retirada.
 
-Obrigado.`
+    Obrigado.`
 
   const numero = telefone.replace(/\D/g, "")
 
@@ -248,6 +373,16 @@ document.addEventListener("DOMContentLoaded", () => {
   selectTurma.addEventListener("change", carregarAlunosDaTurma)
   btnAdicionar.addEventListener("click", adicionarEstudante)
 
+  btnAdicionarRga?.addEventListener("click", adicionarPorRGA)
+
+  inputRga?.addEventListener("keydown", e => {
+    if(e.key === "Enter"){
+      adicionarPorRGA()
+    }
+  })
+
+  btnLimparCesta?.addEventListener("click", limparListaCesta)
+
   btnExportarCSV?.addEventListener(
     "click",
     exportarCSV
@@ -268,14 +403,18 @@ function exportarCSV(){
   }
 
   let csv =
-    "RGA;Nome;Turma\n"
+    "RGA;Nome;Turma;Entregue;Telefone Responsável;Telefone Mãe;Telefone Pai\n"
 
   listaCesta.forEach(item => {
 
     csv +=
-      `${item.rga};` +
-      `${item.nome};` +
-      `${item.turma}\n`
+    `${item.rga};` +
+    `${item.nome};` +
+    `${item.turma};` +
+    `${item.entregue ? "Sim" : "Não"};` +
+    `${item.telefoneResponsavel || ""};` +
+    `${item.telefoneMae || ""};` +
+    `${item.telefonePai || ""}\n`
 
   })
 
@@ -321,10 +460,14 @@ function importarCSV(e){
       if(!linha.trim()) return
 
       const [
-        rga,
-        nome,
-        turma
-      ] = linha.split(";")
+      rga,
+      nome,
+      turma,
+      entregue,
+      telefoneResponsavel,
+      telefoneMae,
+      telefonePai
+    ] = linha.split(";")
 
       const rgaLimpo =
         rga?.trim()
@@ -341,7 +484,11 @@ function importarCSV(e){
       listaCesta.push({
         rga: rgaLimpo,
         nome: nome?.trim() || "",
-        turma: turma?.trim() || ""
+        turma: turma?.trim() || "",
+        entregue: (entregue?.trim().toLowerCase() === "sim"),
+        telefoneResponsavel: telefoneResponsavel?.trim() || "",
+        telefoneMae: telefoneMae?.trim() || "",
+        telefonePai: telefonePai?.trim() || ""
       })
 
     })
