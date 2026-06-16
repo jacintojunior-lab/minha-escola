@@ -315,16 +315,24 @@ function calcularResumoAlunos(alunos){
 
 function atualizarContadores(){
 
-const contagem = calcularResumoAlunos(state.alunos)
+  let base = [...state.alunos]
 
-document.getElementById("count-todos").textContent = `(${contagem.todos})`
-document.getElementById("count-ativo").textContent = `(${contagem.ativo})`
-document.getElementById("count-inativo").textContent = `(${contagem.inativo})`
-document.getElementById("count-transferido").textContent = `(${contagem.transferido})`
-document.getElementById("count-concluido").textContent = `(${contagem.concluido})`
-document.getElementById("count-desistente").textContent = `(${contagem.desistente})`
-document.getElementById("count-retido").textContent = `(${contagem.retido})`
-document.getElementById("count-nao").textContent = `(${contagem.nao})`
+  if(state.turmaSelecionada !== "todos"){
+    base = base.filter(a =>
+      (a.turma || "Sem turma") === state.turmaSelecionada
+    )
+  }
+
+  const contagem = calcularResumoAlunos(base)
+
+  document.getElementById("count-todos").textContent = `(${contagem.todos})`
+  document.getElementById("count-ativo").textContent = `(${contagem.ativo})`
+  document.getElementById("count-inativo").textContent = `(${contagem.inativo})`
+  document.getElementById("count-transferido").textContent = `(${contagem.transferido})`
+  document.getElementById("count-concluido").textContent = `(${contagem.concluido})`
+  document.getElementById("count-desistente").textContent = `(${contagem.desistente})`
+  document.getElementById("count-retido").textContent = `(${contagem.retido})`
+  document.getElementById("count-nao").textContent = `(${contagem.nao})`
 
 }
 
@@ -349,6 +357,7 @@ function aplicarFiltros(){
   }
 
   listarAlunos(filtrados)
+  atualizarContadores()
   salvarFiltros()
 }
 
