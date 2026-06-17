@@ -354,12 +354,21 @@ function enviarWhatsApp(rga){
 
   const mensagem =
     `Olá!
+    
+    Informamos que chegou uma cesta básica para o(a) estudante.
 
-    A escola informa que o(a) estudante ${primeiroNome} está na lista de recebimento da cesta básica.
+    *RETIRADA:*
+    A partir do dia 18/06/2026
+    Horário: das 08:00 às 18:00.
 
-    Solicitamos que a família acompanhe as orientações da escola sobre a retirada.
+    *QUEM PODE RETIRAR?*
+    - Pai
+    - Mãe
+    - Responsável legal (Guarda)
 
-    Obrigado.`
+    *TRAZER*
+    - Documento de identidade com foto
+    - sacola ou carrinho para a retirada da cesta`
 
   const numero = telefone.replace(/\D/g, "")
 
