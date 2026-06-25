@@ -233,9 +233,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const tipo = card.dataset.tipo || "html";
 
           if (tipo === "pdf") {
-              window.open(`formularios/${arquivo}.pdf`, "_blank");
+              window.open(`./formularios/${arquivo}.pdf`, "_blank");
           } else {
-              window.open(`formularios/${arquivo}.html`, "_blank");
+              window.open(`./formularios/${arquivo}.html`, "_blank");
           }
 
       });
