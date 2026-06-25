@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Termo de Uso de Imagem</title>
+
+<style>
+body{
+font-family: Arial,sans-serif;
+background:#fff;
+margin:0;
+padding:0;
+}
+
+.documento{
+width: 210mm;
+height: 297mm;
+margin: auto;
+padding: 18mm 20mm 28mm;
+box-sizing: border-box;
+position: relative;
+overflow: hidden;
+}
+
+.cabecalho{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+width:80px;
+}
+
+.texto-cabecalho{
+flex:1;
+text-align:center;
+}
+
+.texto-cabecalho p{
+margin:2px 0;
+font-size:13px;
+}
+
+hr{
+margin:15px 0;
+}
+
+h2{
+text-align:center;
+margin:30px 0;
+}
+
+.texto{
+font-size:15px;
+line-height:1.75;
+text-align:justify;
+}
+
+.linha-assinatura{
+margin-top: 0;
+text-align: center;
+}
+
+.linha-assinatura p:first-child{
+width: 330px;
+margin: 0 auto 5px;
+border-top: 1px solid #000;
+}
+
+.rodape{
+position: absolute;
+bottom: 35mm;
+left: 20mm;
+right: 20mm;
+text-align: center;
+}
+
+.rodape p{
+margin: 0 0 35px 0;
+}
+
+.info-escola{
+position: absolute;
+bottom: 12mm;
+left: 20mm;
+right: 20mm;
+text-align: center;
+font-size: 10px;
+color: #333;
+opacity: 0.8;
+}
+
+.btn-print{
+position:fixed;
+top:20px;
+right:20px;
+background:#f4b400;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+@media print {
+  .btn-print{
+    display: none;
+  }
+
+  @page{
+    size: A4;
+    margin: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">
+🖨️ Imprimir
+</button>
+
+<div class="documento">
+
+<div class="cabecalho">
+
+<div class="logo-esquerda">
+<img id="logoPrefeitura">
+</div>
+
+<div class="texto-cabecalho" id="cabecalhoEscola"></div>
+
+<div class="logo-direita">
+<img id="logoEscola">
+</div>
+
+</div>
+
+<hr>
+
+<h2>
+TERMO DE AUTORIZAÇÃO PARA UTILIZAÇÃO
+DE IMAGEM, ÁUDIO E CESSÃO DOS DIREITOS AUTORAIS
+</h2>
+
+<div class="texto" id="textoTermo"></div>
+
+<div class="rodape">
+
+  <p id="dataExtenso"></p>
+
+  <div class="linha-assinatura">
+    <p></p>
+    <p>Assinatura do(a) Responsável</p>
+  </div>
+
+</div>
+
+<div class="info-escola" id="infoEscola"></div>
+
+<script>
+
+function carregarDados(){
+
+const params = new URLSearchParams(window.location.search)
+
+const turmaNome = params.get("turma")
+const alunoId = params.get("aluno")
+const formularioBranco = params.get("branco") === "1"
+
+const dadosEscola =
+JSON.parse(localStorage.getItem("escola")) || {}
+
+const alunos =
+JSON.parse(localStorage.getItem("alunos")) || []
+
+let aluno = alunos.find(a =>
+String(a.matricula) === String(alunoId)
+)
+
+if(formularioBranco){
+aluno = {}
+}
+
+const responsavel =
+JSON.parse(localStorage.getItem("responsavelSelecionado")) || {}
+
+if(dadosEscola.logoPrefeitura){
+document.getElementById("logoPrefeitura").src =
+dadosEscola.logoPrefeitura
+}
+
+if(dadosEscola.logo){
+document.getElementById("logoEscola").src =
+dadosEscola.logo
+}
+
+document.getElementById("cabecalhoEscola").innerHTML = `
+<p><strong>${dadosEscola.prefeitura || ""}</strong></p>
+<p>${dadosEscola.secretaria || ""}</p>
+<p>${dadosEscola.diretoria || ""}</p>
+<p><strong>${dadosEscola.nome || ""}</strong></p>
+`
+
+const texto = formularioBranco
+? `
+Eu, _________________________________________________________________________,
+RG ________________________________ CPF ____________________________________,
+residente à _____________________________________________________ Nº ___________,
+responsável pelo(a) estudante ___________________________________________________,
+série/ano __________.
+`
+: `
+Eu, <strong>${responsavel.nome || ""}</strong>,
+RG <strong>${responsavel.rg || "________________"}</strong>,
+CPF <strong>${responsavel.cpf || "________________"}</strong>,
+residente à <strong>${aluno.rua || "________________"}</strong>,
+nº <strong>${aluno.numero || "______"}</strong>,
+responsável pelo(a) estudante
+<strong>${aluno.nome || ""}</strong>,
+turma <strong>${turmaNome || aluno.turma || ""}</strong>.
+`
+
+document.getElementById("textoTermo").innerHTML = `
+<p>${texto}</p>
+
+<p>
+1) AUTORIZO a escola a utilizar imagem e áudio do estudante para fins educacionais, sem fins lucrativos.
+</p>
+
+<p>
+2) A presente autorização é gratuita, não sendo devido qualquer valor à família.
+</p>
+
+<p>
+3) A escola fica autorizada a utilizar imagem e áudio enquanto o estudante estiver matriculado na unidade escolar, podendo divulgar atividades pedagógicas, murais, site, blog e demais meios institucionais.
+</p>
+
+<p>
+4) Por ser expressão da verdade, firmo o presente.
+</p>
+
+<br>
+
+`
+document.getElementById("dataExtenso").innerText =
+`São Paulo, ${dataPorExtenso()}`
+
+document.getElementById("infoEscola").innerHTML = `
+<p>${dadosEscola.endereco || ""}, ${dadosEscola.numero || ""} – ${dadosEscola.bairro || ""} – ${dadosEscola.cidade || ""} – ${dadosEscola.estado || ""} – CEP: ${dadosEscola.cep || ""}</p>
+<p>Fone: ${dadosEscola.telefone || ""} ${dadosEscola.telefone2 ? "/ " + dadosEscola.telefone2 : ""} – E-mail: ${dadosEscola.email || ""}</p>
+`
+}
+
+function dataPorExtenso(){
+
+const meses = [
+"janeiro","fevereiro","março","abril","maio","junho",
+"julho","agosto","setembro","outubro","novembro","dezembro"
+]
+
+const hoje = new Date()
+
+return `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`
+}
+
+window.onload = carregarDados
+
+</script>
+
+</body>
+</html>

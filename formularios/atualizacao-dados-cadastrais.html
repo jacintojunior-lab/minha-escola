@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Atualização de Dados Cadastrais</title>
+
+<style>
+@page{
+  size:A4;
+  margin:0;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#fff;
+  font-family:Arial, sans-serif;
+}
+
+.folha{
+  width:210mm;
+  height:297mm;
+  margin:auto;
+  padding:8mm 10mm;
+}
+
+.via{
+  height:67mm;
+  padding:4mm 2mm;
+  border-top:1px dashed #777;
+  position:relative;
+}
+
+.via + .via{
+  margin-top:2mm;
+}
+
+.via:last-child{
+  border-bottom:1px dashed #777;
+}
+
+h2{
+  text-align:center;
+  margin:0 0 6mm;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.linha{
+  border-bottom:1px solid #000;
+  display:inline-block;
+  height:15px;
+  vertical-align:baseline;
+}
+
+.nome{ width:130mm; }
+.serie{ width:15mm; }
+
+.endereco{ width:131mm; }
+.numero{ width:30mm; }
+
+.bairro{ width:107mm; }
+.cep{ width:55mm; }
+
+.fone{ width:32mm; }
+.recado{ width:32mm; }
+.parentesco{ width:44mm; }
+
+.email{ width:142mm; }
+
+.data{ width:28mm; }
+.assinatura{ width:125mm; }
+
+p{
+  margin:5px 0;
+  font-size:12px;
+  line-height:1.4;
+}
+
+.btn-print{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#f4b400;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999;
+}
+
+@media print{
+  .btn-print{
+    display:none;
+  }
+
+  .folha{
+    margin:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">
+🖨️ Imprimir
+</button>
+
+<div class="folha" id="folha"></div>
+
+<script>
+function criarVia(){
+  return `
+    <div class="via">
+
+      <h2>ATUALIZAÇÃO DE DADOS CADASTRAIS – 2026</h2>
+
+      <p>
+        NOME DO ALUNO:
+        <span class="linha nome"></span>
+        SÉRIE:
+        <span class="linha serie"></span>
+      </p>
+
+      <p>
+        ENDEREÇO:
+        <span class="linha endereco"></span>
+        Nº
+        <span class="linha numero"></span>
+      </p>
+
+      <p>
+        BAIRRO:
+        <span class="linha bairro"></span>
+        CEP:
+        <span class="linha cep"></span>
+      </p>
+
+      <p>
+        FONE (MÃE):
+        <span class="linha fone"></span>
+
+        FONE RECADO:
+        <span class="linha recado"></span>
+
+        Nome e Parentesco:
+        <span class="linha parentesco"></span>
+      </p>
+
+      <p>
+        FONE (PAI):
+        <span class="linha fone"></span>
+
+        FONE RECADO:
+        <span class="linha recado"></span>
+
+        Nome e Parentesco:
+        <span class="linha parentesco"></span>
+      </p>
+
+      <p>
+        E-MAIL DO RESPONSÁVEL:
+        <span class="linha email"></span>
+      </p>
+
+      <p>
+        DATA:
+        <span class="linha data"></span>
+
+        ASSINATURA:
+        <span class="linha assinatura"></span>
+      </p>
+
+    </div>
+  `;
+}
+
+document.getElementById("folha").innerHTML =
+  Array.from({length:4}, criarVia).join("");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Ficha de Matrícula - Tabelas</title>
+
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#fff;
+  color:#111;
+}
+
+.documento{
+  width:210mm;
+  height:297mm;
+  margin:auto;
+  padding:12mm 16mm 14mm;
+  position:relative;
+  overflow:hidden;
+  page-break-after:always;
+}
+
+.documento:last-of-type{
+  page-break-after:auto;
+}
+
+.btn-print{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#f4b400;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999;
+}
+
+.cabecalho{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:5mm;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+  width:58px;
+  height:auto;
+}
+
+.texto-cabecalho{
+  flex:1;
+  text-align:center;
+}
+
+.texto-cabecalho p{
+  margin:1px 0;
+  font-size:10.5px;
+}
+
+.titulo{
+  text-align:center;
+  font-size:16px;
+  margin:5px 0 8px;
+  font-weight:bold;
+}
+
+.bloco{
+  margin-top:8px;
+  padding-top:4px;
+}
+
+.bloco h3{
+  margin:0 0 0px;
+  font-size:12px;
+}
+
+.tabela-ficha{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  margin-bottom:6px;
+}
+
+.tabela-ficha td,
+.tabela-ficha th{
+  border:1px solid #000;
+  padding:3px 5px;
+  vertical-align:top;
+  height:34px;
+  max-height:34px;
+  overflow:hidden;
+}
+
+.tabela-ficha.sem-borda td,
+.tabela-ficha.sem-borda th{
+  border-left:none;
+  border-right:none;
+  border-top:none;
+}
+
+.tabela-ficha th{
+  font-size:10px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.label{
+  display:block;
+  font-size:9.5px;
+  line-height:1.1;
+  font-weight:normal;
+}
+
+.valor{
+  display:block;
+  font-size:12px;
+  height:18px;
+  padding-top:3px;
+  font-weight:600;
+  line-height:1.2;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.valor.normal{
+  font-weight:normal;
+}
+
+.texto-ajuda{
+  font-size:9.5px;
+  line-height:1.25;
+  margin:4px 0;
+}
+
+.checkbox-linha{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:20px;
+  font-size:11px;
+}
+
+.checkbox{
+  width:14px;
+  height:14px;
+  border:1px solid #000;
+  display:inline-block;
+  flex-shrink:0;
+}
+
+.tabela-contatos{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  margin-top:5px;
+  font-size:12px;
+  text-align:center;
+}
+
+.tabela-contatos th,
+.tabela-contatos td{
+  border:1px solid #000;
+  padding:3px;
+  height:25px;
+  max-height:25px;
+  overflow:hidden;
+}
+
+.linha-observacao{
+  border-bottom:1px solid #000;
+  height:24px;
+}
+
+.boxes{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+}
+
+.box{
+  border:1px solid #000;
+  padding:5px;
+  min-height:100px;
+  font-size:8.4px;
+  line-height:1.35;
+}
+
+.box h4{
+  text-align:center;
+  margin:0 0 4px;
+  font-size:11px;
+}
+
+.assinatura-final{
+  position:absolute;
+  bottom:12mm;
+  left:16mm;
+  right:16mm;
+  display:grid;
+  grid-template-columns:180px 1fr 120px;
+  gap:10px;
+  align-items:end;
+  font-size:12px;
+}
+
+.assinatura-final .linha-ass{
+  border-bottom:1px solid #000;
+  height:18px;
+}
+
+.assinatura-historico{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+}
+
+.assinatura-historico .linha-ass{
+  flex:1;
+  border-bottom:1px solid #000;
+  height:18px;
+}
+
+@media print{
+  .btn-print{display:none}
+  .documento{margin:0}
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<!-- PÁGINA 1 -->
+<div class="documento">
+
+  <div class="cabecalho">
+    <div class="logo-esquerda"><img id="logoPrefeitura1"></div>
+    <div class="texto-cabecalho" id="cabecalhoEscola1"></div>
+    <div class="logo-direita"><img id="logoEscola1"></div>
+  </div>
+
+  <div class="titulo">FICHA DE MATRÍCULA – ENSINO FUNDAMENTAL REGULAR</div>
+
+  <table class="tabela-ficha">
+    <tr>
+      <td>
+        <span class="label">Unidade Educacional</span>
+        <span class="valor" id="unidadeEducacional"></span>
+      </td>
+      <td>
+        <span class="label">RA</span>
+        <span class="valor" id="raAluno"></span>
+      </td>
+      <td>
+        <span class="label">Código EOL</span>
+        <span class="valor" id="eolAluno"></span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <span class="label">Nome completo do(a) Estudante</span>
+        <span class="valor" id="nomeAluno"></span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="label">Sexo</span>
+        <span class="valor" id="sexoAluno"></span>
+      </td>
+      <td>
+        <span class="label">Data de Nascimento</span>
+        <span class="valor" id="nascimentoAluno"></span>
+      </td>
+      <td>
+        <span class="label">Nacionalidade</span>
+        <span class="valor" id="nacionalidadeAluno"></span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="label">Estado</span>
+        <span class="valor" id="estadoAluno"></span>
+      </td>
+      <td>
+        <span class="label">Cidade</span>
+        <span class="valor" id="cidadeAluno"></span>
+      </td>
+      <td>
+        <span class="label">País de Origem</span>
+        <span class="valor" id="paisOrigemAluno"></span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="label">Raça/Cor</span>
+        <span class="valor" id="racaCorAluno"></span>
+      </td>
+      <td>
+        <span class="label">Deficiência (S/N)</span>
+        <span class="valor" id="deficienciaSN"></span>
+      </td>
+      <td>
+        <span class="label">Tipo de Deficiência</span>
+        <span class="valor" id="tipoDeficiencia"></span>
+      </td>
+    </tr>
+  </table>
+
+  <p class="texto-ajuda">
+    Raça/Cor: 1 = Branca, 2 = Preta, 3 = Parda, 4 = Amarela, 5 = Indígena, 6 = Não declarada, 7 = Recusou-se a informar.
+    <br>
+    Deficiência: 1 = Altas Habilidades; 2 = Autismo; 5 = Surdez Moderada; 6 = Surdez Profunda; 7 = Física; 8 = Mental;
+    9 = Múltipla; 11 = Cegueira; 12 = Baixa Visão; 14 = Surdocegueira; 16 = Transtorno Desintegrativo da Infância;
+    17 = Síndrome de Asperger; 18 = Síndrome de Rett.
+  </p>
+
+  <div class="bloco">
+    <h3>Documentos do(a) Estudante</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="4">
+          <span class="label">Número da Certidão de Nascimento</span>
+          <span class="valor" id="certidaoCompleta"></span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <span class="label">Município da Comarca da Certidão</span>
+          <span class="valor" id="certidaoComarca"></span>
+        </td>
+        <td>
+          <span class="label">Distrito da Certidão de Nascimento</span>
+          <span class="valor" id="certidaoDistrito"></span>
+        </td>
+        <td>
+          <span class="label">U.F.</span>
+          <span class="valor" id="certidaoUF"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="label">Data de emissão da Certidão</span>
+          <span class="valor" id="certidaoData"></span>
+        </td>
+        <td>
+          <span class="label">CPF</span>
+          <span class="valor" id="cpfAluno"></span>
+        </td>
+        <td>
+          <span class="label">NIS do(a) estudante</span>
+          <span class="valor" id="nisAluno"></span>
+        </td>
+        <td>
+          <span class="label">Motivo - Falta de documentação</span>
+          <span class="valor"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="label">RG/RNE do(a) estudante &nbsp;&nbsp;&nbsp;&nbsp; ( &nbsp; ) CIN</span>
+          <span class="valor" id="rgAluno"></span>
+        </td>
+        <td>
+          <span class="label">U.F. RG</span>
+          <span class="valor" id="rgUF"></span>
+        </td>
+        <td>
+          <span class="label">Data de emissão do RG</span>
+          <span class="valor" id="rgData"></span>
+        </td>
+        <td>
+          <span class="label">Órgão Emissor</span>
+          <span class="valor" id="rgOrgao"></span>
+        </td>
+      </tr>
+    </table>
+
+    <p class="texto-ajuda">
+      Justificativa falta de documentação:<br>
+      MOTIVO 1 – O(A) estudante não possui os documentos solicitados.
+      MOTIVO 2 – A escola não recebeu os documentos pessoais do(a) estudante.
+    </p>
+  </div>
+
+  <div class="bloco">
+    <h3>Endereço do(a) Estudante</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="6">
+          <span class="label">Endereço (nome completo do logradouro – Rua, Avenida, largo, etc.)</span>
+          <span class="valor" id="ruaAluno"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="label">Nº</span>
+          <span class="valor" id="numeroAluno"></span>
+        </td>
+        <td>
+          <span class="label">Complemento</span>
+          <span class="valor" id="complementoAluno"></span>
+        </td>
+        <td colspan="2">
+          <span class="label">Bairro</span>
+          <span class="valor" id="bairroAluno"></span>
+        </td>
+        <td>
+          <span class="label">Cidade / UF</span>
+          <span class="valor" id="cidadeUfAluno"></span>
+        </td>
+        <td>
+          <span class="label">CEP</span>
+          <span class="valor" id="cepAluno"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Atualização de Endereço do(a) Estudante</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="5">
+          <span class="label">Endereço atualizado</span>
+          <span class="valor" id="enderecoAtualizadoAluno"></span>
+        </td>
+        <td><span class="label">Data da atualização</span><span class="valor"></span></td>
+      </tr>
+      <tr>
+        <td><span class="label">Nº</span><span class="valor"></span></td>
+        <td><span class="label">Complemento</span><span class="valor"></span></td>
+        <td colspan="2"><span class="label">Bairro</span><span class="valor"></span></td>
+        <td><span class="label">Cidade</span><span class="valor"></span></td>
+        <td><span class="label">U.F. / CEP</span><span class="valor"></span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Atualização de Endereço do(a) Estudante</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="5">
+          <span class="label">Endereço atualizado</span>
+          <span class="valor" id="enderecoAtualizadoAluno"></span>
+        </td>
+        <td><span class="label">Data da atualização</span><span class="valor"></span></td>
+      </tr>
+      <tr>
+        <td><span class="label">Nº</span><span class="valor"></span></td>
+        <td><span class="label">Complemento</span><span class="valor"></span></td>
+        <td colspan="2"><span class="label">Bairro</span><span class="valor"></span></td>
+        <td><span class="label">Cidade</span><span class="valor"></span></td>
+        <td><span class="label">U.F. / CEP</span><span class="valor"></span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Atualização de Endereço do(a) Estudante</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="5">
+          <span class="label">Endereço atualizado</span>
+          <span class="valor" id="enderecoAtualizadoAluno"></span>
+        </td>
+        <td><span class="label">Data da atualização</span><span class="valor"></span></td>
+      </tr>
+      <tr>
+        <td><span class="label">Nº</span><span class="valor"></span></td>
+        <td><span class="label">Complemento</span><span class="valor"></span></td>
+        <td colspan="2"><span class="label">Bairro</span><span class="valor"></span></td>
+        <td><span class="label">Cidade</span><span class="valor"></span></td>
+        <td><span class="label">U.F. / CEP</span><span class="valor"></span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Atualização de Endereço do(a) Estudante</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="5">
+          <span class="label">Endereço atualizado</span>
+          <span class="valor" id="enderecoAtualizadoAluno"></span>
+        </td>
+        <td><span class="label">Data da atualização</span><span class="valor"></span></td>
+      </tr>
+      <tr>
+        <td><span class="label">Nº</span><span class="valor"></span></td>
+        <td><span class="label">Complemento</span><span class="valor"></span></td>
+        <td colspan="2"><span class="label">Bairro</span><span class="valor"></span></td>
+        <td><span class="label">Cidade</span><span class="valor"></span></td>
+        <td><span class="label">U.F. / CEP</span><span class="valor"></span></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- PÁGINA 2 -->
+<div class="documento">
+
+  <div class="bloco">
+    <h3>Filiação 1</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="4">
+          <span class="label">Filiação 1 - Nome completo (sem abreviar)</span>
+          <span class="valor" id="maeNome"></span>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="label">Nacionalidade</span><span class="valor"></span></td>
+        <td><span class="label">País de nascimento</span><span class="valor"></span></td>
+        <td><span class="label">Sexo</span><span class="valor normal"></span></td>
+        <td>
+          <div class="checkbox-linha"><span class="checkbox"></span> Falecido</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Filiação 2</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="4">
+          <span class="label">Filiação 2 - Nome completo (sem abreviar)</span>
+          <span class="valor" id="paiNome"></span>
+        </td>
+      </tr>
+      <tr>
+        <td><span class="label">Nacionalidade</span><span class="valor"></span></td>
+        <td><span class="label">País de nascimento</span><span class="valor"></span></td>
+        <td><span class="label">Sexo</span><span class="valor normal"></span></td>
+        <td>
+          <div class="checkbox-linha"><span class="checkbox"></span> Falecido</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <div class="checkbox-linha"><span class="checkbox"></span> Não consta no documento</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Responsável Legal</h3>
+
+    <table class="tabela-ficha">
+      <tr>
+        <td>
+          <span class="label">Nome do Responsável (sem abreviar)</span>
+          <span class="valor" id="responsavelNome"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Contatos</h3>
+
+    <table class="tabela-contatos">
+      <thead>
+        <tr>
+          <th style="width:25%"></th>
+          <th>Residencial</th>
+          <th>Trabalho</th>
+          <th>Pessoal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Telefone da Filiação 1</td>
+          <td></td>
+          <td></td>
+          <td id="telefoneMae"></td>
+        </tr>
+        <tr>
+          <td>Telefone da Filiação 2</td>
+          <td></td>
+          <td></td>
+          <td id="telefonePai"></td>
+        </tr>
+        <tr>
+          <td>Telefone do Responsável</td>
+          <td></td>
+          <td></td>
+          <td id="telefoneResponsavel"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bloco">
+    <h3>E-mail</h3>
+    <table class="tabela-ficha">
+      <tr>
+        <td colspan="3">
+          <span class="label">E-mail do(a) Estudante</span>
+          <span class="valor" id="emailAluno"></span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <span class="label">E-mail dos pais ou responsável</span>
+          <span class="valor" id="emailResponsavel"></span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div class="checkbox-linha"><span class="checkbox"></span> Não autorizo o envio de mensagens</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="bloco">
+    <h3>Telefones de recado</h3>
+    <table class="tabela-ficha">
+      <tr>
+        <td>
+          <span class="label">Telefone para Recado</span>
+          <span class="valor" id="telefoneRecado1"></span>
+        </td>
+        <td>
+          <span class="label">Nome p/ Recado</span>
+          <span class="valor" id="nomeRecado1"></span>
+        </td>
+        <td>
+          <span class="label">Parentesco</span>
+          <span class="valor" id="parentescoRecado1"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="label">Telefone para Recado</span>
+          <span class="valor" id="telefoneRecado2"></span>
+        </td>
+        <td>
+          <span class="label">Nome p/ Recado</span>
+          <span class="valor" id="nomeRecado2"></span>
+        </td>
+        <td>
+          <span class="label">Parentesco</span>
+          <span class="valor" id="parentescoRecado2"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="label">Telefone para Recado</span>
+          <span class="valor" id="telefoneRecado3"></span>
+        </td>
+        <td>
+          <span class="label">Nome p/ Recado</span>
+          <span class="valor" id="nomeRecado3"></span>
+        </td>
+        <td>
+          <span class="label">Parentesco</span>
+          <span class="valor" id="parentescoRecado3"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Observações complementares da secretaria</h3>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+    <div class="linha-observacao"></div>
+  </div>
+
+</div>
+
+<!-- PÁGINA 3 -->
+<div class="documento">
+
+  <div class="bloco">
+    <h3>Matrícula</h3>
+    <table class="tabela-contatos" id="tabelaMatricula">
+      <thead>
+        <tr>
+          <th style="width:10%">Ano</th>
+          <th style="width:10%">Turma</th>
+          <th>Assinatura do responsável</th>
+          <th>Assinatura do Diretor</th>
+          <th style="width:15%">Data</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Transferência / Desistência</h3>
+    <table class="tabela-contatos">
+      <thead>
+        <tr>
+          <th style="width:15%">Data</th>
+          <th>Motivo</th>
+          <th style="width:25%">Assinatura do responsável</th>
+          <th style="width:25%">Assinatura do Secretário</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Dispensa de Educação Física (Decreto-Lei n° 1044/69/Lei 10793/2003 altera o § 3º do Art. 26 da LDB)</h3>
+    <table class="tabela-contatos">
+      <thead>
+        <tr>
+          <th style="width:15%">Ano</th>
+          <th>Motivo</th>
+          <th>Ass. responsável</th>
+          <th>Ass. Professor</th>
+          <th>OBS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Classificação / Reclassificação</h3>
+    <table class="tabela-contatos">
+      <thead>
+        <tr>
+          <th style="width:15%">Ano</th>
+          <th style="width:15%">CA/CT/S</th>
+          <th >Procedimento</th>
+          <th>Ass. responsável</th>
+          <th>Ass. Diretor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bloco">
+    <h3>Procedência</h3>
+
+    <div class="boxes">
+      <div class="box">
+        <h4>ESCOLA</h4>
+        1. Estudante frequentou escola fora do País ( &nbsp; )<br>
+        2. Estudante não frequentou escola no ano anterior ( &nbsp; )<br>
+        3. Estudante nunca frequentou escola ( &nbsp; )<br>
+        4. Escola particular no Estado de São Paulo ( &nbsp; )<br>
+        5. Escola particular fora do Estado de São Paulo ( &nbsp; )<br>
+        6. Escola Pública no Município de São Paulo ( &nbsp; )<br>
+        7. Escola Pública no Estado de São Paulo ( &nbsp; )<br>
+        8. Escola Pública fora do Estado de São Paulo ( &nbsp; )<br>
+        9. Mesma Escola ( &nbsp; )<br>
+        10. MOVA ( &nbsp; )
+      </div>
+
+      <div class="box">
+        <h4>MODALIDADE</h4>
+        1. Mesma Modalidade ( &nbsp; )<br>
+        2. Ed. Especial ( &nbsp; )<br>
+        3. Ensino Fundamental Regular ( &nbsp; )<br>
+        4. Ensino Médio ( &nbsp; )<br>
+        5. EJA - Fundamental ( &nbsp; )<br>
+        6. EJA - Médio ( &nbsp; )<br>
+        7. Inexistente ( &nbsp; ) – não frequentou escola no ano anterior<br>
+        8. MOVA ( &nbsp; )
+      </div>
+
+      <div class="box">
+        <h4>RENDIMENTO</h4>
+        1. Aprovado ( &nbsp; )<br>
+        2. Inexistente ( &nbsp; ) – não frequentou escola no ano anterior<br>
+        3. Repetente – abandono ( &nbsp; )<br>
+        4. Repetente – avaliação ( &nbsp; )<br>
+        5. Verificação de Escolaridade / Classificação ( &nbsp; )
+      </div>
+    </div>
+  </div>
+
+  <div class="assinatura-final">
+    <strong>Recebi o Histórico Escolar</strong>
+
+    <div class="assinatura-historico">
+      <span>Assinatura:</span>
+      <span class="linha-ass"></span>
+    </div>
+
+    <div>Data: ____/____/____</div>
+  </div>
+
+</div>
+
+<script>
+function somenteNumeros(valor){
+  return String(valor || "").replace(/\D/g, "")
+}
+
+function dataBR(data){
+  if(!data) return ""
+  if(String(data).includes("-")){
+    const [ano, mes, dia] = String(data).split("-")
+    return `${dia}/${mes}/${ano}`
+  }
+  return data
+}
+
+function valorOuVazio(valor){
+  return valor || ""
+}
+
+function preencher(id, valor){
+  const el = document.getElementById(id)
+  if(el) el.textContent = valorOuVazio(valor)
+}
+
+function racaCodigo(raca){
+  const mapa = {
+    "Branca":"1 - Branca",
+    "Preta":"2 - Preta",
+    "Parda":"3 - Parda",
+    "Amarela":"4 - Amarela",
+    "Indígena":"5 - Indígena",
+    "Não informada":"6 - Não declarada",
+    "Recusou informar":"7 - Recusou-se a informar"
+  }
+
+  return mapa[raca] || raca || ""
+}
+
+function limparDiretoria(valor){
+  return String(valor || "______________________________")
+    .replace(/diretoria regional de educação/gi, "")
+    .trim()
+}
+
+function telefoneBR(valor){
+  const n = somenteNumeros(valor)
+
+  if(n.length === 11){
+    return `(${n.slice(0,2)}) ${n.slice(2,7)}-${n.slice(7)}`
+  }
+
+  if(n.length === 10){
+    return `(${n.slice(0,2)}) ${n.slice(2,6)}-${n.slice(6)}`
+  }
+
+  return valor || ""
+}
+
+function carregarDados(){
+
+  const params = new URLSearchParams(window.location.search)
+
+  const alunoId = params.get("aluno")
+  const turmaParam = params.get("turma")
+  const formularioBranco = params.get("branco") === "1"
+
+  const escola =
+    JSON.parse(localStorage.getItem("escola")) || {}
+
+  const alunos =
+    JSON.parse(localStorage.getItem("alunos")) || []
+
+  let aluno = alunos.find(a =>
+    String(a.matricula) === String(alunoId)
+  )
+
+  if(formularioBranco){
+    aluno = {}
+  }
+
+  if(!aluno && !formularioBranco){
+    alert("Erro ao carregar os dados do estudante.")
+    return
+  }
+
+  const cabecalho = `
+    <p>Prefeitura do Município de São Paulo</p>
+    <p>Secretaria Municipal de Educação</p>
+    <p>Diretoria Regional de Educação ${limparDiretoria(escola.diretoria)}</p>
+  `
+
+  const cab1 = document.getElementById("cabecalhoEscola1")
+  if(cab1) cab1.innerHTML = cabecalho
+
+  if(escola.logoPrefeitura){
+    const logo = document.getElementById("logoPrefeitura1")
+    if(logo) logo.src = escola.logoPrefeitura
+  }
+
+  if(escola.logo){
+    const logo = document.getElementById("logoEscola1")
+    if(logo) logo.src = escola.logo
+  }
+
+  preencher("unidadeEducacional", escola.nome || "")
+  preencher("raAluno", aluno?.ra || "")
+  preencher("eolAluno", aluno?.eol || "")
+
+  preencher("nomeAluno", aluno?.nome || "")
+  preencher("sexoAluno", aluno?.sexo || "")
+  preencher("nascimentoAluno", dataBR(aluno?.nascimento))
+  preencher("nacionalidadeAluno", aluno?.nacionalidade || "")
+  preencher("estadoAluno", aluno?.estado || aluno?.uf || "")
+  preencher("cidadeAluno", aluno?.cidade || "")
+  preencher("paisOrigemAluno", aluno?.pais || "")
+  preencher("racaCorAluno", racaCodigo(aluno?.racaCor))
+
+  preencher(
+    "deficienciaSN",
+    formularioBranco ? "" : (aluno?.ene || aluno?.deficiencia ? "S" : "N")
+  )
+
+  preencher("tipoDeficiencia", aluno?.deficiencia || "")
+
+  preencher("certidaoCompleta", aluno?.certidaoCompleta || aluno?.certidaoNumero || "")
+  preencher("certidaoComarca", aluno?.certidaoComarca || aluno?.cidade || "")
+  preencher("certidaoDistrito", aluno?.certidaoDistrito || "")
+  preencher("certidaoUF", aluno?.certidaoEstado || "")
+  preencher("certidaoData", dataBR(aluno?.certidaoData))
+  preencher("cpfAluno", aluno?.cpf || "")
+  preencher("nisAluno", aluno?.nis || "")
+  preencher("rgAluno", aluno?.rgNumero || "")
+  preencher("rgUF", aluno?.rgEstado || "")
+  preencher("rgData", dataBR(aluno?.rgData))
+  preencher("rgOrgao", aluno?.rgOrgao || "")
+
+  preencher("ruaAluno", aluno?.rua || "")
+  preencher("numeroAluno", aluno?.numero || "")
+  preencher("complementoAluno", aluno?.complemento || "")
+  preencher("bairroAluno", aluno?.bairro || "")
+
+  const cidadeUf = [
+    aluno?.cidadeEndereco || aluno?.cidade || "",
+    aluno?.estadoEndereco || aluno?.uf || ""
+  ].filter(Boolean).join(" / ")
+
+  preencher("cidadeUfAluno", cidadeUf)
+
+  preencher("cepAluno", aluno?.cep || "")
+  preencher("enderecoAtualizadoAluno", aluno?.enderecoAtualizado ? "Sim" : "")
+
+  preencher("maeNome", aluno?.mae || "")
+  preencher("paiNome", aluno?.pai || "")
+  preencher("responsavelNome", aluno?.responsavelNome || "")
+
+  preencher("telefoneMae", telefoneBR(aluno?.telefoneMae))
+  preencher("telefonePai", telefoneBR(aluno?.telefonePai))
+  preencher("telefoneResponsavel", telefoneBR(aluno?.telefoneResponsavel))
+  preencher("telefoneRecado1", telefoneBR(aluno?.telefoneRecado1))
+  preencher("nomeRecado1", aluno?.nomeRecado1 || "")
+  preencher("parentescoRecado1", aluno?.parentescoRecado1 || "")
+  preencher("telefoneRecado2", telefoneBR(aluno?.telefoneRecado2))
+  preencher("nomeRecado2", aluno?.nomeRecado2 || "")
+  preencher("parentescoRecado2", aluno?.parentescoRecado2 || "")
+  preencher("telefoneRecado3", telefoneBR(aluno?.telefoneRecado3))
+  preencher("nomeRecado3", aluno?.nomeRecado3 || "")
+  preencher("parentescoRecado3", aluno?.parentescoRecado3 || "")
+  preencher("emailAluno", aluno?.emailAluno || "")
+  preencher("emailResponsavel", aluno?.emailResponsavel || "")
+
+  const tbodyMatricula =
+    document.querySelector("#tabelaMatricula tbody")
+
+  const anoAtual =
+    aluno?.anoLetivo || new Date().getFullYear()
+
+  const turmaAtual =
+    turmaParam || aluno?.turma || ""
+
+  for(let i = 0; i < 11; i++){
+    const tr = document.createElement("tr")
+
+    tr.innerHTML = `
+      <td>${i === 0 && !formularioBranco ? anoAtual : ""}</td>
+      <td>${i === 0 && !formularioBranco ? turmaAtual : ""}</td>
+      <td></td>
+      <td></td>
+      <td>${i === 0 && !formularioBranco ? dataBR(aluno?.matriculaData) : ""}</td>
+    `
+
+    tbodyMatricula.appendChild(tr)
+  }
+}
+
+window.onload = carregarDados
+</script>
+
+</body>
+</html>

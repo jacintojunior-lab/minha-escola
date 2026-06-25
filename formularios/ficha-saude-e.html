@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Ficha de Sa&uacute;de E
+  </title>
+  <style>
+   @page{
+  size:A4;
+  margin:0}
+
+*{
+  box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#e5e5e5;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#111}
+
+.btn-print{
+  position:fixed;
+  top:18px;
+  right:18px;
+  background:#f4b400;
+  border:0;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:bold;
+  z-index:999;
+  cursor:pointer}
+
+.page{
+  width:210mm;
+  height:297mm;
+  margin:0 auto 12px;
+  background:#fff;
+  padding:8mm 11mm;
+  position:relative;
+  overflow:hidden}
+
+.header{
+  display:grid;
+  grid-template-columns:80px 180px 1fr;
+  gap:12px;
+  align-items:center;
+  margin-bottom:5px}
+
+
+.logo-box{
+  width:70px;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center}
+
+.logo-box img{
+  max-width:65px;
+  max-height:65px;
+  object-fit:contain}
+
+.titulo-ficha{
+  text-align:center;
+  font-weight:bold;
+  line-height:1.05;
+  margin-top:20px;
+  font-size:14px}
+
+.titulo-ficha .b{
+  font-size:42px;
+  line-height:1;
+  margin-left:6px}
+
+.titulo-direita{
+  text-align:center;
+  font-weight:bold;
+  font-size:16px;
+  line-height:1.18;
+  margin-top:4px}
+
+.titulo-complementar{
+  font-weight:bold;
+  font-size:13px;
+  line-height:1.35;
+  text-align:center;
+  margin-top:4px}
+
+.unidade-linha{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:8px;
+  align-items:end;
+  margin:3px 0 4px}
+
+.tipo-unidade{
+  font-weight:bold;
+  font-size:12px}
+
+.caixa-unidade{
+  border:1px solid #111;
+  height:30px;
+  padding:3px 6px;
+  font-size:11px;
+  font-weight:bold}
+
+.valor-campo{
+  margin-top:6px;
+  font-size:14px;
+  font-weight:normal}
+
+table{
+  width:100%;
+  border-collapse:collapse}
+
+td,th{
+  border:1px solid #111;
+  padding:2px 5px;
+  vertical-align:top}
+
+.info-aluno{
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:6px}
+
+.campo-label{
+  font-size:11px;
+  font-weight:bold;
+  vertical-align:top;
+  padding:4px 6px 0;
+  text-align:left}
+
+.campo-grande{
+  height:42px}
+
+.caixa-mf{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;
+  height:32px;
+  border:1px solid #111;
+  font-size:12px;
+  font-weight:bold;
+  margin-left:10px;
+  background:#fff}
+
+.caixa-mf.marcado{
+  background:#111;
+  color:#fff}
+
+.linha-texto{
+  font-size:14px;
+  line-height:1.25;
+  margin:5px 0}
+
+.linha-resposta{
+  border-bottom:1px solid #111;
+  height:18px;
+  margin:2px 0 6px}
+
+.linha-resposta.curta{
+  display:inline-block;
+  width:190px;
+  height:13px;
+  margin:0 0 -2px 3px}
+
+.check{
+  display:inline-block;
+  width:12px;
+  height:12px;
+  border:1.6px solid #111;
+  margin:0 3px -1px 5px}
+
+.bloco-opcoes{
+  font-size:14px;
+  line-height:1.35;
+  margin:5px 0}
+
+.tabela-atendimento{
+  font-size:13px;
+  margin:4px 0 10px}
+
+.tabela-atendimento th,.tabela-atendimento td{
+  height:20px;
+  padding:1px 4px}
+
+.tabela-atendimento th{
+  text-align:center;
+  font-weight:normal}
+
+.final{
+  font-size:14px;
+  margin-top:10px}
+
+.line{
+  display:inline-block;
+  border-bottom:1px solid #111;
+  height:14px;
+  vertical-align:baseline}
+
+.w180{width:180px}
+.w220{width:220px}
+.w260{width:260px}
+.w300{width:300px}
+.w360{width:360px}
+.w380{width:380px}
+.w400{width:400px}
+.w430{width:430px}
+.w500{width:500px}
+.w520{width:520px}
+.w600{width:600px}
+.w620{width:620px}
+.w630{width:630px}
+.w640{width:640px}
+.w700{width:700px}
+.w720{width:720px}
+.w800{width:800px}
+.w820{width:820px}
+
+@media print{
+  *{
+  -webkit-print-color-adjust:exact!important;
+  print-color-adjust:exact!important}
+
+body{
+  background:#fff}
+
+.btn-print{
+  display:none}
+
+.page{
+  margin:0;
+  box-shadow:none;
+  page-break-after:always}
+
+.page:last-child{
+  page-break-after:auto}
+}
+  </style>
+ </head>
+ <body>
+  <button class="btn-print" onclick="window.print()">
+   🖨️ Imprimir
+  </button>
+  <div class="page">
+   <div class="header">
+    <div class="logo-box">
+     <img alt="" id="logoPrefeitura"/>
+    </div>
+    <div class="titulo-ficha">
+     <div>
+      FICHA
+      <span class="b">E</span>
+     </div>
+    </div>
+    <div>
+     <div class="titulo-direita" id="prefeituraNome">
+    PREFEITURA DO MUNICÍPIO DE SÃO PAULO
+    </div>
+     <div class="titulo-complementar">
+      INFORMAÇÕES COMPLEMENTARES PARA
+      <br/>
+      EDUCANDOS E EDUCANDAS COM DEFICIÊNCIA
+     </div>
+    </div>
+   </div>
+   <div class="unidade-linha">
+    <div class="tipo-unidade">
+     CEI/ EMEI/ EMEF/ EMEFM/ EMEE <br><br>
+    </div>
+    <div class="caixa-unidade">
+     <div class="valor-campo" style="margin: 3px;" id="escolaNome">
+     </div>
+    </div>
+   </div>
+
+   <table class="info-aluno">
+    <tr>
+     <td class="campo-label campo-grande" colspan="4">
+      Nome
+      <div class="valor-campo" id="alunoNome"></div>
+     </td>
+    </tr>
+    <tr>
+     <td class="campo-label campo-grande" style="width:24%;">
+      Sexo
+      <span class="caixa-mf" id="sexoM">M</span>
+      <span class="caixa-mf" id="sexoF">F</span>
+     </td>
+     <td class="campo-label campo-grande" style="width:18%;">
+      Cor
+      <div class="valor-campo" id="alunoCor"></div>
+     </td>
+     <td class="campo-label campo-grande" style="width:38%;">
+      Data de Nascimento
+      <div class="valor-campo" id="alunoNascimento"></div>
+     </td>
+     <td class="campo-label campo-grande">
+      Idade
+      <div class="valor-campo" id="alunoIdade"></div>
+     </td>
+    </tr>
+    <tr>
+     <td class="campo-label campo-grande" colspan="4">
+      Nome da mãe / responsável
+      <div class="valor-campo" id="alunoResponsavel"></div>
+     </td>
+    </tr>
+   </table>
+   <div class="bloco-opcoes">
+    Deficiência/dificuldade:
+    <span class="check"></span> Física
+    <span class="check"></span> Mental
+    <span class="check"></span> Auditiva
+    <span class="check"></span> Visual
+    <span class="check"></span> Outras
+   </div>
+   <div class="linha-texto">
+    1. Comente resumidamente a(s) dificuldade/deficiência(s) apresentada(s):
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    2. Tem mais alguém na família que apresenta algum tipo de deficiência? Qual o grau de parentesco e deficiência apresentada?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    3. Com que idade começou a freqüentar escola?
+    <span class="linha-resposta curta"></span>
+   </div>
+   <div class="linha-texto">
+    4. Teve dificuldade em ingressar ou freqüentar a escola?
+    <span class="check"></span> Não<span class="check">
+    </span>
+    Sim. Qual?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    5. Que tipo de transporte utiliza para chegar à escola?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    6. Em relação à deficiência apresentada, necessita alguma atenção/cuidado especial?
+    <span class="check"></span> Não
+    <span class="check"></span> Sim. Qual?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    7. Como o educando / a educanda se comunica? Apresenta alguma dificuldade? Explique.
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    8. Existe alguma preocupação referente ao comportamento? Explique. Cite características do educando / da educanda que você considera importante:
+   </div>
+   <div class="linha-resposta">
+   </div>
+   <div class="linha-resposta">
+   </div>
+   <div class="linha-resposta">
+   </div>
+   <div class="linha-texto">
+    9. Necessita de recursos de tecnologia assistiva (órteses, próteses, equipamentos, adaptações ou outras ajudas técnicas) para realizar suas atividades?
+   </div>
+   <div class="linha-texto">
+    <span class="check"></span> Não
+    <span class="check"></span> Sim &nbsp;&nbsp; Assinale-o(s):
+   </div>
+  </div>
+  <div class="page">
+   <div class="bloco-opcoes">
+    <div>
+     <span class="check"></span> Recursos para mobilidade e adequção postural (cadeira de rodas, muletas, andador, bengala, órteses, próteses...) Quais?
+     <span class="line w260"></span>
+    </div>
+    <div>
+     <span class="check"></span> Recursos ópticos (lupa, lentes, ...) Quais?
+     <span class="line w300"></span>
+    </div>
+    <div>
+     <span class="check"></span>
+     Recursos de comunicação (aparelho auditivo, sistemas de comunicação alternativo e/ou suplementar, LIBRAS, BRAILLE...) Quais?
+     <span class="line w180"></span>
+    </div>
+    <div>
+     <span class="check"></span>
+     Acessibilidade do espaço físico e mobiliário escolar? O quê?
+     <span class="line w220"></span>
+    </div>
+    <div class="linha-resposta"></div>
+    <div>
+     <span class="check"></span> Outros:
+     <span class="line w430"></span>
+    </div>
+   </div>
+
+   <div class="linha-texto">
+    10. Caso necessite de algum tipo de equipamento/adaptação:
+   </div>
+   <div class="bloco-opcoes">
+    <div>
+     <span class="check"></span> Possui o equipamento próprio e usa freqüentemente
+    </div>
+    <div>
+     <span class="check"></span> Possui, mas não usa ou usa pouco. Motivo:
+     <span class="line w300"></span>
+    </div>
+    <div>
+     <span class="check"></span> Tem indicação, mas não possui.
+    </div>
+    <div>
+     Se não possui, fez solicitação e está aguardando para adquirir o equipamento em algum local?
+     <span class="check"></span> Não
+     <span class="check"></span> Sim Onde?
+     <span class="line w220"></span>
+    </div>
+   </div>
+
+   <div class="linha-texto">
+    11. Está em atendimento de:
+   </div>
+   <table class="tabela-atendimento">
+    <tr>
+     <th style="width:22%;"></th>
+     <th style="width:14%;">Início</th>
+     <th style="width:20%;">Local</th>
+     <th style="width:16%;">Nome do<br/>profissional</th>
+     <th style="width:12%;">Telefone de<br/>contato</th>
+     <th>Frequência<br/>atendimento</th>
+    </tr>
+    <tr>
+     <td>Fisioterapia</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>Fonoaudiologia</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>Terapia Ocupacional</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>Psicologia</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>Neurologia</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>Psiquiatria</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>Psicopedagogia</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+    <tr>
+     <td>_____________</td>
+     <td>_____/______</td>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td></td>
+    </tr>
+   </table>
+
+   <div class="linha-texto">
+    12. Se atualmente não está em nenhum desses atendimentos, alguma vez passou por avaliação ou tratamento?
+   </div>
+   <div class="linha-texto">
+    <span class="check"></span>Não &nbsp; Porquê?
+    <span class="line w360"></span>
+   </div>
+   <div class="linha-texto">
+    <span class="check"></span> Sim &nbsp; Onde?
+    <span class="line w360"></span>
+   </div>
+   <div class="linha-texto">
+    Nome profissional para contato:
+    <span class="line w220"></span>
+    Telefone:
+    <span class="line w180"></span>
+   </div>
+   <div class="linha-texto">
+    Por que parou o atendimento?
+    <span class="check"></span> Alta
+    <span class="check"></span> Abandono
+    <span class="check"></span> Outro
+    <span class="line w180"></span>
+   </div>
+   <div class="linha-texto">
+    13. Relacionamento Familiar: Quem mora na casa? Como é o relacionamento do educando/ da educanda com os familiares?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    14. Quando não está na escola, onde e com quem costuma ficar? O que costuma e gosta de fazer? O que a família acha que o educando / a educanda faz bem, com maior facilidade?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <div class="linha-texto">
+    15. Existe mais alguma observação que você gostaria de fazer com relação ao educando / à educanda?
+   </div>
+   <div class="linha-resposta"></div>
+   <div class="linha-resposta"></div>
+   <br>
+   <br>
+   <div class="final">
+    Responsável pelo preenchimento:
+    <span class="line w380"></span>
+    Data:
+    <span id="dataAtual"></span>
+   </div>
+  </div>
+
+  <script>
+   function formatarData(data){if(!data)return "";
+const partes=data.split("-");
+if(partes.length!==3)return data;
+return `${partes[2]}/${partes[1]}/${partes[0]}`}function calcularIdade(data){if(!data)return "";
+const nasc=new Date(data);
+const hoje=new Date();
+let idade=hoje.getFullYear()-nasc.getFullYear();
+const mes=hoje.getMonth()-nasc.getMonth();
+if(mes<0||(mes===0&&hoje.getDate()<nasc.getDate()))idade--;
+return idade}function preencherDataAtual(){const hoje=new Date();
+const dia=String(hoje.getDate()).padStart(2,"0");
+const mes=String(hoje.getMonth()+1).padStart(2,"0");
+const ano=hoje.getFullYear();
+document.getElementById("dataAtual").textContent=`${dia}/${mes}/${ano}`}function carregarDados(){const params=new URLSearchParams(window.location.search);
+const alunoId=params.get("aluno");
+const branco=params.get("branco")==="1";
+const escola=JSON.parse(localStorage.getItem("escola"))||{};
+const alunos=JSON.parse(localStorage.getItem("alunos"))||[];
+if(escola.logoPrefeitura){document.getElementById("logoPrefeitura").src=escola.logoPrefeitura}
+document.getElementById("prefeituraNome").textContent =
+    escola.prefeitura || "PREFEITURA DO MUNICÍPIO DE SÃO PAULO";
+if(!alunoId&&!branco){document.getElementById("escolaNome").textContent="";
+return}if(branco){document.getElementById("escolaNome").textContent="";
+return}document.getElementById("escolaNome").textContent=escola.nome||"";
+const aluno=alunos.find(a=>String(a.matricula)===String(alunoId));
+if(!aluno){alert("Estudante não encontrado.");
+return}let responsavel="";
+const responsavelSalvo=localStorage.getItem("responsavelSelecionado");
+if(responsavelSalvo){try{const dadosResp=JSON.parse(responsavelSalvo);
+responsavel=dadosResp.nome||""}catch(e){responsavel=responsavelSalvo}}responsavel=responsavel||aluno.responsavelNome||aluno.mae||aluno.pai||"";
+document.getElementById("alunoNome").textContent=aluno.nome||"";
+document.getElementById("alunoCor").textContent=aluno.racaCor||"";
+document.getElementById("alunoNascimento").textContent=formatarData(aluno.nascimento);
+const idade=calcularIdade(aluno.nascimento);
+document.getElementById("alunoIdade").textContent=idade!==""?`${idade} anos`:"";
+document.getElementById("alunoResponsavel").textContent=responsavel;
+if(aluno.sexo==="Masculino"){document.getElementById("sexoM").classList.add("marcado")}if(aluno.sexo==="Feminino"){document.getElementById("sexoF").classList.add("marcado")}}window.onload=()=>{preencherDataAtual();
+carregarDados()}
+  </script>
+  
+ </body>
+</html>

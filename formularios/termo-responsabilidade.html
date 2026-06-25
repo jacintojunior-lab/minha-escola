@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Termo de Responsabilidade</title>
+
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#fff;
+  margin:0;
+  padding:0;
+  color:#111;
+}
+
+.documento{
+  width:210mm;
+  height:297mm;
+  margin:auto;
+  padding:14mm 18mm 22mm;
+  position:relative;
+  overflow:hidden;
+  page-break-after:always;
+}
+
+.documento:last-of-type{
+  page-break-after:auto;
+}
+
+.cabecalho{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+  width:78px;
+  height:auto;
+}
+
+.texto-cabecalho{
+  flex:1;
+  text-align:center;
+}
+
+.texto-cabecalho p{
+  margin:2px 0;
+  font-size:13px;
+}
+
+hr{
+  border:none;
+  border-top:1px solid #999;
+  margin:12px 0 16px;
+}
+
+.titulo-principal{
+  text-align:center;
+  margin:0 0 18px;
+  font-size:34px;
+  font-family:Georgia,"Times New Roman",serif;
+  letter-spacing:1px;
+  font-weight:bold;
+  text-transform:uppercase;
+  color:#444;
+  text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+}
+
+.titulo-secao{
+  text-align:center;
+  font-size:19px;
+  margin:16px 0 22px;
+  font-weight:bold;
+}
+
+.subtitulo{
+  text-align:center;
+  font-size:16px;
+  margin:0 0 14px;
+  font-weight:bold;
+}
+
+.texto{
+  font-size:15.5px;
+  line-height:1.25;
+  text-align:justify;
+}
+
+.texto p{
+  margin:8px 0;
+}
+
+.regras{
+  margin:0;
+  padding-left:24px;
+}
+
+.regras li{
+  margin-bottom:5px;
+  padding-left:4px;
+}
+
+.direitos{
+  font-size:14px;
+  line-height:1.15;
+  text-align:justify;
+}
+
+.direitos p{
+  margin:5px 0;
+}
+
+.direitos .lei{
+  text-align:center;
+  font-weight:bold;
+  margin:6px 0 10px;
+}
+
+.assinaturas{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:34px;
+  margin-top:32px;
+  text-align:center;
+}
+
+.assinatura-linha{
+  border-top:1px solid #000;
+  padding-top:4px;
+  font-size:13px;
+  line-height:1.2;
+  text-align:center;
+}
+
+.data-sp{
+  text-align:center;
+  margin-top:24px;
+  font-size:15px;
+}
+
+.info-escola{
+  position:absolute;
+  bottom:9mm;
+  left:18mm;
+  right:18mm;
+  text-align:center;
+  font-size:10px;
+  color:#333;
+  opacity:.85;
+}
+
+.btn-print{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#f4b400;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999;
+}
+
+@media print{
+  .btn-print{display:none}
+  .documento{margin:0;box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<div class="documento">
+
+  <div class="cabecalho">
+    <div class="logo-esquerda"><img id="logoPrefeitura1"></div>
+    <div class="texto-cabecalho" id="cabecalhoEscola1"></div>
+    <div class="logo-direita"><img id="logoEscola1"></div>
+  </div>
+
+  <hr>
+
+  <h1 class="titulo-secao">TERMO DE RESPONSABILIDADE</h1>
+
+  <h2 class="titulo-secao">Regras estabelecidas pela EMEF PROF. NOÉ AZEVEDO:</h2>
+
+  <div class="texto">
+    <ol class="regras">
+      <li>É de responsabilidade de cada educando preservar todo o patrimônio escolar (material escolar, equipamentos, móveis, plantas e os ambientes da escola);</li>
+      <li>É proibido uso de celulares em todos os ambientes da Escola, conforme a Lei Federal nº 15.100 de 15 de Janeiro 2025;</li>
+      <li>É imprescindível o uso do uniforme escolar fornecido pela Prefeitura;</li>
+      <li>É de responsabilidade de cada educando manter os pais ou responsáveis legais informados sobre os assuntos escolares, sobretudo sobre o progresso de seus estudos, os eventos sociais e educativos previstos ou em andamento, assegurando que recebam as comunicações a eles encaminhadas;</li>
+      <li>Deve-se frequentar a escola regular pontualmente;</li>
+      <li>Deve-se freqüentar diariamente as aulas com o material escolar, mantendo adequadamente livros e demais materiais;</li>
+      <li>Deve-se cooperar e realizar as atividades propostas pelos professores;</li>
+      <li>É proibido ficar fora da sala de aula / turma durante o período de aula, principalmente na troca de professores;</li>
+      <li>Deve-se respeitar todos os estudantes, professores e funcionários;</li>
+      <li>É proibido fazer insultos e provocações de discriminação e preconceito a qualquer pessoa, utilizando meios pacíficos na resolução de problemas;</li>
+      <li>É imprescindível o uso de calçado tipo tênis;</li>
+      <li>É proibido uso de rasteirinhas, tamancos, chinelos, botas, sandálias e sapatos de salto;</li>
+      <li>É proibido fazer alimentação fora do refeitório;</li>
+      <li>É proibido trazer e fazer uso de bebidas alcoólicas;</li>
+      <li>É proibido trazer cigarro, cigarro eletrônico e fumar nas dependências da Escola;</li>
+      <li>É proibido trazer utensílios perfurantes e/ou cortantes (qualquer material que não seja escolar);</li>
+      <li>É proibido filmar, fotografar sem a prévia autorização da direção;</li>
+      <li>É proibido namorar na escola;</li>
+    </ol>
+
+    <p>
+      Qualquer ato ou ação do estudante que ocorra em conflito com o previsto nestas orientações, o seu responsável será convocado imediatamente para tornar ciência e responsabilização das medidas cabíveis conforme Regimento Escolar e legislação vigente.
+    </p>
+  </div>
+
+  <div class="assinaturas">
+    <div class="assinatura-linha" id="assinaturaResponsavel">
+      Assinatura do Responsável
+    </div>
+
+    <div class="assinatura-linha" id="assinaturaAluno">
+      Assinatura do Estudante
+    </div>
+  </div>
+
+  <div class="data-sp" id="dataAtual"></div>
+
+  <div class="info-escola" id="infoEscola1"></div>
+
+</div>
+
+<div class="documento">
+
+  <div class="cabecalho">
+    <div class="logo-esquerda"><img id="logoPrefeitura2"></div>
+    <div class="texto-cabecalho" id="cabecalhoEscola2"></div>
+    <div class="logo-direita"><img id="logoEscola2"></div>
+  </div>
+
+  <hr>
+
+  <h2 class="subtitulo">DIREITOS DOS ALUNOS</h2>
+
+  <div class="direitos">
+
+    <p class="lei">Síntese de alguns artigos de Leis (Lei 8069/90 - ECA e Lei 9394/96 - LDBEN)</p>
+
+    <p><strong>ECA</strong></p>
+
+    <p><strong>Art. 5º</strong> Nenhuma criança ou adolescente será objeto de qualquer forma de negligência, discriminação, exploração, violência, crueldade e opressão, punido na forma da lei qualquer atentado, por ação ou omissão, aos seus direitos fundamentais.</p>
+
+    <p><strong>Art. 15.</strong> A criança e o adolescente têm direito à liberdade, ao respeito e à dignidade como pessoas humanas em processo de desenvolvimento e como sujeitos de direitos civis, humanos e sociais garantidos na Constituição e nas leis.</p>
+
+    <p><strong>Art. 16.</strong> O direito à liberdade compreende os seguintes aspectos:</p>
+
+    <p>
+      I - ir, vir e estar nos logradouros públicos e espaços comunitários ressalvadas as restrições legais;<br>
+      II - opinião e expressão;<br>
+      III - crença e culto religioso;<br>
+      IV - brincar, praticar esportes e divertir-se;<br>
+      V - participar da vida familiar e comunitária, sem discriminação;<br>
+      VI - participar da vida política, na forma da lei;<br>
+      VII - buscar refúgio, auxílio e orientação.
+    </p>
+
+    <p><strong>Art. 18.</strong> É dever de todos zelar pela dignidade da criança e do adolescente, pondo-os a salvo de qualquer tratamento desumano, violento, aterrorizante, vexatório ou constrangedor.</p>
+
+    <p><strong>Art. 53.</strong> A criança e o adolescente têm direito à educação, visando ao pleno desenvolvimento de sua pessoa, preparo para o exercício da cidadania e qualificação para o trabalho, assegurando-lhes:</p>
+
+    <p>
+      I - igualdade de condições para o acesso e permanência na escola;<br>
+      II - direito de ser respeitado por seus educadores;<br>
+      III - direito de contestar critérios avaliativos, podendo recorrer às instâncias escolares superiores;<br>
+      IV - direito de organização e participação em entidades estudantis;<br>
+      V - acesso a escola pública e gratuita próxima de sua residência.
+    </p>
+
+    <p>Parágrafo único. É direito dos pais ou responsáveis ter ciência do processo pedagógico, bem como participar da definição das propostas educacionais.</p>
+
+    <p><strong>Art. 54.</strong> É dever do Estado assegurar à criança e ao adolescente:</p>
+
+    <p>
+      I - ensino fundamental, obrigatório e gratuito, inclusive para os que a ele não tiveram acesso na idade própria;<br>
+      III - atendimento educacional especializado aos portadores de deficiência, preferencialmente na rede regular de ensino;<br>
+      VII - atendimento no ensino fundamental, através de programas suplementares de material didático-escolar, transporte, alimentação e assistência à saúde.
+    </p>
+
+    <p><strong>Art. 55.</strong> Os pais ou responsáveis têm a obrigação de matricular seus filhos ou pupilos na rede regular de ensino.</p>
+
+    <p><strong>Art. 56.</strong> Os dirigentes de estabelecimentos de ensino fundamental comunicarão ao Conselho Tutelar os casos de:</p>
+
+    <p>
+      I - maus-tratos envolvendo seus alunos;<br>
+      II - reiteração de faltas injustificadas e de evasão escolar, esgotados os recursos escolares;<br>
+      III - elevados níveis de repetência.
+    </p>
+
+    <p><strong>L.9394/96 – LEI DE DIRETRIZES E BASES DA EDUCAÇÃO NACIONAL</strong></p>
+
+    <p><strong>Art. 2º</strong> A educação, dever da família e do Estado, inspirada nos princípios de liberdade e nos ideais de solidariedade humana, tem por finalidade o pleno desenvolvimento do educando, seu preparo para o exercício da cidadania e sua qualificação para o trabalho.</p>
+
+    <p>
+      A escola deve<br>
+      II - fazer-lhes a chamada pública;<br>
+      III - zelar, junto aos pais ou responsáveis, pela frequência à escola.
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+function doisPrimeirosNomes(nome){
+  return (nome || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .join(" ")
+}
+
+function carregarDados(){
+
+  const dadosEscola =
+    JSON.parse(localStorage.getItem("escola")) || {}
+
+  const logoPrefeitura = dadosEscola.logoPrefeitura || ""
+  const logoEscola = dadosEscola.logo || ""
+
+  if(logoPrefeitura){
+    document.getElementById("logoPrefeitura1").src = logoPrefeitura
+    document.getElementById("logoPrefeitura2").src = logoPrefeitura
+  }
+
+  if(logoEscola){
+    document.getElementById("logoEscola1").src = logoEscola
+    document.getElementById("logoEscola2").src = logoEscola
+  }
+
+  const cabecalho = `
+    <p><strong>${dadosEscola.prefeitura || ""}</strong></p>
+    <p>${dadosEscola.secretaria || ""}</p>
+    <p>${dadosEscola.diretoria || ""}</p>
+    <p><strong>${dadosEscola.nome || ""}</strong></p>
+  `
+
+  document.getElementById("cabecalhoEscola1").innerHTML = cabecalho
+  document.getElementById("cabecalhoEscola2").innerHTML = cabecalho
+
+  const rodape = `
+    <p>${dadosEscola.endereco || ""}, ${dadosEscola.numero || ""} – ${dadosEscola.bairro || ""} – ${dadosEscola.cidade || ""} – ${dadosEscola.estado || ""} – CEP: ${dadosEscola.cep || ""}</p>
+    <p>Fone: ${dadosEscola.telefone || ""} ${dadosEscola.telefone2 ? "/ " + dadosEscola.telefone2 : ""} – E-mail: ${dadosEscola.email || ""}</p>
+  `
+
+  document.getElementById("infoEscola1").innerHTML = rodape
+
+  const infoEscola2 = document.getElementById("infoEscola2")
+
+  if(infoEscola2){
+    infoEscola2.innerHTML = rodape
+  }
+
+  const meses = [
+  "janeiro",
+  "fevereiro",
+  "março",
+  "abril",
+  "maio",
+  "junho",
+  "julho",
+  "agosto",
+  "setembro",
+  "outubro",
+  "novembro",
+  "dezembro"
+]
+
+const hoje = new Date()
+
+document.getElementById("dataAtual").textContent =
+  `São Paulo, ${hoje.getDate()} de ${
+    meses[hoje.getMonth()]
+  } de ${hoje.getFullYear()}`
+
+
+  const responsavel =
+  JSON.parse(
+    localStorage.getItem("responsavelSelecionado")
+  ) || {}
+
+const params = new URLSearchParams(
+  window.location.search
+)
+
+const modoBranco = params.get("branco") === "1"
+
+const rga = params.get("aluno")
+
+if(!modoBranco && rga){
+
+  const alunos =
+    JSON.parse(localStorage.getItem("alunos")) || []
+
+  const aluno = alunos.find(a =>
+    String(a.matricula) === String(rga)
+  )
+
+  if(aluno){
+
+    document.getElementById(
+      "assinaturaAluno"
+    ).innerHTML =
+      `Assinatura de ${doisPrimeirosNomes(aluno.nome)}<br>(Estudante)`
+
+  }
+}
+
+if(!modoBranco && responsavel.nome){
+
+  document.getElementById(
+    "assinaturaResponsavel"
+  ).innerHTML =
+    `Assinatura de ${doisPrimeirosNomes(responsavel.nome)}<br>(Responsável)`
+
+}
+
+}
+
+window.onload = carregarDados
+</script>
+
+</body>
+</html>

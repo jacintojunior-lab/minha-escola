@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Termo de Saída</title>
+
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#fff;
+  color:#111;
+}
+
+.documento{
+  width:210mm;
+  height:297mm;
+  margin:auto;
+  padding:14mm 18mm 18mm;
+  position:relative;
+  overflow:hidden;
+}
+
+.cabecalho{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+  width:78px;
+}
+
+.texto-cabecalho{
+  flex:1;
+  text-align:center;
+}
+
+.texto-cabecalho p{
+  margin:2px 0;
+  font-size:13px;
+}
+
+hr{
+  border:none;
+  border-top:1px solid #999;
+  margin:12px 0 14px;
+}
+
+h1{
+  text-align:center;
+  font-size:18px;
+  margin:10px 0 14px;
+}
+
+.texto{
+  font-size:14px;
+  line-height:1.35;
+}
+
+.texto p{
+  margin:5px 0;
+}
+
+.linha{
+  display:inline-block;
+  border-bottom:1px solid #000;
+  min-width:200px;
+  height:16px;
+  vertical-align:middle;
+    padding:0 4px;
+}
+
+.linha-preenchida{
+  display:inline-block;
+  vertical-align:baseline;
+  padding:0 4px;
+  line-height:1.2;
+}
+
+.linha-grande{
+  min-width:550px;
+}
+
+.linha-grande-estudante{
+  min-width:450px;
+}
+
+.linha-media{
+  min-width:300px;
+}
+
+.autorizado{
+  margin-top:6px;
+  font-size:13.5px;
+}
+
+.autorizado p{
+  margin:3px 0;
+}
+
+.restricao{
+  margin-top:12px;
+  font-size:13.5px;
+}
+
+.linha-restricao{
+  border-bottom:1px solid #000;
+  height:18px;
+  margin-top:6px;
+}
+
+.data{
+  text-align:center;
+  margin-top:12px;
+  font-size:14px;
+}
+
+.assinatura{
+  width:330px;
+  margin:28px auto 0;
+  text-align:center;
+  border-top:1px solid #000;
+  padding-top:4px;
+  font-size:13px;
+}
+
+.info-escola{
+  position:absolute;
+  bottom:9mm;
+  left:18mm;
+  right:18mm;
+  text-align:center;
+  font-size:10px;
+  color:#333;
+  opacity:.85;
+}
+
+.btn-print{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#f4b400;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999;
+}
+
+@media print{
+  .btn-print{display:none}
+  .documento{margin:0}
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<div class="documento">
+
+  <div class="cabecalho">
+    <div class="logo-esquerda"><img id="logoPrefeitura"></div>
+    <div class="texto-cabecalho" id="cabecalhoEscola"></div>
+    <div class="logo-direita"><img id="logoEscola"></div>
+  </div>
+
+  <hr>
+
+  <h1>TERMO DE SAÍDA</h1>
+
+  <div class="texto">
+
+    <p>Srs. Responsáveis,</p>
+
+    <p>
+      Pedimos por gentileza que realizem o preenchimento das pessoas autorizadas a retirar o(a) estudante.
+    </p>
+
+    <p>
+      Lembrando que a saída só será liberada para pessoas <strong>COM 14 ANOS OU MAIS.</strong>
+    </p>
+
+    <p>
+      Conforme DOC SEI/PMSP 053718673 da AJ/SME. Caso o(a) estudante for de transporte escolar,
+      preencher a última parte além de deixar elencado pessoas autorizadas.
+    </p>
+
+    <div id="blocoIdentificacao"></div>
+
+    <div id="listaAutorizados"></div>
+
+    <p style="margin-top:12px;">
+      <strong>TRANSPORTE</strong>
+      ( &nbsp; ) SIM &nbsp;&nbsp; ( &nbsp; ) NÃO
+    </p>
+
+    <p>
+      Nome do Transportador:
+      <span class="linha linha-grande-estudante"></span>
+    </p>
+
+    <div class="restricao">
+      <p>
+        Caso o estudante tenha alguma restrição judicial de retirada do mesmo,
+        por favor, elencar nas linhas abaixo:
+      </p>
+
+      <div class="linha-restricao"></div>
+      <div class="linha-restricao"></div>
+      <div class="linha-restricao"></div>
+    </div>
+
+    <div class="data" id="dataAtual"></div>
+
+    <div class="assinatura" id="assinaturaResponsavel">
+      Assinatura do Responsável
+    </div>
+
+  </div>
+
+  <div class="info-escola" id="infoEscola"></div>
+
+</div>
+
+<script>
+function dataPorExtenso(){
+  const meses = [
+    "janeiro","fevereiro","março","abril","maio","junho",
+    "julho","agosto","setembro","outubro","novembro","dezembro"
+  ]
+
+  const hoje = new Date()
+
+  return `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`
+}
+
+function carregarDados(){
+
+  const params = new URLSearchParams(window.location.search)
+
+  const turmaNome = params.get("turma")
+  const alunoId = params.get("aluno")
+  const formularioBranco = params.get("branco") === "1"
+
+  const dadosEscola =
+    JSON.parse(localStorage.getItem("escola")) || {}
+
+  const alunos =
+    JSON.parse(localStorage.getItem("alunos")) || []
+
+  const responsavel =
+    JSON.parse(localStorage.getItem("responsavelSelecionado")) || {}
+
+  let aluno = alunos.find(a =>
+    String(a.matricula) === String(alunoId)
+  )
+
+  if(formularioBranco){
+    aluno = {}
+  }
+
+  if(dadosEscola.logoPrefeitura){
+    document.getElementById("logoPrefeitura").src =
+      dadosEscola.logoPrefeitura
+  }
+
+  if(dadosEscola.logo){
+    document.getElementById("logoEscola").src =
+      dadosEscola.logo
+  }
+
+  document.getElementById("cabecalhoEscola").innerHTML = `
+    <p><strong>${dadosEscola.prefeitura || ""}</strong></p>
+    <p>${dadosEscola.secretaria || ""}</p>
+    <p>${dadosEscola.diretoria || ""}</p>
+    <p><strong>${dadosEscola.nome || ""}</strong></p>
+  `
+
+const blocoIdentificacao =
+  document.getElementById("blocoIdentificacao")
+
+if(formularioBranco){
+
+  blocoIdentificacao.innerHTML = `
+    <p>
+      Eu,
+      <span class="linha linha-grande"></span>,
+    </p>
+
+    <p>
+      responsável pelo(a) estudante:
+      <span class="linha linha-grande-estudante"></span>
+    </p>
+
+    <p>
+      turma
+      <span class="linha"></span>,
+      autorizo:
+    </p>
+  `
+
+}else{
+
+  const nomeResponsavel =
+    responsavel.nome ||
+    aluno?.responsavelNome ||
+    aluno?.mae ||
+    aluno?.pai ||
+    ""
+
+  const nomeAluno =
+    aluno?.nome || ""
+
+  const turmaAluno =
+    turmaNome || aluno?.turma || ""
+
+  blocoIdentificacao.innerHTML = `
+    <p>
+      Eu, <strong>${nomeResponsavel}</strong>,
+      responsável pelo(a) estudante
+      <strong>${nomeAluno}</strong>,
+      da turma
+      <strong>${turmaAluno}</strong>,
+      autorizo:
+    </p>
+  `
+}
+
+  const lista = document.getElementById("listaAutorizados")
+
+  for(let i = 1; i <= 6; i++){
+    lista.innerHTML += `
+      <div class="autorizado">
+        <p>${i}) Sr./Srª. <span class="linha linha-grande"></span></p>
+        <p>
+          Nº do Documento: <span class="linha"></span>
+          &nbsp;&nbsp; Grau de Parentesco:
+          <span class="linha"></span>
+        </p>
+        <p>
+          Telefone de Contato:
+          <span class="linha linha-media"></span>
+        </p>
+      </div>
+    `
+  }
+
+  document.getElementById("dataAtual").textContent =
+    `São Paulo, ${dataPorExtenso()}.`
+
+  document.getElementById("infoEscola").innerHTML = `
+    <p>${dadosEscola.endereco || ""}, ${dadosEscola.numero || ""} – ${dadosEscola.bairro || ""} – ${dadosEscola.cidade || ""} – ${dadosEscola.estado || ""} – CEP: ${dadosEscola.cep || ""}</p>
+    <p>Fone: ${dadosEscola.telefone || ""} ${dadosEscola.telefone2 ? "/ " + dadosEscola.telefone2 : ""} – E-mail: ${dadosEscola.email || ""}</p>
+  `
+}
+
+window.onload = carregarDados
+</script>
+
+</body>
+</html>

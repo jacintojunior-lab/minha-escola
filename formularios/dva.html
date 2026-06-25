@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Notificação DVA</title>
+
+<style>
+body{
+font-family: Arial, sans-serif;
+background: #fff;
+margin: 0;
+padding: 0;
+}
+
+.documento{
+width: 210mm;
+min-height: 297mm;
+margin: auto;
+padding: 20mm;
+box-sizing: border-box;
+position: relative;
+padding-bottom: 35mm;
+}
+
+/* CABEÇALHO */
+.cabecalho{
+text-align: center;
+margin-bottom: 20px;
+}
+
+.cabecalho p{
+margin: 2px 0;
+font-size: 14px;
+}
+
+/* TÍTULO */
+h2{
+text-align: center;
+margin: 30px 0 20px;
+margin-bottom: 25px;
+}
+
+/* TEXTO */
+.texto{
+font-size: 16px;
+line-height: 1.9;
+text-align: justify;
+text-indent: 40px;
+max-width: 720px;
+margin: 0 auto;
+}
+
+.dados-aluno{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px auto 35px;
+    font-size: 16px; /* mesmo tamanho do corpo */
+}
+
+.dados-aluno td{
+    border: 1px solid #000;
+    padding: 8px 10px;
+    vertical-align: middle;
+}
+
+.dados-aluno strong{
+    font-weight: bold;
+}
+
+.recibo{
+font-size: 16px;
+line-height: 1.9;
+max-width: 720px;
+margin: 45px auto 0;
+}
+
+.linha-assinatura{
+margin-top: 55px;
+text-align: center;
+}
+
+.linha-assinatura p:first-child{
+width: 330px;
+margin: 0 auto 5px;
+border-top: 1px solid #000;
+}
+
+/* RODAPÉ */
+.rodape{
+margin-top: 60px;
+text-align: center;
+}
+
+.rodape p{
+margin-top: 30px;
+}
+
+.assinatura{
+margin-top: 60px;
+}
+
+.assinatura p:first-child{
+width: 250px;
+margin: 0 auto 5px;
+border-top: 1px solid #000;
+}
+
+.cabecalho{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+width: 80px;
+height: auto;
+}
+
+.texto-cabecalho{
+text-align: center;
+flex: 1;
+}
+
+.texto-cabecalho p{
+margin: 2px 0;
+font-size: 13px;
+}
+
+.info-escola{
+position: absolute;
+bottom: 15mm;
+left: 20mm;
+right: 20mm;
+text-align: center;
+font-size: 11px;
+color: #333;
+opacity: 0.8;
+}
+
+.rodape{
+margin-top: 160px;
+text-align: center;
+}
+
+.btn-print{
+position: fixed;
+top: 20px;
+right: 20px;
+background: #f4b400;
+border: none;
+padding: 10px 15px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.assinatura p{
+margin: 3px 0;
+line-height: 1.4;
+}
+
+hr{
+border: none;
+border-top: 1px solid #999;
+margin: 15px 0;
+}
+
+@media print {
+  .btn-print{
+    display: none;
+  }
+
+  @page{
+    size: A4;
+    margin: 0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<div class="documento">
+
+<!-- CABEÇALHO -->
+<div class="cabecalho">
+
+<div class="logo-esquerda">
+<img id="logoPrefeitura" />
+</div>
+
+<div class="texto-cabecalho" id="cabecalhoEscola"></div>
+
+<div class="logo-direita">
+<img id="logoEscola" />
+</div>
+
+</div>
+
+<hr>
+
+<!-- TÍTULO -->
+<h2>NOTIFICAÇÃO: <br> DVA - DECLARAÇÃO DE VACINAÇÃO ATUALIZADA</h2>
+
+<!-- DADOS DO ESTUDANTE -->
+<table class="dados-aluno">
+    <tr>
+        <td style="width:80%;">
+            <strong>Nome do(a) estudante:</strong>
+            <span id="nomeAluno"></span>
+        </td>
+
+        <td style="width:20%;">
+            <strong>Turma:</strong>
+            <span id="turmaAluno"></span>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            <strong>Nome do(a) responsável:</strong>
+            <span id="nomeResponsavel"></span>
+        </td>
+    </tr>
+</table>
+
+<!-- TEXTO -->
+<p class="texto">
+Conforme Portaria Conjunta SME/SMS nº 001, de 18/01/2021, é obrigatória a apresentação da DVA do estudante no ato da matrícula/rematrícula, anualmente.
+</p>
+
+<p class="texto">
+Ressaltamos a importância da vacinação como proteção contra doenças e informamos que, a partir desta data, os responsáveis terão 30 (trinta) dias para atualizar a Caderneta de Vacinação e entregar o DVA na escola.
+</p>
+
+<p class="texto">
+O descumprimento desta solicitação no prazo previsto acarretará a comunicação à UBS e ao Conselho Tutelar, conforme o Art. 3º, I e IV, da mesma portaria.
+</p>
+
+<!-- RODAPÉ / RECIBO -->
+<div class="rodape">
+
+<p id="dataExtenso"></p>
+
+<div class="linha-assinatura">
+<p></p>
+<p>Assinatura do Responsável</p>
+</div>
+
+</div>
+
+<div class="info-escola" id="infoEscola"></div>
+
+</div>
+
+<script>
+function carregarDados(){
+
+const params = new URLSearchParams(window.location.search)
+
+const dadosEscola = JSON.parse(localStorage.getItem("escola")) || {}
+
+const turmaNome = params.get("turma")
+const alunoId = params.get("aluno")
+const formularioBranco = params.get("branco") === "1"
+
+const alunos = JSON.parse(localStorage.getItem("alunos")) || []
+const turmas = JSON.parse(localStorage.getItem("turmas")) || []
+
+let aluno = alunos.find(a =>
+  String(a.matricula) === String(alunoId)
+)
+
+const turma = turmas.find(t => t.nome === turmaNome) || {}
+
+if(!aluno && !formularioBranco){
+alert("Erro ao carregar dados do estudante")
+return
+}
+
+if(formularioBranco){
+aluno = {}
+}
+
+if(dadosEscola.logoPrefeitura){
+document.getElementById("logoPrefeitura").src = dadosEscola.logoPrefeitura
+}
+
+if(dadosEscola.logo){
+document.getElementById("logoEscola").src = dadosEscola.logo
+}
+
+// CABEÇALHO
+
+document.getElementById("cabecalhoEscola").innerHTML = `
+<p><strong>${dadosEscola.prefeitura || ""}</strong></p>
+<p>${dadosEscola.secretaria || ""}</p>
+<p>${dadosEscola.diretoria || ""}</p>
+<p><strong>${dadosEscola.nome || ""}</strong></p>
+`
+
+// DADOS DO ESTUDANTE
+document.getElementById("nomeAluno").innerText = aluno.nome || ""
+document.getElementById("turmaAluno").innerText = turma.nome || turmaNome || aluno.turma || ""
+
+// DADOS DO RESPONSÁVEL
+const responsavelSalvo =
+  localStorage.getItem("responsavelSelecionado")
+
+let responsavelSelecionado = ""
+
+if(responsavelSalvo){
+
+  try{
+    const dadosResponsavel = JSON.parse(responsavelSalvo)
+    responsavelSelecionado = dadosResponsavel.nome || ""
+  }catch(e){
+    responsavelSelecionado = responsavelSalvo
+  }
+
+}
+
+document.getElementById("nomeResponsavel").innerText =
+  responsavelSelecionado ||
+  aluno.responsavelNome ||
+  aluno.mae ||
+  aluno.pai ||
+  "";
+
+// DATA
+document.getElementById("dataExtenso").innerText =
+`São Paulo, ${dataPorExtenso()}`
+
+// RODAPÉ
+document.getElementById("infoEscola").innerHTML = `
+<p>${dadosEscola.endereco || ""}, ${dadosEscola.numero || ""} – ${dadosEscola.bairro || ""} – ${dadosEscola.cidade || ""} – ${dadosEscola.estado || ""} – CEP: ${dadosEscola.cep || ""}</p>
+<p>Fone: ${dadosEscola.telefone || ""} ${dadosEscola.telefone2 ? "/ " + dadosEscola.telefone2 : ""} – E-mail: ${dadosEscola.email || ""}</p>
+`
+}
+
+window.onload = carregarDados
+
+function dataPorExtenso(){
+
+const meses = [
+"janeiro","fevereiro","março","abril","maio","junho",
+"julho","agosto","setembro","outubro","novembro","dezembro"
+]
+
+const hoje = new Date()
+
+return `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`
+}
+
+</script>
+</body>
+</html>

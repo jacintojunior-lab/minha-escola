@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Solicitação de Bilhete Único</title>
+
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#fff;
+  font-family:Arial,sans-serif;
+  color:#000;
+}
+
+.folha{
+  width:210mm;
+  height:297mm;
+  margin:auto;
+  padding:8mm 10mm;
+}
+
+.via{
+  height:91mm;
+  padding:5mm 2mm;
+  border-top:1px dashed #777;
+  position:relative;
+}
+
+.via:last-child{
+  border-bottom:1px dashed #777;
+}
+
+h2{
+  text-align:center;
+  margin:0 0 5mm;
+  font-size:13px;
+  font-weight:bold;
+}
+
+p{
+  margin:5px 0;
+  font-size:12px;
+  line-height:1.35;
+}
+
+.linha{
+  display:inline-block;
+  border-bottom:1px solid #000;
+  height:15px;
+  vertical-align:baseline;
+}
+
+.nome{width:126mm}
+.serie{width:22mm}
+.ra{width:50mm}
+.rg{width:65mm}
+.uf{width:60mm}
+.cpf{width:60mm}
+.nascimento{width:49mm}
+.endereco{width:127mm}
+.numero{width:22mm}
+.cep{width:43mm}
+.bairro{width:55mm}
+.telefone{width:45mm}
+.email{width:174mm}
+.responsavel{width:85mm}
+.data{width:30mm}
+
+.checkbox{
+  display:inline-block;
+  width:13px;
+  height:13px;
+  border:1px solid #000;
+  vertical-align:middle;
+  margin:0 4px;
+}
+
+.btn-print{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#f4b400;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999;
+}
+
+p.documento {
+    font-weight: bolder;
+}
+
+@media print{
+  .btn-print{display:none}
+  .folha{margin:0}
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<div class="folha" id="folha"></div>
+
+<script>
+function criarVia(){
+  return `
+    <div class="via">
+
+      <h2>
+        CADASTRO PARA SOLICITAÇÃO DE BILHETE ÚNICO 2026
+        (PREENCHER TODOS OS CAMPOS)
+      </h2>
+
+      <p>
+        NOME COMPLETO DO(A) ESTUDANTE:
+        <span class="linha nome"></span>
+      </p>
+
+      <p>
+        SÉRIE:
+        <span class="linha serie"></span>
+        RA:
+        <span class="linha ra"></span>
+        ( TEM O NÚMERO NO BILHETE ÚNICO )
+      </p>
+
+      <p class="documento">
+        QUAL O DOCUMENTO DO ESTUDANTE?
+        <span class="checkbox"></span> RG
+        OU
+        <span class="checkbox"></span> CIN
+      </p>
+
+      <p>
+        NÚMERO DO RG:
+        <span class="linha rg"></span>
+        UF (ESTADO DO RG)
+        <span class="linha uf"></span>
+      </p>
+
+      <p>
+        CPF DO(A) ESTUDANTE:
+        <span class="linha cpf"></span>
+        DATA DE NASCIMENTO:
+        <span class="linha nascimento"></span>
+      </p>
+
+      <p>
+        ENDEREÇO ATUAL:
+        <span class="linha endereco"></span>
+        Nº
+        <span class="linha numero"></span>
+      </p>
+
+      <p>
+        CEP:
+        <span class="linha cep"></span>
+        BAIRRO:
+        <span class="linha bairro"></span>
+        TELEFONE:
+        <span class="linha telefone"></span>
+      </p>
+
+      <p>
+        EMAIL:
+        <span class="linha email"></span>
+      </p>
+
+      <p>
+        NOME COMPLETO DO RESPONSÁVEL:
+        <span class="linha responsavel"></span>
+        DATA:
+        <span class="linha data"></span>
+      </p>
+
+    </div>
+  `
+}
+
+document.getElementById("folha").innerHTML =
+  Array.from({length:3}, criarVia).join("")
+</script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Termo de Saída Fundamental II</title>
+
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#fff;
+  color:#111;
+}
+
+.documento{
+  width:210mm;
+  height:297mm;
+  margin:auto;
+  padding:14mm 18mm 18mm;
+  position:relative;
+  overflow:hidden;
+  page-break-after:always;
+}
+
+.documento:last-of-type{
+  page-break-after:auto;
+}
+
+.cabecalho{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo-esquerda img,
+.logo-direita img{
+  width:78px;
+}
+
+.texto-cabecalho{
+  flex:1;
+  text-align:center;
+}
+
+.texto-cabecalho p{
+  margin:2px 0;
+  font-size:13px;
+}
+
+hr{
+  border:none;
+  border-top:1px solid #999;
+  margin:12px 0 18px;
+}
+
+h1{
+  text-align:center;
+  font-size:18px;
+  margin:8px 0 24px;
+  text-decoration:underline;
+}
+
+.texto{
+  font-size:15px;
+  line-height:1.45;
+}
+
+.texto p{
+  margin:8px 0;
+}
+
+.recuo{
+  text-indent:35px;
+}
+
+.aviso{
+  font-weight:bold;
+  text-decoration:underline;
+}
+
+.linha{
+  display:inline-block;
+  border-bottom:1px solid #000;
+  min-width:180px;
+  height:16px;
+  vertical-align:middle;
+  padding:0 4px;
+}
+
+.linha-grande{
+  min-width:470px;
+}
+
+.linha-estudante{
+  min-width:570px;
+}
+
+.linha-media{
+  min-width:260px;
+}
+
+.identificacao-preenchida{
+  text-align:justify;
+}
+
+.autorizo{
+  font-weight:bold;
+  margin-left:45px;
+}
+
+.autorizado{
+  margin-top:12px;
+  font-size:14.5px;
+}
+
+.autorizado p{
+  margin:7px 0;
+}
+
+.pagina2-conteudo{
+  margin-top:5mm;
+  font-size:15px;
+  line-height:1.55;
+}
+
+.linha-restricao{
+  border-bottom:1px solid #000;
+  height:22px;
+  margin-top:8px;
+}
+
+.data{
+  text-align:center;
+  margin-top:32px;
+  font-size:15px;
+}
+
+.assinatura{
+  width:330px;
+  margin:34px auto 0;
+  text-align:center;
+  border-top:1px solid #000;
+  padding-top:5px;
+  font-size:14px;
+}
+
+.info-escola{
+  position:absolute;
+  bottom:10mm;
+  left:18mm;
+  right:18mm;
+  text-align:center;
+  font-size:10px;
+  color:#333;
+  opacity:.85;
+}
+
+.btn-print{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#f4b400;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  z-index:999;
+}
+
+@media print{
+  .btn-print{display:none}
+  .documento{margin:0}
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<!-- PÁGINA 1 -->
+<div class="documento">
+
+  <div class="cabecalho">
+    <div class="logo-esquerda">
+      <img id="logoPrefeitura1">
+    </div>
+
+    <div class="texto-cabecalho" id="cabecalhoEscola1"></div>
+
+    <div class="logo-direita">
+      <img id="logoEscola1">
+    </div>
+  </div>
+
+  <hr>
+
+  <h1>TERMO DE SAÍDA E SAÍDA ANTECIPADAS - FUNDAMENTAL II</h1>
+
+  <div class="texto">
+
+    <p>Senhores Responsáveis,</p>
+
+    <p>
+      Solicitamos a gentileza de preencher abaixo os dados das pessoas autorizadas
+      a retirar o(a) estudante. Ressaltamos que:
+    </p>
+
+    <p class="aviso" style="margin-left:28px;">
+      • Em caso de saída antecipada, fora do horário regular de término das aulas,
+      a retirada será autorizada exclusivamente por pessoas maiores de 18 anos,
+      desde que sejam avisadas com antecedência pelos responsáveis.
+    </p>
+
+    <hr>
+
+    <div id="blocoIdentificacao"></div>
+
+    <p class="autorizo">Autorizo:</p>
+
+    <div id="listaAutorizados"></div>
+
+  </div>
+
+</div>
+
+<!-- PÁGINA 2 -->
+<div class="documento">
+
+  <div class="pagina2-conteudo">
+    <p style="margin-top:28px;" class="aviso">
+      • Caso o(a) estudante utilize transporte escolar, favor indicar no campo correspondente:
+    </p>
+
+    <p class="aviso">TRANSPORTE ESCOLAR:</p>
+
+    <p>
+      ( &nbsp; ) SIM &nbsp;&nbsp;&nbsp;&nbsp; ( &nbsp; ) NÃO
+    </p>
+
+    <p>
+      Nome do Transportador:
+      <span class="linha linha-grande"></span>
+    </p>
+
+    <p style="margin-top:28px;" class="aviso">
+      • Caso haja restrição judicial quanto à retirada do(a) estudante, informar abaixo:
+    </p>
+
+    <p>
+      Restrições judiciais para retirada do(a) estudante (se houver):
+    </p>
+
+    <div class="linha-restricao"></div>
+    <div class="linha-restricao"></div>
+    <div class="linha-restricao"></div>
+    <div class="linha-restricao"></div>
+    <div class="linha-restricao"></div>
+
+    <div class="data" id="dataAtual"></div>
+
+    <div class="assinatura">
+      Assinatura do Responsável
+    </div>
+
+  </div>
+
+  <div class="info-escola" id="infoEscola"></div>
+
+</div>
+
+<script>
+function dataPorExtenso(){
+  const meses = [
+    "janeiro","fevereiro","março","abril","maio","junho",
+    "julho","agosto","setembro","outubro","novembro","dezembro"
+  ]
+
+  const hoje = new Date()
+
+  return `${hoje.getDate()} de ${meses[hoje.getMonth()]} de ${hoje.getFullYear()}`
+}
+
+function carregarDados(){
+
+  const params = new URLSearchParams(window.location.search)
+
+  const turmaNome = params.get("turma")
+  const alunoId = params.get("aluno")
+  const formularioBranco = params.get("branco") === "1"
+
+  const dadosEscola =
+    JSON.parse(localStorage.getItem("escola")) || {}
+
+  const alunos =
+    JSON.parse(localStorage.getItem("alunos")) || []
+
+  const responsavel =
+    JSON.parse(localStorage.getItem("responsavelSelecionado")) || {}
+
+  let aluno = alunos.find(a =>
+    String(a.matricula) === String(alunoId)
+  )
+
+  if(formularioBranco){
+    aluno = {}
+  }
+
+  const logoPrefeitura = dadosEscola.logoPrefeitura || ""
+  const logoEscola = dadosEscola.logo || ""
+
+  if(logoPrefeitura){
+    document.getElementById("logoPrefeitura1").src = logoPrefeitura
+  }
+
+  if(logoEscola){
+    document.getElementById("logoEscola1").src = logoEscola
+  }
+
+  document.getElementById("cabecalhoEscola1").innerHTML = `
+    <p><strong>${dadosEscola.prefeitura || ""}</strong></p>
+    <p>${dadosEscola.secretaria || ""}</p>
+    <p>${dadosEscola.diretoria || ""}</p>
+    <p><strong>${dadosEscola.nome || ""}</strong></p>
+  `
+
+  const blocoIdentificacao =
+    document.getElementById("blocoIdentificacao")
+
+  if(formularioBranco){
+
+    blocoIdentificacao.innerHTML = `
+      <p style="margin-top:20px;">
+        Eu,
+        <span class="linha linha-grande"></span>,
+        responsável pelo(a) estudante
+        <span class="linha linha-estudante"></span>,
+        do <span class="linha" style="min-width:35px;"></span> º Ano
+        <span class="linha" style="min-width: 35px;"></span>,
+        declaro estar ciente de que fora do horário de saída às 11h50, o(a) estudante não pode sair desacompanhado(a).
+      </p>
+    `
+
+  }else{
+
+    const nomeResponsavel =
+      responsavel.nome ||
+      aluno?.responsavelNome ||
+      aluno?.mae ||
+      aluno?.pai ||
+      ""
+
+    const nomeAluno =
+      aluno?.nome || ""
+
+    const turmaAluno =
+      turmaNome || aluno?.turma || ""
+
+    blocoIdentificacao.innerHTML = `
+      <p class="identificacao-preenchida" style="margin-top:20px;">
+        Eu, <strong>${nomeResponsavel}</strong>,
+        responsável pelo(a) estudante
+        <strong>${nomeAluno}</strong>,
+        da turma <strong>${turmaAluno}</strong>,
+        declaro estar ciente de que fora do horário de saída às 11h50, o educando não pode sair desacompanhado.
+      </p>
+    `
+  }
+
+  const lista = document.getElementById("listaAutorizados")
+
+  for(let i = 1; i <= 6; i++){
+    lista.innerHTML += `
+      <div class="autorizado">
+        <p>${i}) Sr/Srª <span class="linha linha-grande"></span></p>
+        <p>
+          Nº de Documento:
+          <span class="linha"></span>
+          &nbsp;&nbsp; Grau de Parentesco:
+          <span class="linha"></span>
+        </p>
+        <p>
+          Telefone de contato:
+          <span class="linha linha-media"></span>
+        </p>
+      </div>
+    `
+  }
+
+  document.getElementById("dataAtual").textContent =
+    `São Paulo, ${dataPorExtenso()}.`
+
+  document.getElementById("infoEscola").innerHTML = `
+    <p>${dadosEscola.endereco || ""}, ${dadosEscola.numero || ""} – ${dadosEscola.bairro || ""} – ${dadosEscola.cidade || ""} – ${dadosEscola.estado || ""} – CEP: ${dadosEscola.cep || ""}</p>
+    <p>Fone: ${dadosEscola.telefone || ""} ${dadosEscola.telefone2 ? "/ " + dadosEscola.telefone2 : ""} – E-mail: ${dadosEscola.email || ""}</p>
+  `
+}
+
+window.onload = carregarDados
+</script>
+
+</body>
+</html>

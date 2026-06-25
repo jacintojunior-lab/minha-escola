@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ <head>
+  <meta charset="utf-8"/>
+  <title>Ficha de Sa&uacute;de B</title>
+  
+  <style>
+   @page{
+  size:A4;
+  margin:0
+  }
+
+  *{
+  box-sizing:border-box}
+  body{
+  margin:0;
+  background:#e5e5e5;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#111}
+  .btn-print{
+  position:fixed;
+  top:18px;
+  right:18px;
+  background:#f4b400;
+  border:0;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:bold;
+  z-index:999
+  }
+
+  .page{
+    width:210mm;
+    height:297mm;
+    margin:0 auto 12px;
+    background:#fff;
+    padding:9mm 13mm 9mm;
+    position:relative;
+    overflow:hidden;
+  }
+
+  table{
+  width:100%;
+  border-collapse:collapse
+  }
+
+  td,th{
+  border:1px solid #111;
+  padding:3px 5px;
+  vertical-align:middle}
+  .header{
+  display:grid;
+  grid-template-columns:70px 230px 1fr;
+  gap:10px;
+  align-items:start;
+  margin-bottom:8px;
+  }
+
+  .logo-box{
+  width:90px;
+  height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  }
+
+  .logo-box img{
+  max-width:88px;
+  max-height:88px;
+  object-fit:contain;
+  }
+
+  .titulo-ficha{
+  text-align:center;
+  font-weight:bold;
+  line-height:1.05;
+  margin-top:14px;
+  font-size:16px;
+  }
+
+  .titulo-ficha .b{
+  font-size:34px;
+  margin-left:8px;
+  }
+
+  .titulo-prefeitura{
+  font-size:18px;
+  text-align:center;
+  font-weight:bold;
+  margin-top:10px;
+  margin-bottom:10px;
+  line-height:1.15;
+  }
+
+  .unidade-box{
+  margin-top:12px;
+  }
+
+  .info-aluno{
+  font-size:13px;
+  font-weight:bold;
+  }
+
+  .info-aluno td{
+      vertical-align:top;
+  }
+
+  .campo-label{
+    font-size:11px;
+    font-weight:bold;
+    vertical-align:top;
+    padding:4px 6px 0 6px;
+    text-align:left;
+  }
+
+  .campo-grande{
+      height:42px;
+      padding-top:4px;
+  }
+
+  .campo-medio{
+      height:28px;
+      padding-top:4px;
+  }
+
+.campo-unidade{
+    height:44px;
+    padding:6px 8px 0;
+    font-size:11px;
+    font-weight:bold;
+    vertical-align:top;
+}
+
+.valor-campo{
+  margin-top:8px;
+  font-size:14px;
+  font-weight:normal;
+}
+
+.caixa-mf.marcado{
+  background:#111;
+  color:#fff;
+}
+
+.caixa-mf{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;
+    height:32px;
+    border:1px solid #111;
+    font-size:14px;
+    font-weight:bold;
+    background:#fff;
+}
+
+.sexo-opcoes{
+    display:inline-flex;
+    gap:14px;
+    margin-left:14px;
+}
+
+.bloco-com-lateral{
+display:grid;
+grid-template-columns:28px 1fr;
+margin-top:10px
+}
+
+.lateral{
+writing-mode:vertical-rl;
+transform:rotate(180deg);
+text-align:center;
+font-size:20px;
+font-weight:bold;
+padding:6px 0
+}
+
+.caixa-conteudo{
+border:1px solid #aaa;
+border-right:8px solid #888;
+border-bottom:8px solid #888;
+padding:8px 10px;
+min-height:183mm
+}
+
+.linha{
+  font-size:15px;
+  line-height:1.28;
+  margin-bottom:3px;
+}
+
+.check{
+display:inline-block;
+width:13px;
+height:13px;
+border:2px solid #111;
+margin:0 3px -2px 5px
+}
+
+.line{
+display:inline-block;
+border-bottom:1px solid #111;
+height:14px;
+vertical-align:baseline
+}
+
+.w80{width:80px}
+.w120{width:120px}
+.w150{width:150px}
+.w170{width:170px}
+.w210{width:210px}
+.w220{width:220px}
+.w230{width:230px}
+.w250{width:250px}
+.w260{width:260px}
+.w290{width:290px}
+.w300{width:300px}
+.w500{width:500px}
+.w520{width:520px}
+.w600{width:600px}
+.w620{width:620px}
+.w630{width:630px}
+.w640{width:640px}
+.w700{width:700px}
+.w720{width:720px}
+.w800{width:800px}
+.w820{width:820px}
+
+.grupo-lateral{
+display:grid;
+grid-template-columns:24px 1fr;
+margin-top:8px
+}
+
+.rotulo-lateral{
+writing-mode:vertical-rl;
+transform:rotate(180deg);
+text-align:center;
+font-size:17px;
+font-weight:bold;
+padding:0 4px
+}
+
+.tabela-diagnostico{
+font-size:13px;
+margin-left:24px;
+width:calc(100% - 24px)
+}
+
+.tabela-diagnostico td{
+height:19px;
+padding:1px 4px
+}
+
+.tabela-vacina{
+font-size:13px;
+margin-left:24px;
+width:calc(100% - 24px);
+margin-top:8px
+}
+
+.tabela-vacina th,.tabela-vacina td{
+height:18px;
+padding:1px 4px
+}
+
+.cinza{
+  background:#cfcfcf !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.tabela-simples{
+font-size:13px
+}
+
+.tabela-simples td,.tabela-simples th{
+height:18px;
+padding:1px 4px
+}
+
+.obs-final{
+font-size:18px;
+font-weight:bold;
+margin-top:8px;
+text-align:center
+}
+
+@media print{
+ *{
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cinza{
+    background:#cfcfcf !important;
+  }
+  
+body{
+background:#fff}
+
+.btn-print{
+display:none}
+
+.page{
+margin:0;
+box-shadow:none;
+page-break-after:always}
+
+.page:last-child{
+page-break-after:auto}
+}
+
+  </style>
+ </head>
+
+ <body>
+  <button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+  
+  <div class="page">
+   <div class="header">
+    <div class="logo-box">
+     <img alt="" id="logoPrefeitura"/>
+    </div>
+
+    <div class="titulo-ficha">
+     <div>
+      FICHA DE SAÚDE
+      <span class="b">B</span>
+     </div>
+     <div>
+      EMEI / EMEF
+     </div>
+     <div>
+      (4 a 14 anos)
+     </div>
+    </div>
+
+    <div>
+     <div class="titulo-prefeitura" id="prefeituraNome">
+      PREFEITURA DO MUNICÍPIO<br>DE SÃO PAULO
+     </div>
+     <table class="unidade-box">
+      <tr>
+       <td class="campo-label campo-unidade">
+            <span>Unidade Educacional</span>
+            <div class="valor-campo" id="escolaNome"></div>
+        </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+
+    <table class="info-aluno">
+
+    <tr>
+        <td colspan="3" class="campo-label campo-grande">
+        Nome
+        <div class="valor-campo" id="alunoNome"></div>
+        </td>
+
+        <td class="campo-label campo-grande">
+        Nº de matrícula
+        <div class="valor-campo" id="alunoMatricula"></div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="campo-label campo-grande" style="width:20%;">
+        sexo
+
+        <span class="sexo-opcoes">
+            <span class="caixa-mf" id="sexoM">M</span>
+            <span class="caixa-mf" id="sexoF">F</span>
+        </span>
+        </td>
+
+        <td class="campo-label campo-grande" style="width:16%;">
+        cor
+        <div class="valor-campo" id="alunoCor"></div>
+        </td>
+
+        <td class="campo-label campo-grande" style="width:34%;">
+        Data de Nascimento
+        <div class="valor-campo" id="alunoNascimento"></div>
+        </td>
+
+        <td class="campo-label campo-grande">
+        Idade
+        <div class="valor-campo" id="alunoIdade"></div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="4" class="campo-label campo-grande">
+        Nome da mãe / responsável
+        <div class="valor-campo" id="alunoResponsavel"></div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" class="campo-label campo-grande">
+        Endereço
+        <div class="valor-campo" id="alunoEndereco"></div>
+        </td>
+
+        <td class="campo-label campo-grande">
+        Fone
+        <div class="valor-campo" id="alunoTelefone"></div>
+        </td>
+    </tr>
+
+    </table>
+
+   <div class="bloco-com-lateral">
+    <div class="lateral" style="text-align: right;">
+     Informações gerais
+    </div>
+    <div class="caixa-conteudo">
+     <div class="linha">
+      1 - Teve algum problema de saúde ao nascimento?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim, qual?</div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha">
+      2 - Teve diagnóstico de anemia nos primeiros dois anos de vida?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim</div>
+     <div class="linha">
+      3 - Foi internado (a) alguma vez?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim. Especificar<strong>(motivo e idade):</strong>
+     </div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha">
+      4 - Tem algum problema de saúde?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim, qual?
+      <span class="line w230"></span>
+     </div>
+     <div class="linha">
+      5 - Está fazendo algum tipo de tratamento de saúde?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim. Qual e onde?</div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha">
+      6 - Necessita de dieta especial?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim, por que?
+      <span class="line w230"></span>
+     </div>
+     <div class="linha">
+      7 - Tem algum tipo de deficiência?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim, qual?
+     </div>
+     <div class="linha">
+      <span class="check"></span> visual
+      <span class="check"></span> auditiva
+      <span class="check"></span> mental
+      <span class="check"></span> física
+      <span class="check"></span> múltipla
+      <span class="line w260"></span>
+     </div>
+     <div class="linha">
+      8 - Pode praticar atividades físicas?
+      <span class="check"></span> Sim
+      <span class="check"></span> Não, por que?
+     </div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha">
+      9 - Existe algum problema de saúde na família ?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim Qual?
+      <span class="line w150"></span>
+     </div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha"><span class="line w630"></span>
+     </div>
+     <div class="linha">
+      10 - Qual é a Unidade Básica de Saúde que utiliza?
+      <span class="line w260"></span>
+    </div>
+     <div class="linha">
+      11 - Tem Convénio Médico?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim, qual?
+      <span class="line w260"></span>
+     </div>
+     <div class="linha">
+      12 - Em caso de febre, a escola está autorizada a medicar com:
+     </div>
+     <div class="linha"><span class="line w300"></span>
+      Dose:
+      <span class="line w260"></span>
+     </div>
+     <div class="linha">
+      13 - Tem algum tipo de alergia?
+      <span class="check"></span> Não
+      <span class="check"></span> Sim, qual?</div>
+     <div class="linha">
+      <span class="check"></span> Alimento<span class="line w150">
+      </span><span class="check"></span> Medicamento <span class="line w260">
+      </span>
+     </div>
+     <div class="linha">
+      <span class="check"></span> Outro&nbsp;&nbsp; Especificar:
+      <span class="line w250"></span>
+     </div>
+     <div class="linha">
+      14 - Informação de problemas identificados na vivência escolar (ex:cognitivo, afetivo)
+     </div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha"><span class="line w630"></span></div>
+     <div class="linha">
+      15 — Em caso de doença, a escola deverá chamar:
+     </div>
+     <div class="linha">
+      Nome
+      <span class="line w300"></span>
+      Telefone:
+      <span class="line w210"></span>
+     </div>
+     <div class="linha">
+      Nome
+      <span class="line w300"></span>
+      Telefone:
+      <span class="line w210"></span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="page">
+   <div class="grupo-lateral">
+    <div class="rotulo-lateral">
+     Diagnóstico atual
+    </div>
+    <table class="tabela-diagnostico">
+     <tr>
+      <td colspan="6"><strong>Tem diagnóstico de</strong></td>
+     </tr>
+     <tr>
+      <td>Anemia</td>
+      <td><span class="check"></span> Não</td>
+      <td><span class="check"></span> Sim</td>
+      <td>
+       Doença Celíaca
+      </td>
+      <td><span class="check"></span> Não</td>
+      <td><span class="check"></span> Sim</td>
+     </tr>
+     <tr>
+      <td>
+       Asma/ Bronquite
+      </td>
+      <td><span class="check"></span> Não</td>
+      <td><span class="check"></span> Sim</td>
+      <td>
+       Fenilcetonúria
+      </td>
+      <td>
+       <span class="check"></span> Não
+      </td>
+      <td>
+       <span class="check"></span> Sim
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Diabetes
+      </td>
+      <td>
+       <span class="check"></span> Não</td>
+      <td>
+       <span class="check"></span> Sim</td>
+      <td>
+       Obesidade
+      </td>
+      <td>
+       <span class="check"></span> Não
+      </td>
+      <td>
+       <span class="check"></span> Sim
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Desnutrição
+      </td>
+      <td>
+       <span class="check"></span> Não
+      </td>
+      <td>
+       <span class="check"></span> Sim
+      </td>
+      <td colspan="3" style="text-align:center">
+       <strong>
+        Especificar doença/tratamento*
+       </strong>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Problema cardíaco
+      </td>
+      <td>
+       <span class="check"></span> Não
+      </td>
+      <td>
+       <span class="check"></span> Sim*
+      </td>
+      <td colspan="3">
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Problema digestivo
+      </td>
+      <td>
+       <span class="check">
+       </span>
+       N&atilde;o
+      </td>
+      <td>
+       <span class="check">
+       </span>
+       Sim*
+      </td>
+      <td colspan="3">
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Probl. Neurol&oacute;gico
+      </td>
+      <td>
+       <span class="check">
+       </span>
+       N&atilde;o
+      </td>
+      <td>
+       <span class="check">
+       </span>
+       Sim*
+      </td>
+      <td colspan="3">
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Convuls&otilde;es/Ataques
+      </td>
+      <td>
+       <span class="check">
+       </span>
+       N&atilde;o
+      </td>
+      <td>
+       <span class="check">
+       </span>
+       Sim*
+      </td>
+      <td colspan="3">
+      </td>
+     </tr>
+     <tr>
+      <td colspan="6" style="height:34px">
+       Outra doen&ccedil;a *
+      </td>
+     </tr>
+    </table>
+   </div>
+   <div class="grupo-lateral">
+    <div class="rotulo-lateral">
+     Situa&ccedil;&atilde;o vacinal
+    </div>
+    <div>
+     <table class="tabela-vacina">
+      <tr>
+       <th style="width:35%">
+        Tipo de Vacina
+       </th>
+       <th>
+        1&ordf;dose
+       </th>
+       <th>
+        2&ordf;dose
+       </th>
+       <th>
+        3&ordf; dose
+       </th>
+       <th>
+        1&ordm; refor&ccedil;o
+       </th>
+       <th>
+        2&ordm; refor&ccedil;o
+       </th>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         BCG
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Sabin
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         DPT (Tr&iacute;plice)
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Tetravalente (DPT+Hib)
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Hib
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Sarampo
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Tr&iacute;plice viral
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Hepatite B
+        </strong>
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td class="cinza">
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <strong>
+         Outra (qual):
+        </strong>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+     </table>
+     <div style="font-size:12px;margin-left:60px">
+      (Assinalar com X as vacinas recebidas)
+     </div>
+    </div>
+   </div>
+   <div class="grupo-lateral">
+    <div class="rotulo-lateral">
+     Teste de
+     <br/>
+     Visão
+    </div>
+    <div>
+     <table class="tabela-diagnostico">
+      <tr>
+       <td style="width:18%;text-align:center">
+        Data
+       </td>
+       <td style="width:18%;text-align:center">
+        Idade
+       </td>
+       <td style="width:20%;text-align:center">
+        Resultado OD
+       </td>
+       <td style="width:20%;text-align:center">
+        Resultado OE
+       </td>
+       <td style="text-align:center">
+        Consulta Oftalmo
+       </td>
+      </tr>
+      <tr>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+        Data &nbsp;&nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp;&nbsp; /
+       </td>
+      </tr>
+      <tr>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+        Data &nbsp;&nbsp;&nbsp;&nbsp; / &nbsp;&nbsp;&nbsp;&nbsp; /
+       </td>
+      </tr>
+      <tr>
+       <td colspan="5">
+        Utiliza &oacute;culos ou lentes corretivas ?
+        <span class="check">
+        </span>
+        N&atilde;o
+        <span class="check">
+        </span>
+        Sim
+        <em style="font-size:11px">
+         Neste caso, realizar o teste c/ o &oacute;culos
+        </em>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+   <div class="grupo-lateral" style="margin-top:16px">
+    <div class="rotulo-lateral">
+     Sa&uacute;de
+     <br/>
+     Auditiva
+    </div>
+    <div>
+     <table class="tabela-diagnostico">
+      <tr>
+       <td style="width:58%">
+       </td>
+       <td>
+        Encaminhamentos
+       </td>
+       <td>
+        Resultados
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Ouve bem?
+        <span class="check">
+        </span>
+        N&atilde;o
+        <span class="check">
+        </span>
+        Sim
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Tem atraso ou altera&ccedil;&atilde;o da fala?
+        <span class="check">
+        </span>
+        N&atilde;o
+        <span class="check">
+        </span>
+        Sim
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+   <div class="grupo-lateral" style="margin-top:18px">
+    <div class="rotulo-lateral">
+     Sa&uacute;de Bucal
+    </div>
+    <div>
+     <table class="tabela-diagnostico">
+      <tr>
+       <td style="width:20%">
+        M&ecirc;s/ano
+       </td>
+       <td style="text-align:center">
+        _______/_______
+       </td>
+       <td style="text-align:center">
+        _______/_______
+       </td>
+       <td style="text-align:center">
+        _______/_______
+       </td>
+       <td style="text-align:center">
+        _______/_______
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Risco de c&aacute;rie
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+       <td>
+       </td>
+      </tr>
+     </table>
+     <div style="font-size:13px;text-align:center;margin:5px 0 8px">
+      A = baixo risco&nbsp;&nbsp;&nbsp; B, C = m&eacute;dio risco&nbsp;&nbsp;&nbsp; D, E, F = alto risco
+     </div>
+     <table class="tabela-diagnostico">
+      <tr>
+       <td colspan="4">
+        Fluorterapia semanal seriada, se risco D, E, F
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Data
+        <br/>
+        ______/______/_______
+       </td>
+       <td>
+        Data
+        <br/>
+        ______/______/______
+       </td>
+       <td>
+        Data
+        <br/>
+        ______/______/______
+       </td>
+       <td>
+        Data
+        <br/>
+        ______/______/______
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+   <div class="grupo-lateral" style="margin-top:18px">
+    <div class="rotulo-lateral">
+     Programas
+     <br/>
+     Sociais
+    </div>
+    <div>
+     <table class="tabela-diagnostico">
+      <tr>
+       <td>
+        <strong>
+         A fam&iacute;lia e/ou a crian&ccedil;a participam de algum programa social do governo?
+        </strong>
+        <br/>
+        <span class="check">
+        </span>
+        Bolsa Alimenta&ccedil;&atilde;o &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="check">
+        </span>
+        Bolsa- Escola &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="check">
+        </span>
+        Come&ccedil;ar de Novo
+        <br/>
+        <span class="check">
+        </span>
+        Renda- M&iacute;nima &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="check">
+        </span>
+        Nenhum &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="check">
+        </span>
+        Outro
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+   <div style="font-size:16px;margin:12px 0 0 38px">
+    Responsável pelo preenchimento:
+    <span class="line w220"></span>
+    &nbsp;&nbsp;&nbsp;&nbsp; Data: <span id="dataAtual"></span>
+    </div>
+   <div class="obs-final">
+    OBS: Criança ou adolescente portador de deficiência, preencher Ficha E
+   </div>
+  </div>
+  <script>
+function formatarData(data){
+  if(!data) return ""
+
+  const partes = data.split("-")
+
+  if(partes.length !== 3) return data
+
+  return `${partes[2]}/${partes[1]}/${partes[0]}`
+}
+
+function calcularIdade(data){
+  if(!data) return ""
+
+  const nasc = new Date(data)
+  const hoje = new Date()
+
+  let idade = hoje.getFullYear() - nasc.getFullYear()
+  const mes = hoje.getMonth() - nasc.getMonth()
+
+  if(mes < 0 || (mes === 0 && hoje.getDate() < nasc.getDate())){
+    idade--
+  }
+
+  return idade
+}
+
+function formatarTelefone(telefone){
+  if(!telefone) return ""
+
+  const numeros = telefone.replace(/\D/g, "")
+
+  if(numeros.length === 11){
+    return numeros.replace(
+      /(\d{2})(\d{5})(\d{4})/,
+      "($1) $2-$3"
+    )
+  }
+
+  if(numeros.length === 10){
+    return numeros.replace(
+      /(\d{2})(\d{4})(\d{4})/,
+      "($1) $2-$3"
+    )
+  }
+
+  return telefone
+}
+
+function carregarDados(){
+
+  const params = new URLSearchParams(window.location.search)
+
+  const alunoId = params.get("aluno")
+  const branco = params.get("branco") === "1"
+
+  const escola = JSON.parse(localStorage.getItem("escola")) || {}
+  const alunos = JSON.parse(localStorage.getItem("alunos")) || []
+
+  if(escola.logoPrefeitura){
+    document.getElementById("logoPrefeitura").src = escola.logoPrefeitura
+  }
+
+  document.getElementById("prefeituraNome").innerHTML =
+  (escola.prefeitura || "PREFEITURA DO MUNICÍPIO DE SÃO PAULO")
+    .replace(" DE SÃO PAULO", "<br>DE SÃO PAULO")
+    .replace(" de São Paulo", "<br>de São Paulo")
+
+    // Se abriu diretamente o arquivo sem aluno e sem modo branco
+    if(!alunoId && !branco){
+    document.getElementById("escolaNome").textContent = ""
+    return
+    }
+
+    // Versão em branco
+    if(branco){
+    document.getElementById("escolaNome").textContent = ""
+    return
+    }
+
+    // Versão preenchida
+    document.getElementById("escolaNome").textContent =
+    escola.nome || ""
+
+  const aluno = alunos.find(a =>
+    String(a.matricula) === String(alunoId)
+  )
+
+  if(!aluno){
+    alert("Estudante não encontrado.")
+    return
+  }
+
+  let responsavel = ""
+
+  const responsavelSalvo = localStorage.getItem("responsavelSelecionado")
+
+  if(responsavelSalvo){
+    try{
+      const dadosResp = JSON.parse(responsavelSalvo)
+      responsavel = dadosResp.nome || ""
+    }catch(e){
+      responsavel = responsavelSalvo
+    }
+  }
+
+  responsavel =
+    responsavel ||
+    aluno.responsavelNome ||
+    aluno.mae ||
+    aluno.pai ||
+    ""
+
+  const telefone =
+    aluno.telefoneResponsavel ||
+    aluno.telefoneMae ||
+    aluno.telefonePai ||
+    aluno.telefoneRecado1 ||
+    aluno.telefoneRecado2 ||
+    ""
+
+  document.getElementById("alunoNome").textContent =
+    aluno.nome || ""
+
+  document.getElementById("alunoMatricula").textContent =
+    aluno.matricula || aluno.rga || ""
+
+  document.getElementById("alunoCor").textContent =
+    aluno.racaCor || ""
+
+  document.getElementById("alunoNascimento").textContent =
+    formatarData(aluno.nascimento)
+
+  const idade = calcularIdade(aluno.nascimento)
+
+    document.getElementById("alunoIdade").textContent =
+    idade !== "" ? `${idade} anos` : ""
+
+  document.getElementById("alunoResponsavel").textContent =
+    responsavel
+
+  document.getElementById("alunoEndereco").textContent =
+    `${aluno.rua || ""}${aluno.numero ? ", nº " + aluno.numero : ""}`
+
+  document.getElementById("alunoTelefone").textContent =
+  formatarTelefone(telefone)
+
+  if(aluno.sexo === "Masculino"){
+    document.getElementById("sexoM").classList.add("marcado")
+  }
+
+  if(aluno.sexo === "Feminino"){
+    document.getElementById("sexoF").classList.add("marcado")
+  }
+}
+
+function preencherDataAtual(){
+  const hoje = new Date()
+
+  const dia = String(hoje.getDate()).padStart(2, "0")
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0")
+  const ano = hoje.getFullYear()
+
+  document.getElementById("dataAtual").textContent =
+    `${dia}/${mes}/${ano}`
+}
+
+window.onload = () => {
+  preencherDataAtual()
+  carregarDados()
+}
+
+</script>
+ </body>
+</html>
