@@ -157,6 +157,12 @@ function bindEventos(){
   document.getElementById("btnListaTelefonicaTurma")
     .addEventListener("click", gerarListaTelefonicaPorTurma)
 
+  document.getElementById("btnSaidaGeral")
+  .addEventListener("click", gerarRelatorioSaida)
+
+  document.getElementById("btnSaidaTurma")
+    .addEventListener("click", gerarRelatorioSaidaPorTurma)
+
 }
 
 // =========================
@@ -1034,4 +1040,142 @@ function gerarListaTelefonicaPorTurma(){
   })
 
   doc.save(`lista-telefonica-${state.turmaSelecionada}.pdf`)
+}
+
+// =========================
+// ATORIZADOS SAIDA - COMPLETO
+// =========================
+
+function pessoasAutorizadas(aluno){
+  const pessoas = []
+
+  for(let i = 1; i <= 10; i++){
+    const nome = aluno[`pessoaAutorizada${i}`]
+    if(nome){
+      pessoas.push(nome)
+    }
+  }
+
+  return pessoas.join(" / ")
+}
+
+function gerarRelatorioSaida(){
+
+  const filtrados = filtrarAtivosComTurma(state.alunos, state.turmas)
+  const grupos = agruparPorTurma(filtrados)
+
+  const doc = new jsPDF("l", "mm", "a4")
+  const turmasOrdenadas = Object.keys(grupos).sort()
+
+  turmasOrdenadas.forEach((turma, index) => {
+
+    const lista = grupos[turma].sort((a,b)=>
+      (a.nome || "").localeCompare(b.nome || "", "pt-BR")
+    )
+
+    if(index !== 0) doc.addPage()
+
+    const linhas = lista.map(a => [
+      a.nome || "",
+      pessoasAutorizadas(a)
+    ])
+
+    doc.autoTable({
+      startY: 10,
+      head: [[`TURMA ${turma}`, "PESSOAS AUTORIZADAS"]],
+      body: linhas,
+      margin: { left: 8, right: 8 },
+      tableWidth: "auto",
+      pageBreak: "auto",
+      rowPageBreak: "avoid",
+      styles: {
+      fontSize: 7,
+      cellPadding: 1.2,
+      overflow: "linebreak",
+      valign: "middle"
+    },
+    headStyles: {
+      fillColor: [47, 50, 110],
+      textColor: 255,
+      fontSize: 9,
+      halign: "center",
+      valign: "middle"
+    },
+    columnStyles: {
+      0: {
+        cellWidth: 63,
+        fontStyle: "bold"
+      },
+      1: {
+        cellWidth: 218
+      }
+    }
+    })
+  })
+
+  doc.save("relatorio-saida-por-turma.pdf")
+}
+
+// =========================
+// ATORIZADOS SAIDA - POR TURMA
+// =========================
+
+function gerarRelatorioSaidaPorTurma(){
+
+  state.turmaSelecionada = selectTurma.value
+
+  if(!state.turmaSelecionada){
+    alert("Selecione uma turma")
+    return
+  }
+
+  const lista = state.alunos
+    .filter(a =>
+      a.turma === state.turmaSelecionada &&
+      alunoAtivo(a)
+    )
+    .sort((a,b)=>
+      (a.nome || "").localeCompare(b.nome || "", "pt-BR")
+    )
+
+  const doc = new jsPDF("l", "mm", "a4")
+
+  const linhas = lista.map(a => [
+    a.nome || "",
+    pessoasAutorizadas(a)
+  ])
+
+  doc.autoTable({
+    startY: 10,
+    head: [[`TURMA ${state.turmaSelecionada}`, "PESSOAS AUTORIZADAS"]],
+    body: linhas,
+    margin: { left: 8, right: 8 },
+    tableWidth: "auto",
+    pageBreak: "auto",
+    rowPageBreak: "avoid",
+    styles: {
+      fontSize: 7,
+      cellPadding: 1.2,
+      overflow: "linebreak",
+      valign: "middle"
+    },
+    headStyles: {
+      fillColor: [47, 50, 110],
+      textColor: 255,
+      fontSize: 9,
+      halign: "center",
+      valign: "middle"
+    },
+    columnStyles: {
+      0: {
+        cellWidth: 63,
+        fontStyle: "bold"
+      },
+      1: {
+        cellWidth: 218
+      }
+    }
+  })
+
+  doc.save(`relatorio-saida-${state.turmaSelecionada}.pdf`)
 }
