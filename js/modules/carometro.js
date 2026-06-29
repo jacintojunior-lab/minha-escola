@@ -1,6 +1,7 @@
 import { getAlunos, salvarAlunos } from "../services/alunosService.js"
 import { getTurmas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
+import { salvarFotoAluno, buscarFotoAluno, excluirFotoAluno } from "./utils/fotosDB.js"
 
 const state = {
   alunos: [],
@@ -60,82 +61,83 @@ function getFotoPadrao(aluno) {
   return escola.fotoMasculina || "assets/fallback-masculino.png";
 }
 // 🔹 RENDER
-function renderCarometro() {
+async function renderCarometro() {
 
-  const turmaSelecionada = filtroTurma.value;
-  grid.innerHTML = "";
+  const turmaSelecionada = filtroTurma.value
+  grid.innerHTML = ""
 
   if (!turmaSelecionada) {
-    grid.innerHTML = `<p class="mensagem-vazia">Selecione uma turma</p>`;
-    return;
+    grid.innerHTML = `<p class="mensagem-vazia">Selecione uma turma</p>`
+    return
   }
 
   const filtrados = state.alunos.filter(a => {
-
-    const turmaAluno = (a.turma || "").toLowerCase();
-    const turmaSelecionadaFormatada = (turmaSelecionada || "").toLowerCase();
-
-    const mesmaTurma = turmaAluno.includes(turmaSelecionadaFormatada);
-
-    const ativo = !a.status || a.status.toLowerCase() === "ativo";
-
-    return mesmaTurma && ativo;
+    const turmaAluno = (a.turma || "").toLowerCase()
+    const turmaSelecionadaFormatada = (turmaSelecionada || "").toLowerCase()
+    const mesmaTurma = turmaAluno.includes(turmaSelecionadaFormatada)
+    const ativo = !a.status || a.status.toLowerCase() === "ativo"
+    return mesmaTurma && ativo
   })
-  .sort((a, b) => a.nome.localeCompare(b.nome));
+  .sort((a, b) => a.nome.localeCompare(b.nome))
 
+  for(const aluno of filtrados){
 
-  filtrados.forEach(aluno => {
+    const fotoIndexedDB = await buscarFotoAluno(aluno.matricula)
+    const foto = fotoIndexedDB || aluno.foto || getFotoPadrao(aluno)
 
-    const foto = aluno.foto || getFotoPadrao(aluno);
-
-    const card = document.createElement("div");
-    card.className = "card-aluno";
+    const card = document.createElement("div")
+    card.className = "card-aluno"
 
     const img = document.createElement("img")
-        img.src = foto
-        img.className = "foto-aluno"
+    img.src = foto
+    img.className = "foto-aluno"
+    img.addEventListener("click", () => abrirZoomFoto(foto))
 
-        img.addEventListener("click", () => abrirZoomFoto(foto))
+    const nome = document.createElement("div")
+    nome.className = "nome-aluno"
+    nome.textContent = aluno.nome
 
-        const nome = document.createElement("div")
-        nome.className = "nome-aluno"
-        nome.textContent = aluno.nome
+    const acoes = document.createElement("div")
+    acoes.className = "acoes-aluno"
 
-        const acoes = document.createElement("div")
-        acoes.className = "acoes-aluno"
+    const btnFoto = document.createElement("button")
+    btnFoto.className = "btn-mini btn-foto"
+    btnFoto.innerHTML = '<i class="fa-solid fa-camera"></i>'
+    btnFoto.addEventListener("click", () => abrirModalFoto(aluno.matricula))
 
-        const btnFoto = document.createElement("button")
-        btnFoto.className = "btn-mini btn-foto"
-        btnFoto.innerHTML = '<i class="fa-solid fa-camera"></i>'
-        btnFoto.addEventListener("click", () => abrirModalFoto(aluno.matricula))
+    const btnVer = document.createElement("button")
+    btnVer.className = "btn-mini btn-ver"
+    btnVer.innerHTML = '<i class="fa-solid fa-eye"></i>'
+    btnVer.addEventListener("click", () => verAluno(aluno.matricula))
 
-        const btnVer = document.createElement("button")
-        btnVer.className = "btn-mini btn-ver"
-        btnVer.innerHTML = '<i class="fa-solid fa-eye"></i>'
-        btnVer.addEventListener("click", () => verAluno(aluno.matricula))
+    acoes.appendChild(btnFoto)
+    acoes.appendChild(btnVer)
 
-        acoes.appendChild(btnFoto)
-        acoes.appendChild(btnVer)
+    card.appendChild(img)
+    card.appendChild(nome)
+    card.appendChild(acoes)
 
-        card.appendChild(img)
-        card.appendChild(nome)
-        card.appendChild(acoes)
-
-    grid.appendChild(card);
-  });
+    grid.appendChild(card)
+  }
 }
 
 // 🔹 MODAL FOTO
-function abrirModalFoto(matricula) {
-  state.alunoSelecionado = state.alunos.find(a => a.matricula === matricula);
+async function abrirModalFoto(matricula) {
+  state.alunoSelecionado = state.alunos.find(a => a.matricula === matricula)
 
-  const modal = document.getElementById("modalFoto");
-  modal.style.display = "flex";
+  const modal = document.getElementById("modalFoto")
+  modal.style.display = "flex"
 
-  document.body.classList.add("modal-aberto");
+  document.body.classList.add("modal-aberto")
 
-  const preview = document.getElementById("previewFoto");
-  preview.src = state.alunoSelecionado.foto || getFotoPadrao(state.alunoSelecionado);
+  const preview = document.getElementById("previewFoto")
+
+  const fotoIndexedDB = await buscarFotoAluno(matricula)
+
+  preview.src =
+    fotoIndexedDB ||
+    state.alunoSelecionado.foto ||
+    getFotoPadrao(state.alunoSelecionado)
 }
 
 function fecharModalFoto() {
@@ -175,37 +177,39 @@ document.getElementById("inputFoto").addEventListener("change", function () {
 });
 
 // 🔹 SALVAR FOTO
-function salvarFoto() {
+async function salvarFoto() {
 
-  const preview = document.getElementById("previewFoto").src;
+  const preview = document.getElementById("previewFoto").src
 
-  state.alunoSelecionado.foto = preview;
+  await salvarFotoAluno(state.alunoSelecionado.matricula, preview)
+
+  delete state.alunoSelecionado.foto
+  state.alunoSelecionado.fotoIndexedDB = true
 
   salvarAlunos(state.alunos)
 
-  fecharModalFoto();
-  renderCarometro();
+  fecharModalFoto()
+  renderCarometro()
 }
 
 // 🔹 EXCLUIR FOTO
-function excluirFoto(){
+async function excluirFoto(){
 
   if(!state.alunoSelecionado) return
 
   if(!confirm("Deseja remover a foto do aluno?")) return
 
-  // 🔥 remove a foto
+  await excluirFotoAluno(state.alunoSelecionado.matricula)
+
   delete state.alunoSelecionado.foto
+  delete state.alunoSelecionado.fotoIndexedDB
 
   salvarAlunos(state.alunos)
 
-  // 🔄 atualizar preview no modal
   const preview = document.getElementById("previewFoto")
   preview.src = getFotoPadrao(state.alunoSelecionado)
 
-  // 🔄 atualizar grid
   renderCarometro()
-
   fecharModalFoto()
 }
 
