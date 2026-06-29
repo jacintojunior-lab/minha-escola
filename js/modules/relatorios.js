@@ -13,6 +13,7 @@ import { getTurmas } from "../services/turmasService.js"
 import { getData } from "../core/storage.js"
 import { filtrarAtivosComTurma, alunoAtivo } from "./utils/filtros.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
+import { buscarFotoAluno } from "./utils/fotosDB.js"
 
 const state = {
   alunos: [],
@@ -701,7 +702,11 @@ for(const turma of turmasAtivas){
 
     const aluno = lista[i];
 
-    let foto = aluno.foto
+    let foto = await buscarFotoAluno(aluno.matricula)
+
+    if(!foto){
+      foto = aluno.foto
+    }
 
     if(!foto){
       foto = aluno.sexo === "Feminino"
@@ -825,7 +830,11 @@ for (let i = 0; i < lista.length; i++) {
 
   const aluno = lista[i]
 
-  let foto = aluno.foto
+  let foto = await buscarFotoAluno(aluno.matricula)
+
+  if(!foto){
+    foto = aluno.foto
+  }
 
   if(!foto){
     foto = aluno.sexo === "Feminino"
