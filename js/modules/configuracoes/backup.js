@@ -1,22 +1,30 @@
 import { setData } from "../../core/storage.js"
+import { listarFotosAlunos, restaurarFotosAlunos, limparFotosAlunos } from "../utils/fotosDB.js"
 
 // =========================
 // GERAR BACKUP
 // =========================
-export function gerarBackup(){
+export async function gerarBackup(){
+
+  const fotosAlunos = await listarFotosAlunos()
 
   const backup = {
+    versaoBackup: 2,
+    geradoEm: new Date().toISOString(),
+
     alunos: JSON.parse(localStorage.getItem("alunos")) || [],
     turmas: JSON.parse(localStorage.getItem("turmas")) || [],
     funcionarios: JSON.parse(localStorage.getItem("funcionarios")) || [],
     escola: JSON.parse(localStorage.getItem("escola")) || {},
-    cesta_basica: JSON.parse(localStorage.getItem("cesta_basica")) || []
+    cesta_basica: JSON.parse(localStorage.getItem("cesta_basica")) || [],
+
+    indexedDB: {
+      fotosAlunos
+    }
   }
 
   const json = JSON.stringify(backup, null, 2)
-
   const blob = new Blob([json], { type: "application/json" })
-
   const url = URL.createObjectURL(blob)
 
   const a = document.createElement("a")
@@ -38,21 +46,20 @@ export function restaurarBackup(event){
   const file = event.target.files[0]
   if(!file) return
 
-    // 🔥 CONFIRMAÇÃO
   const confirmar = confirm(
     "⚠️ ATENÇÃO!\n\n" +
     "Restaurar um backup irá substituir TODOS os dados atuais.\n\n" +
     "Deseja continuar?"
   )
 
-   if(!confirmar){
-    event.target.value = "" // limpa input
+  if(!confirmar){
+    event.target.value = ""
     return
   }
 
   const reader = new FileReader()
 
-  reader.onload = function(e){
+  reader.onload = async function(e){
 
     const dados = JSON.parse(e.target.result)
 
@@ -61,6 +68,12 @@ export function restaurarBackup(event){
     if(dados.funcionarios) localStorage.setItem("funcionarios", JSON.stringify(dados.funcionarios))
     if(dados.escola) localStorage.setItem("escola", JSON.stringify(dados.escola))
     if(dados.cesta_basica) localStorage.setItem("cesta_basica", JSON.stringify(dados.cesta_basica))
+
+    await limparFotosAlunos()
+
+    if(dados.indexedDB?.fotosAlunos){
+      await restaurarFotosAlunos(dados.indexedDB.fotosAlunos)
+    }
 
     alert("Backup restaurado com sucesso!")
     location.reload()
