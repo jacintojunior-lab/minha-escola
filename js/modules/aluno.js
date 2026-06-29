@@ -1,4 +1,9 @@
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
+import {
+  salvarFotoAluno as salvarFotoIndexedDB,
+  buscarFotoAluno,
+  excluirFotoAluno as excluirFotoIndexedDB
+} from "./utils/fotosDB.js"
 
 // =========================
 // PEGAR RGA DA URL
@@ -223,13 +228,18 @@ const escola = JSON.parse(localStorage.getItem("escola")) || {}
 
 if(img){
 
-  if(aluno.foto){
-    img.src = aluno.foto
-  }else{
-    img.src = aluno.sexo === "Feminino"
-      ? escola.fotoFeminina || ""
-      : escola.fotoMasculina || ""
-  }
+  buscarFotoAluno(aluno.matricula).then(foto => {
+
+    img.src =
+      foto ||
+      aluno.foto ||
+      (
+        aluno.sexo === "Feminino"
+          ? escola.fotoFeminina || ""
+          : escola.fotoMasculina || ""
+      )
+
+  })
 
 }
 
@@ -394,8 +404,23 @@ document.getElementById(`irmao${numero}Turma`).value = aluno.turma
 // =========================
 // MODAL FOTO
 // =========================
-function abrirModalFoto(){
+async function abrirModalFoto(){
+
   document.getElementById("modalFotoAluno").classList.add("ativo")
+
+  const preview = document.getElementById("previewFoto")
+  const escola = JSON.parse(localStorage.getItem("escola")) || {}
+
+  const foto = await buscarFotoAluno(rga)
+
+  preview.src =
+    foto ||
+    state.aluno.foto ||
+    (
+      state.aluno.sexo === "Feminino"
+        ? escola.fotoFeminina
+        : escola.fotoMasculina
+    )
 }
 
 function fecharModalFoto(){
@@ -422,7 +447,7 @@ document.getElementById("inputFotoAluno").addEventListener("change", function(e)
 // =========================
 // SALVAR FOTO
 // =========================
-function salvarFotoAluno(){
+async function salvarFotoAluno(){
 
   const preview = document.getElementById("previewFoto").src
 
@@ -431,15 +456,14 @@ function salvarFotoAluno(){
     return
   }
 
+  await salvarFotoIndexedDB(rga, preview)
+
   const alunos = getAlunos()
+
   const index = alunos.findIndex(a => a.matricula === rga)
 
-  if(index === -1){
-    alert("Aluno não encontrado")
-    return
-  }
-
-  alunos[index].foto = preview
+  delete alunos[index].foto
+  alunos[index].fotoIndexedDB = true
 
   salvarAlunos(alunos)
 
@@ -487,41 +511,29 @@ document.addEventListener("keydown", function(e){
 // =========================
 // EXCLUIR FOTO
 // =========================
-function excluirFotoAluno(){
+async function excluirFotoAluno(){
 
   if(!confirm("Deseja remover a foto do aluno?")) return
+
+  await excluirFotoIndexedDB(rga)
 
   const alunos = getAlunos()
   const escola = JSON.parse(localStorage.getItem("escola")) || {}
 
   const index = alunos.findIndex(a => a.matricula === rga)
 
-  if(index === -1){
-    alert("Aluno não encontrado")
-    return
-  }
-
-  // 🔥 remove foto
   delete alunos[index].foto
+  delete alunos[index].fotoIndexedDB
 
   salvarAlunos(alunos)
 
-  // 🔄 atualizar imagem na tela (AGORA USANDO BASE64)
-  const img = document.getElementById("fotoAluno")
+  document.getElementById("fotoAluno").src =
+    alunos[index].sexo === "Feminino"
+      ? escola.fotoFeminina
+      : escola.fotoMasculina
 
-  if(img){
-
-    if(alunos[index].sexo === "Feminino"){
-      img.src = escola.fotoFeminina || ""
-    }else{
-      img.src = escola.fotoMasculina || ""
-    }
-
-  }
-
-  // limpar preview (opcional)
-  const preview = document.getElementById("previewFoto")
-  if(preview) preview.src = ""
+  document.getElementById("previewFoto").src =
+    document.getElementById("fotoAluno").src
 
   fecharModalFoto()
 }
