@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { alunoAtivo } from "./utils/filtros.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
@@ -96,11 +96,10 @@ return '<span class="status status-cinza">-</span>'
 
 function carregarTurmas(){
 
-  const turmas = getTurmas()
-
-  const turmasAtivas = turmas
-    .filter(t => (t.status || "Ativa") === "Ativa")
-    .sort((a,b)=>a.nome.localeCompare(b.nome, 'pt-BR', { numeric:true }))
+  const turmasAtivas = getTurmasAtivas()
+    .sort((a,b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric:true })
+    )
 
   turmaFiltro.innerHTML = `<option value="">Todas as turmas</option>`
 
@@ -119,6 +118,7 @@ function carregarTurmas(){
 function listar(){
 
 const alunos = getAlunos()
+const turmasAtivas = getTurmasAtivas().map(t => t.nome)
 
 const turma = turmaFiltro.value
 const situacao = situacaoFiltro.value
@@ -127,7 +127,9 @@ const termo = busca.value.toLowerCase()
 const condutor = condutorFiltro.value
 
 let filtrados = alunos.filter(a =>
-  a.turma && alunoAtivo(a)
+  a.turma &&
+  alunoAtivo(a) &&
+  turmasAtivas.includes(a.turma)
 )
 
 filtrados = filtrados.filter(a =>

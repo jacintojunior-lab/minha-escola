@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
 const selectTurma = document.getElementById("selectTurma")
@@ -34,16 +34,16 @@ function carregarTurmas(){
     <option value="">Selecione a turma</option>
   `
 
-  const turmasAtivas = ordenarTurmas(
-    turmas.filter(t => (t.status || "Ativa") === "Ativa")
-  )
+  ordenarTurmas(turmas).forEach(turma => {
 
-  turmasAtivas.forEach(turma => {
     const option = document.createElement("option")
     option.value = turma.nome
     option.textContent = turma.nome
+
     selectTurma.appendChild(option)
+
   })
+
 }
 
 function carregarAlunosDaTurma(){
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
   aplicarFaviconDinamico()
 
   alunos = getAlunos()
-  turmas = getTurmas()
+  turmas = getTurmasAtivas()
 
   carregarTurmas()
 
@@ -233,9 +233,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const tipo = card.dataset.tipo || "html";
 
           if (tipo === "pdf") {
-              window.open(`./formularios/${arquivo}.pdf`, "_blank");
+              window.open(`formularios/${arquivo}.pdf`, "_blank");
           } else {
-              window.open(`./formularios/${arquivo}.html`, "_blank");
+              window.open(`formularios/${arquivo}.html`, "_blank");
           }
 
       });

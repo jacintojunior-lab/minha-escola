@@ -142,6 +142,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <input type="number" id="capacidade" placeholder="Capacidade máxima" required>
 
+<select id="statusTurma" class="select-estilizado">
+  <option>Ativa</option>
+  <option>Concluída</option>
+  <option>Inativa</option>
+</select>
+
+<input type="number" id="anoLetivoTurma" placeholder="Ano letivo">
+
+<input type="text" id="professorTurma" placeholder="Professor(a) da turma">
+
 <button type="submit">Salvar Turma</button>
 
 </form>
@@ -247,6 +257,25 @@ document.getElementById("sidebar").classList.toggle("aberta");
 <div class="campo-form">
 <label>Capacidade</label>
 <input type="number" id="editCapacidade" required>
+</div>
+
+<div class="campo-form">
+  <label>Status da Turma</label>
+  <select id="editStatusTurma">
+    <option>Ativa</option>
+    <option>Concluída</option>
+    <option>Inativa</option>
+  </select>
+</div>
+
+<div class="campo-form">
+  <label>Ano Letivo</label>
+  <input type="number" id="editAnoLetivoTurma">
+</div>
+
+<div class="campo-form">
+  <label>Professor(a) da Turma</label>
+  <input type="text" id="editProfessorTurma">
 </div>
 
 <div class="modal-acoes">

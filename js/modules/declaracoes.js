@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { getData } from "../core/storage.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
@@ -17,7 +17,7 @@ const STORAGE_FUNCIONARIO = "declaracoes_funcionario"
 
 function init(){
   state.alunos = getAlunos()
-  state.turmas = getTurmas()
+  state.turmas = getTurmasAtivas()
   state.funcionarios = getData("funcionarios")
 
   carregarTurmas()
@@ -128,7 +128,6 @@ function bindEventos(){
     )
 
   })
-
 }
 
 function getAlunoSelecionado(){
@@ -160,41 +159,23 @@ function getAlunoSelecionado(){
 
 function carregarTurmas(){
 
-const turmas = [...state.turmas]
+  const select = document.getElementById("selectTurma")
 
-// 🔥 ordenar turmas corretamente (1A, 1B, 2A...)
-turmas.sort((a, b) => {
+  select.innerHTML = `<option value="">Selecione a turma</option>`
 
-  const regex = /^(\d+)([A-Z])$/
+  state.turmas
+    .sort((a, b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric: true })
+    )
+    .forEach(t => {
 
-  const matchA = a.nome.match(regex)
-  const matchB = b.nome.match(regex)
+      const opt = document.createElement("option")
+      opt.value = t.nome
+      opt.textContent = t.nome
 
-  if(matchA && matchB){
-    const numeroA = parseInt(matchA[1])
-    const letraA = matchA[2]
+      select.appendChild(opt)
 
-    const numeroB = parseInt(matchB[1])
-    const letraB = matchB[2]
-
-    if(numeroA !== numeroB){
-      return numeroA - numeroB
-    }
-
-    return letraA.localeCompare(letraB)
-  }
-
-  return a.nome.localeCompare(b.nome)
-})
-
-const select = document.getElementById("selectTurma")
-
-turmas.forEach(t => {
-const opt = document.createElement("option")
-opt.value = t.nome
-opt.textContent = t.nome
-select.appendChild(opt)
-})
+    })
 
 }
 
@@ -270,7 +251,7 @@ function abrirDeclaracaoImpressao(){
 
   const alunoId = document.getElementById("selectAluno").value
 
-    const url = `declaracoes/declaracao-escolaridade.html?turma=${turma}&aluno=${alunoId}&funcionario=${funcionario}`
+    const url = `/declaracoes/declaracao-escolaridade.html?turma=${turma}&aluno=${alunoId}&funcionario=${funcionario}`
 
   window.open(url, "_blank")
 }
@@ -332,7 +313,7 @@ const turma = document.getElementById("selectTurma").value
 const aluno = document.getElementById("selectAluno").value
 const funcionario = document.getElementById("selectFuncionario").value
 
-const url = `declaracoes/declaracao-transferencia.html?turma=${turma}&aluno=${aluno}&funcionario=${funcionario}&historico=${deveHistorico}`
+const url = `/declaracoes/declaracao-transferencia.html?turma=${turma}&aluno=${aluno}&funcionario=${funcionario}&historico=${deveHistorico}`
 
 window.open(url, "_blank")
 
@@ -411,40 +392,25 @@ function buscarAlunoPorRGA(){
 
 function preencherTurmasManual(){
 
-  const turmas = getTurmas()
+  const turmas = getTurmasAtivas()
   const select = document.getElementById("manualTurma")
 
   select.innerHTML = `<option value="">Selecione a turma</option>`
 
-  // 🔥 mesma ordenação que você já fez
-  turmas.sort((a, b) => {
-    const regex = /^(\d+)([A-Z])$/
-    const matchA = a.nome.match(regex)
-    const matchB = b.nome.match(regex)
+  turmas
+    .sort((a, b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric: true })
+    )
+    .forEach(t => {
 
-    if(matchA && matchB){
-      const numeroA = parseInt(matchA[1])
-      const letraA = matchA[2]
+      const opt = document.createElement("option")
+      opt.value = t.nome
+      opt.textContent = t.nome
 
-      const numeroB = parseInt(matchB[1])
-      const letraB = matchB[2]
+      select.appendChild(opt)
 
-      if(numeroA !== numeroB){
-        return numeroA - numeroB
-      }
+    })
 
-      return letraA.localeCompare(letraB)
-    }
-
-    return a.nome.localeCompare(b.nome)
-  })
-
-  turmas.forEach(t => {
-    const opt = document.createElement("option")
-    opt.value = t.nome
-    opt.textContent = t.nome
-    select.appendChild(opt)
-  })
 }
 
 document.addEventListener("DOMContentLoaded", init)

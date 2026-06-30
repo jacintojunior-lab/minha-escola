@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
 const state = {
@@ -14,7 +14,7 @@ function init(){
   aplicarFaviconDinamico()
 
   state.alunos = getAlunos()
-  state.turmas = getTurmas()
+  state.turmas = getTurmasAtivas()
 
   carregarTurmas()
   bindEventos()
@@ -45,45 +45,22 @@ const contatosDiv = document.getElementById("contatos")
 // =========================
 function carregarTurmas(){
 
-  const turmas = state.turmas
-
-  // 🔥 apenas turmas ativas
-  const turmasAtivas = turmas.filter(t => (t.status || "Ativa") === "Ativa")
-
-  // 🔥 ordenar corretamente (1A, 1B, 2A...)
-  turmasAtivas.sort((a, b) => {
-
-    const regex = /^(\d+)([A-Z])$/
-    const matchA = a.nome.match(regex)
-    const matchB = b.nome.match(regex)
-
-    if(matchA && matchB){
-      const numeroA = parseInt(matchA[1])
-      const letraA = matchA[2]
-
-      const numeroB = parseInt(matchB[1])
-      const letraB = matchB[2]
-
-      if(numeroA !== numeroB){
-        return numeroA - numeroB
-      }
-
-      return letraA.localeCompare(letraB)
-    }
-
-    return a.nome.localeCompare(b.nome)
-  })
-
-  // limpar select
   turmaSelect.innerHTML = `<option value="">Selecione a turma</option>`
 
-  // adicionar opções
-  turmasAtivas.forEach(t => {
-    const opt = document.createElement("option")
-    opt.value = t.nome
-    opt.textContent = t.nome
-    turmaSelect.appendChild(opt)
-  })
+  state.turmas
+    .sort((a, b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric: true })
+    )
+    .forEach(t => {
+
+      const opt = document.createElement("option")
+      opt.value = t.nome
+      opt.textContent = t.nome
+
+      turmaSelect.appendChild(opt)
+
+    })
+
 }
 
 // =========================
@@ -109,8 +86,13 @@ function onChangeTurma(){
   alunoSelect.innerHTML = `<option value="">Selecione o aluno</option>`
 
   const alunosFiltrados = state.alunos
-    .filter(a => a.turma === state.turmaSelecionada)
-    .sort((a,b)=>a.nome.localeCompare(b.nome))
+    .filter(a =>
+      a.turma === state.turmaSelecionada &&
+      (a.situacao || "Ativo") === "Ativo"
+    )
+    .sort((a, b) =>
+      (a.nome || "").localeCompare(b.nome || "", "pt-BR")
+    )
 
   alunosFiltrados.forEach(a => {
 

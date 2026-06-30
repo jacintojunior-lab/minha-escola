@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { alunoAtivo } from "./utils/filtros.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
@@ -49,40 +49,14 @@ function carregarFiltros(){
 
 function carregarTurmas(){
 
-  const turmas = getTurmas()
+  const turmas = getTurmasAtivas()
+    .sort((a, b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric: true })
+    )
 
-  // 🔥 apenas turmas ativas
-  const turmasAtivas = turmas.filter(t => (t.status || "Ativa") === "Ativa")
-
-  // 🔥 ordenar corretamente (1A, 1B, 2A...)
-  turmasAtivas.sort((a, b) => {
-
-    const regex = /^(\d+)([A-Z])$/
-    const matchA = a.nome.match(regex)
-    const matchB = b.nome.match(regex)
-
-    if(matchA && matchB){
-      const numeroA = parseInt(matchA[1])
-      const letraA = matchA[2]
-
-      const numeroB = parseInt(matchB[1])
-      const letraB = matchB[2]
-
-      if(numeroA !== numeroB){
-        return numeroA - numeroB
-      }
-
-      return letraA.localeCompare(letraB)
-    }
-
-    return a.nome.localeCompare(b.nome)
-  })
-
-  // limpar select
   turmaSelect.innerHTML = `<option value="">Selecione a turma</option>`
 
-  // adicionar opções
-  turmasAtivas.forEach(t => {
+  turmas.forEach(t => {
     const opt = document.createElement("option")
     opt.value = t.nome
     opt.textContent = t.nome
@@ -99,13 +73,15 @@ turmaSelect.addEventListener("change", () => {
 alunoSelect.innerHTML = `<option value="">Todos</option>`
 
 const alunos = getAlunos()
+const turmasAtivas = getTurmasAtivas().map(t => t.nome)
 const turma = turmaSelect.value
 
 alunos
-.filter(a =>
-  a.turma === turma &&
-  alunoAtivo(a)
-)
+  .filter(a =>
+    a.turma === turma &&
+    alunoAtivo(a) &&
+    turmasAtivas.includes(a.turma)
+  )
 .sort((a,b)=>a.nome.localeCompare(b.nome, 'pt-BR', { numeric:true }))
 .forEach(a => {
 
@@ -175,11 +151,14 @@ return {texto:"Em dia", classe:"vacina-ok"}
 function listar(){
 
 const alunos = getAlunos()
+const turmasAtivas = getTurmasAtivas().map(t => t.nome)
 const turma = turmaSelect.value
 const alunoSelecionado = alunoSelect.value
 
 let filtrados = alunos.filter(a =>
-a.turma && alunoAtivo(a)
+  a.turma &&
+  alunoAtivo(a) &&
+  turmasAtivas.includes(a.turma)
 )
 
 let countSemDVA = 0

@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
 const STORAGE_KEY = "cesta_basica"
@@ -76,15 +76,14 @@ function carregarTurmas(){
     <option value="">Selecione a turma</option>
   `
 
-  const turmasAtivas = ordenarTurmas(
-    turmas.filter(t => (t.status || "Ativa") === "Ativa")
-  )
+  ordenarTurmas(turmas).forEach(turma => {
 
-  turmasAtivas.forEach(turma => {
     const option = document.createElement("option")
     option.value = turma.nome
     option.textContent = turma.nome
+
     selectTurma.appendChild(option)
+
   })
 
 }
@@ -383,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
   aplicarFaviconDinamico()
 
   alunos = getAlunos()
-  turmas = getTurmas()
+  turmas = getTurmasAtivas()
 
   carregarLista()
   carregarTurmas()

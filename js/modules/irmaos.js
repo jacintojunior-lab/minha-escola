@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
 const state = {
@@ -11,7 +11,7 @@ const state = {
 function init(){
 
   state.alunos = getAlunos()
-  state.turmas = getTurmas()
+  state.turmas = getTurmasAtivas()
 
   carregarTurmas()
 
@@ -33,21 +33,21 @@ const lista = document.getElementById("listaIrmaos");
 // =====================
 function carregarTurmas(){
 
-  const turmasOrdenadas = state.turmas
-    .sort((a, b) =>
-      a.nome.localeCompare(b.nome, 'pt-BR', { numeric: true })
-    )
-
   selectTurma.innerHTML = '<option value="">Selecione a turma</option>'
 
-  turmasOrdenadas.forEach(t => {
+  state.turmas
+    .sort((a, b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric: true })
+    )
+    .forEach(t => {
 
-    const option = document.createElement("option")
-    option.value = t.nome
-    option.textContent = t.nome
+      const option = document.createElement("option")
+      option.value = t.nome
+      option.textContent = t.nome
 
-    selectTurma.appendChild(option)
-  })
+      selectTurma.appendChild(option)
+
+    })
 
 }
 

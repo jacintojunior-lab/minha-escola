@@ -1,4 +1,5 @@
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 
 // =========================
 // ELEMENTOS
@@ -194,12 +195,50 @@ document.addEventListener("keydown", e => {
 });
 
 // =========================
+// CARREGAR INFORMAÇÕES
+// =========================
+function carregarTurmas(){
+
+  const turmas = getTurmasAtivas()
+    .sort((a, b) =>
+      a.nome.localeCompare(b.nome, "pt-BR", { numeric: true })
+    )
+
+  const selectCadastro = document.getElementById("turma")
+  const selectEditar = document.getElementById("editarTurma")
+
+  selectCadastro.innerHTML =
+    `<option value="">Selecione a turma</option>`
+
+  selectEditar.innerHTML =
+    `<option value="">Selecione a turma</option>`
+
+  turmas.forEach(turma => {
+
+    const opt1 = document.createElement("option")
+    opt1.value = turma.nome
+    opt1.textContent = turma.nome
+    selectCadastro.appendChild(opt1)
+
+    const opt2 = document.createElement("option")
+    opt2.value = turma.nome
+    opt2.textContent = turma.nome
+    selectEditar.appendChild(opt2)
+
+  })
+
+}
+
+// =========================
 // INICIALIZAÇÃO
 // =========================
 document.addEventListener("DOMContentLoaded", () => {
+
   aplicarFaviconDinamico()
   state.alunos = getAlunos()
+  carregarTurmas()
   renderAlunos()
+
 })
 
 window.fecharModal = fecharModal

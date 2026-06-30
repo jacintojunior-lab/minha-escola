@@ -9,7 +9,7 @@ const { jsPDF } = window.jspdf;
 // =========================
 
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { getData } from "../core/storage.js"
 import { filtrarAtivosComTurma, alunoAtivo } from "./utils/filtros.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
@@ -103,7 +103,7 @@ function gerarRelatorioPDF({
 function init(){
 
   state.alunos = getAlunos()
-  state.turmas = getTurmas()
+  state.turmas = getTurmasAtivas()
 
   carregarTurmas()
   carregarPeriodoPresenca()
@@ -183,45 +183,27 @@ function bindEventos(){
 // =========================
 function carregarTurmas() {
 
-    const turmas = state.turmas
+  selectTurma.innerHTML =
+    '<option value="">Selecione uma turma</option>'
 
-    // 🔥 apenas turmas ativas (se tiver campo status)
-    const turmasAtivas = turmas.filter(t => (t.status || "Ativa") === "Ativa")
+  state.turmas
+    .sort((a, b) =>
+      a.nome.localeCompare(
+        b.nome,
+        "pt-BR",
+        { numeric: true }
+      )
+    )
+    .forEach(turma => {
 
-    // 🔥 ordenar (1A, 1B, 2A...)
-    turmasAtivas.sort((a, b) => {
+      const opt = document.createElement("option")
+      opt.value = turma.nome
+      opt.textContent = turma.nome
 
-        const regex = /^(\d+)([A-Z])$/
-        const matchA = a.nome.match(regex)
-        const matchB = b.nome.match(regex)
+      selectTurma.appendChild(opt)
 
-        if(matchA && matchB){
-            const numeroA = parseInt(matchA[1])
-            const letraA = matchA[2]
-
-            const numeroB = parseInt(matchB[1])
-            const letraB = matchB[2]
-
-            if(numeroA !== numeroB){
-                return numeroA - numeroB
-            }
-
-            return letraA.localeCompare(letraB)
-        }
-
-        return a.nome.localeCompare(b.nome)
     })
 
-    // limpar select
-    selectTurma.innerHTML = '<option value="">Selecione uma turma</option>'
-
-    // adicionar opções
-    turmasAtivas.forEach(turma => {
-        const opt = document.createElement("option")
-        opt.value = turma.nome
-        opt.textContent = turma.nome
-        selectTurma.appendChild(opt)
-    })
 }
 
 function carregarPeriodoPresenca(){
@@ -1300,12 +1282,9 @@ function etapaDaTurma(turma){
 function gerarListasPresenca(etapa){
 
   const turmasEtapa = state.turmas
-    .filter(t =>
-      (t.status || "Ativa") === "Ativa" &&
-      etapaDaTurma(t.nome) === etapa
-    )
-    .map(t => t.nome)
-    .sort((a,b) => a.localeCompare(b, "pt-BR", { numeric:true }))
+  .filter(t => etapaDaTurma(t.nome) === etapa)
+  .map(t => t.nome)
+  .sort((a, b) => a.localeCompare(b, "pt-BR", { numeric: true }))
 
   const orientacao = etapa === "fund1" ? "l" : "p"
   const doc = new jsPDF(orientacao, "mm", "a4")

@@ -1,5 +1,5 @@
 import { getAlunos, salvarAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 import { salvarFotoAluno, buscarFotoAluno, excluirFotoAluno } from "./utils/fotosDB.js"
 
@@ -21,11 +21,9 @@ function carregarSelectTurmas(){
 
   filtroTurma.innerHTML = '<option value="">Selecionar turma</option>'
 
-  const turmasAtivas = state.turmas
-    .filter(t => !t.status || t.status === "Ativa")
-    .sort((a, b) => a.nome.localeCompare(b.nome))
-
-  turmasAtivas.forEach(turma => {
+  state.turmas
+  .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR", { numeric: true }))
+  .forEach(turma => {
     const option = document.createElement("option")
     option.value = turma.nome
     option.textContent = turma.nome
@@ -37,7 +35,7 @@ function carregarSelectTurmas(){
 function init(){
 
   state.alunos = getAlunos()
-  state.turmas = getTurmas()
+  state.turmas = getTurmasAtivas()
 
   carregarSelectTurmas()
 

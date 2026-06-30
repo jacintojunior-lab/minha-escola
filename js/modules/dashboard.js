@@ -1,5 +1,5 @@
 import { getAlunos } from "../services/alunosService.js"
-import { getTurmas } from "../services/turmasService.js"
+import { getTurmasAtivas } from "../services/turmasService.js"
 import { aplicarFaviconDinamico } from "./utils/favicon.js"
 
 const state = {
@@ -92,7 +92,14 @@ function agruparTurmas(alunos){
 
 function renderTurmas(){
 
-const turmas = agruparTurmas(state.alunos)
+  const turmasAtivas = getTurmasAtivas().map(t => t.nome)
+
+  const alunosAtivosTurmasAtivas = state.alunos.filter(a =>
+    (a.situacao || "Ativo") === "Ativo" &&
+    turmasAtivas.includes(a.turma)
+  )
+
+  const turmas = agruparTurmas(alunosAtivosTurmasAtivas)
 
   const listaTurmas = document.getElementById("listaTurmas")
   listaTurmas.innerHTML = '<div class="grid-turmas"></div>'
@@ -100,7 +107,7 @@ const turmas = agruparTurmas(state.alunos)
   const grid = listaTurmas.querySelector(".grid-turmas")
 
   Object.keys(turmas)
-    .sort()
+    .sort((a,b) => a.localeCompare(b, "pt-BR", { numeric:true }))
     .forEach(t => {
 
       const div = document.createElement("div")
@@ -122,7 +129,7 @@ function renderPeriodos(){
 
   const alunos = state.alunos
 
-  const turmasConfig = getTurmas()
+  const turmasConfig = getTurmasAtivas()
 
   const contagem = {
     "Manhã": 0,

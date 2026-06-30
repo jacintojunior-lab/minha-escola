@@ -59,7 +59,10 @@ function onSubmitTurma(e){
     horario: horario.value,
     capacidade: parseInt(capacidade.value),
     serie: serie.value,
-    tipoEnsino: tipoEnsino.value
+    tipoEnsino: tipoEnsino.value,
+    status: statusTurma.value || "Ativa",
+    anoLetivo: anoLetivoTurma.value || new Date().getFullYear(),
+    professor: professorTurma.value.trim()
   }
 
   if(state.turmas.some(t => t.nome === nova.nome)){
@@ -91,7 +94,10 @@ function onSubmitEditarTurma(e){
     horario: editHorario.value,
     capacidade: parseInt(editCapacidade.value),
     serie: editSerie.value,
-    tipoEnsino: editTipoEnsino.value
+    tipoEnsino: editTipoEnsino.value,
+    status: editStatusTurma.value || "Ativa",
+    anoLetivo: editAnoLetivoTurma.value || "",
+    professor: editProfessorTurma.value.trim()
   }
 
   setData("turmas", turmas)
@@ -170,6 +176,14 @@ card.innerHTML = `
 
   <div class="info-turma">
     ${t.periodo} • ${t.horario}
+  </div>
+
+  <div class="info-turma">
+    ${t.status || "Ativa"} • Ano: ${t.anoLetivo || "-"}
+  </div>
+
+  <div class="info-turma">
+    Prof.: ${t.professor || "-"}
   </div>
 
   <div class="barra">
@@ -284,6 +298,9 @@ function abrirModalEdicao(t){
   editCapacidade.value = t.capacidade
   editSerie.value = t.serie || ""
   editTipoEnsino.value = t.tipoEnsino || ""
+  editStatusTurma.value = t.status || "Ativa"
+  editAnoLetivoTurma.value = t.anoLetivo || ""
+  editProfessorTurma.value = t.professor || ""
 
   document.getElementById("modalTurma").classList.add("ativo")
   document.body.classList.add("modal-aberto")
@@ -341,11 +358,11 @@ return
 }
 
 // cabeçalho
-let csv = "Nome;Série;TipoEnsino;Período;Horário;Capacidade\n"
+let csv = "Nome;Série;TipoEnsino;Período;Horário;Capacidade;Status;AnoLetivo;Professor\n"
 
 // dados
 turmas.forEach(t => {
-csv += `${t.nome};${t.serie || ""};${t.tipoEnsino || ""};${t.periodo};${t.horario};${t.capacidade}\n`
+csv += `${t.nome};${t.serie || ""};${t.tipoEnsino || ""};${t.periodo};${t.horario};${t.capacidade};${t.status || "Ativa"};${t.anoLetivo || ""};${t.professor || ""}\n`
 })
 
 // download
@@ -386,7 +403,7 @@ linhas.forEach(linha => {
 
 if(!linha.trim()) return
 
-const [nome, serie, tipoEnsino, periodo, horario, capacidade] = linha.split(";")
+const [nome, serie, tipoEnsino, periodo, horario, capacidade, status, anoLetivo, professor] = linha.split(";")
 
 const nomeLimpo = nome?.trim()
 if(!nomeLimpo) return
@@ -399,7 +416,10 @@ serie: serie?.trim() || "",
 tipoEnsino: tipoEnsino?.trim() || "",
 periodo: periodo?.trim() || "",
 horario: horario?.trim() || "",
-capacidade: parseInt(capacidade) || 0
+capacidade: parseInt(capacidade) || 0,
+status: status?.trim() || "Ativa",
+anoLetivo: anoLetivo?.trim() || "",
+professor: professor?.trim() || ""
 }
 
 if(index !== -1){
