@@ -1425,7 +1425,7 @@ function desenharListaFund1(doc, turma, lista){
       valign:"middle"
     },
     columnStyles:{
-        0:{ cellWidth:261.5 },
+        0:{ cellWidth:261.5, textColor: [0, 0, 0] },
         1:{ cellWidth:27.5 }
     },
     didDrawCell:function(data){
@@ -1492,7 +1492,7 @@ function desenharListaFund1(doc, turma, lista){
       halign:"center"
     },
     columnStyles:{
-      0:{ cellWidth:118.5, fontStyle:"bold" }
+      0:{ cellWidth:118.5, fontStyle:"bold", textColor: [0, 0, 0]}
     },
     didParseCell:function(data){
 
@@ -1626,8 +1626,8 @@ function desenharListaFund2(doc, turma, lista){
       minCellHeight:3.6
     },
     columnStyles:{
-      0:{ cellWidth:larguraNumero, halign:"center" },
-      1:{ cellWidth:larguraNome, fontStyle:"bold" }
+      0:{ cellWidth:larguraNumero, halign:"center", textColor: [0, 0, 0]},
+      1:{ cellWidth:larguraNome, fontStyle:"bold", textColor: [0, 0, 0] }
     },
     didParseCell:function(data){
       if(data.column.index >= 2){
@@ -1674,7 +1674,7 @@ function desenharListaFund2(doc, turma, lista){
       valign:"middle"
     },
     columnStyles:{
-      0:{ cellWidth:larguraTextoProfessor, halign:"right" },
+      0:{ cellWidth:larguraTextoProfessor, halign:"right", textColor: [0, 0, 0] },
       1:{ cellWidth:larguraDia },
       2:{ cellWidth:larguraDia },
       3:{ cellWidth:larguraDia },
