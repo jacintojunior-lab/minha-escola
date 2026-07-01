@@ -189,7 +189,7 @@ hr{
 
   <h1 class="titulo-secao">TERMO DE RESPONSABILIDADE</h1>
 
-  <h2 class="titulo-secao">Regras estabelecidas pela EMEF PROF. NOÉ AZEVEDO:</h2>
+  <h2 class="titulo-secao" id="tituloEscola"></h2>
 
   <div class="texto">
     <ol class="regras">
@@ -347,6 +347,9 @@ function carregarDados(){
     <p>${dadosEscola.diretoria || ""}</p>
     <p><strong>${dadosEscola.nome || ""}</strong></p>
   `
+
+  document.getElementById("tituloEscola").textContent =
+  `Regras estabelecidas pela ${dadosEscola.nome || "Escola"}:`
 
   document.getElementById("cabecalhoEscola1").innerHTML = cabecalho
   document.getElementById("cabecalhoEscola2").innerHTML = cabecalho
