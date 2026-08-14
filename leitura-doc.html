@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Leitura do DOC</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/leitura-doc.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
+
+<nav class="sidebar-menu">
+  <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+  <a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+  <a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+  <a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+  <a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+  <a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+  <a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+  <a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+  <a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+  <a href="formularios.html"><i class="fa-solid fa-folder-open"></i> Formulários</a>
+  <a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
+  <a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+  <a href="leitura-doc.html" class="ativo"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+  <a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+  <a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+  <a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+  <a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+  <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
+</nav>
+</aside>
+
+<main class="conteudo">
+
+<section class="cabecalho-pagina-doc">
+  <div>
+    <span class="etiqueta-doc">
+      <i class="fa-solid fa-newspaper"></i>
+      Diário Oficial da Cidade
+    </span>
+    <h1>Leitura do DOC</h1>
+    <p>
+      Verifique publicações de funcionários e da unidade escolar
+      no Diário Oficial da Cidade de São Paulo.
+    </p>
+  </div>
+</section>
+
+<section class="resumo-base-doc">
+  <article class="mini-card-doc">
+    <div class="mini-card-icone">
+      <i class="fa-solid fa-users"></i>
+    </div>
+    <div>
+      <span>Funcionários na base</span>
+      <strong id="totalFuncionarios">0</strong>
+    </div>
+  </article>
+
+  <article class="mini-card-doc">
+    <div class="mini-card-icone">
+      <i class="fa-solid fa-school"></i>
+    </div>
+    <div>
+      <span>Unidade escolar</span>
+      <strong id="nomeEscolaResumo">Não configurada</strong>
+    </div>
+  </article>
+</section>
+
+<section class="card">
+  <div class="cabecalho-card-doc">
+    <div>
+      <h2><i class="fa-solid fa-file-arrow-up"></i> Arquivos da edição</h2>
+      <p>Selecione o JSON e o PDF correspondentes à mesma edição do DOC.</p>
+    </div>
+  </div>
+
+  <div class="grade-config-doc">
+    <label class="campo-doc">
+      <span>Data da edição</span>
+      <input type="date" id="dataEdicao">
+    </label>
+
+    <label class="upload-doc" for="arquivoJson">
+      <input type="file" id="arquivoJson" accept=".json,application/json" hidden>
+      <span class="upload-icone"><i class="fa-solid fa-code"></i></span>
+      <span class="upload-info">
+        <strong>Arquivo JSON</strong>
+        <small id="nomeArquivoJson">Selecionar arquivo de dados</small>
+      </span>
+      <span class="upload-acao">
+        <i class="fa-solid fa-folder-open"></i>
+        Selecionar
+      </span>
+    </label>
+
+    <label class="upload-doc" for="arquivoPdf">
+      <input type="file" id="arquivoPdf" accept=".pdf,application/pdf" hidden>
+      <span class="upload-icone"><i class="fa-solid fa-file-pdf"></i></span>
+      <span class="upload-info">
+        <strong>Arquivo PDF</strong>
+        <small id="nomeArquivoPdf">Selecionar Diário Oficial em PDF</small>
+      </span>
+      <span class="upload-acao">
+        <i class="fa-solid fa-folder-open"></i>
+        Selecionar
+      </span>
+    </label>
+  </div>
+
+  <div class="acoes-analise-doc">
+    <div class="aviso-doc">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>
+        A busca prioriza o RF do servidor e também verifica o nome completo
+        e o nome da escola.
+      </span>
+    </div>
+
+    <button id="btnAnalisarDoc" class="btn-principal" disabled>
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Analisar Diário Oficial
+    </button>
+  </div>
+</section>
+
+<section class="card" id="secaoProcessamento" hidden>
+  <div class="processamento-doc">
+    <div class="spinner-doc"></div>
+    <div>
+      <strong id="textoProcessamento">Analisando Diário Oficial...</strong>
+      <small>O processamento é feito localmente no navegador.</small>
+    </div>
+  </div>
+</section>
+
+<section id="secaoResultados" hidden>
+
+  <div class="cards-resultados-doc">
+    <article class="resultado-card">
+      <span>Funcionários verificados</span>
+      <strong id="resFuncionariosVerificados">0</strong>
+    </article>
+
+    <article class="resultado-card destaque">
+      <span>Funcionários encontrados</span>
+      <strong id="resFuncionariosEncontrados">0</strong>
+    </article>
+
+    <article class="resultado-card">
+      <span>Ocorrências da escola</span>
+      <strong id="resOcorrenciasEscola">0</strong>
+    </article>
+
+    <article class="resultado-card">
+      <span>Total de ocorrências</span>
+      <strong id="resTotalOcorrencias">0</strong>
+    </article>
+  </div>
+
+  <section class="card">
+    <div class="cabecalho-resultados-doc">
+      <div>
+        <h2><i class="fa-solid fa-list-check"></i> Publicações encontradas</h2>
+        <p id="subtituloResultados"></p>
+      </div>
+
+      <div class="filtros-resultados-doc">
+        <input
+          type="search"
+          id="filtroResultados"
+          placeholder="Filtrar resultados..."
+          autocomplete="off">
+
+        <select id="filtroTipo">
+          <option value="todos">Todos</option>
+          <option value="funcionario">Funcionários</option>
+          <option value="escola">Escola</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="listaResultadosDoc" class="lista-resultados-doc"></div>
+
+    <div id="resultadoVazioDoc" class="resultado-vazio-doc" hidden>
+      <i class="fa-regular fa-circle-check"></i>
+      <h3>Nenhuma publicação encontrada</h3>
+      <p>Não foram localizadas correspondências para a base pesquisada nesta edição.</p>
+    </div>
+  </section>
+
+</section>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p id="footerTexto"></p>
+</footer>
+
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
+<script type="module" src="js/modules/leitura-doc.js"></script>
+
+</body>
+</html>

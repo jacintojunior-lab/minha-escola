@@ -1,0 +1,121 @@
+.filtros-saude {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 15px;
+  align-items: end;
+}
+
+.btn-filtro-limpar {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  height: 42px;
+  font-size: 13px;
+  font-weight: 600;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-filtro-limpar:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.dashboard-kpis {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.kpi {
+  flex: 1;
+  min-width: 190px;
+  background: var(--cinza-card);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: .2s;
+}
+
+.kpi:hover {
+  transform: translateY(-3px);
+}
+
+.kpi h3 {
+  font-size: 28px;
+  color: var(--azul);
+}
+
+.kpi-icon {
+  font-size: 22px;
+  color: var(--azul);
+  margin-bottom: 8px;
+  display: block;
+}
+
+#tabelaSaude td {
+  vertical-align: middle;
+}
+
+.vacina-vencida {
+  background: #fee2e2;
+  color: #991b1b;
+  font-weight: bold;
+}
+
+.vacina-proxima {
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: bold;
+}
+
+.vacina-ok {
+  background: #dcfce7;
+  color: #166534;
+  font-weight: bold;
+}
+
+.acoes-saude {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acoes-saude .btn-acao {
+  width: 36px;
+  height: 36px;
+}
+
+.btn-editar {
+  background: var(--amarelo);
+  color: #111827;
+}
+
+.btn-editar:hover {
+  background: var(--amarelo-hover);
+}
+
+.btn-whats {
+  background: #25D366;
+  color: white;
+}
+
+.btn-whats:hover {
+  background: #1ebe5d;
+}
+
+@media (max-width: 700px) {
+  .filtros-saude {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-filtro-limpar {
+    width: 100%;
+  }
+}

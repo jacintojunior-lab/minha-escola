@@ -1,0 +1,66 @@
+.campo-busca {
+  max-width: 420px;
+}
+
+#formAluno .btn-principal,
+#formEditar .btn-sec {
+  height: 42px;
+}
+
+@media (max-width: 600px) {
+  .campo-busca {
+    max-width: 100%;
+  }
+}
+
+/* =====================
+   MODAL EDITAR ALUNO
+===================== */
+
+#modalEditar .modal-conteudo {
+  max-width: 460px;
+}
+
+#modalEditar h3 {
+  color: var(--azul);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#formEditar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#modalEditar .modal-acoes {
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+#modalEditar .modal-acoes button {
+  min-width: 120px;
+  height: 42px;
+}
+
+#modalEditar .btn-cancelar {
+  background: #e5e7eb;
+  color: #374151;
+  padding: 10px 16px;
+}
+
+#modalEditar .btn-cancelar:hover {
+  background: #d1d5db;
+  color: #111827;
+}
+
+@media (max-width: 520px) {
+  #modalEditar .modal-acoes {
+    flex-direction: column;
+  }
+
+  #modalEditar .modal-acoes button {
+    width: 100%;
+  }
+}

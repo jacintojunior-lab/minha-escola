@@ -1,0 +1,161 @@
+.form-cesta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 15px;
+  align-items: end;
+}
+
+.form-cesta button {
+  min-height: 42px;
+}
+
+.dashboard-kpis {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.kpi {
+  flex: 1;
+  min-width: 190px;
+  background: var(--cinza-card);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: .2s;
+}
+
+.kpi:hover {
+  transform: translateY(-3px);
+}
+
+.kpi h3 {
+  font-size: 28px;
+  color: var(--azul);
+}
+
+.kpi-icon {
+  font-size: 22px;
+  color: var(--azul);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cabecalho-secao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.cabecalho-secao h2 {
+  margin-bottom: 0;
+}
+
+.acoes-csv{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.acoes-csv button{
+    height:42px;
+}
+
+#listaCestaBasica td {
+  vertical-align: middle;
+}
+
+.check-entrega {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--verde);
+}
+
+.linha-entregue {
+  background: #dcfce7;
+}
+
+.linha-entregue:hover {
+  background: #bbf7d0;
+}
+
+.linha-entregue td {
+  color: #166534;
+  font-weight: 600;
+}
+
+.acoes-saude {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acoes-saude .btn-acao {
+  width: 36px;
+  height: 36px;
+}
+
+.btn-whats {
+  background: #25D366;
+  color: white;
+}
+
+.btn-whats:hover {
+  background: #1ebe5d;
+}
+
+.acoes-saude .btn-excluir {
+  background: var(--vermelho);
+  color: white;
+}
+
+.acoes-saude .btn-excluir:hover {
+  background: var(--vermelho-hover);
+}
+
+@media (max-width: 700px) {
+  .cabecalho-secao,
+  .acoes-csv {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes-csv button {
+    width: 100%;
+  }
+}
+
+/* =========================
+   BOTÃO LIMPAR LISTA
+========================= */
+
+#btnLimparCesta{
+    background: var(--vermelho);
+    color: #fff;
+
+    padding: 10px 18px;
+    min-height: 42px;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-weight: 600;
+    white-space: nowrap;
+
+    transition: .2s;
+}
+
+#btnLimparCesta:hover{
+    background: var(--vermelho-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(220,38,38,.25);
+}

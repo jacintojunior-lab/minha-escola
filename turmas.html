@@ -7,109 +7,90 @@
 
 <link id="favicon" rel="icon" type="image/png" href="data:,">
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/turmas.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 </head>
+
 <body>
 
-<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
 
 <div class="layout">
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-
-<div class="sidebar-logo">
-<img src="assets/logo.jpg">
-<span>Sistema Escolar</span>
-</div>
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
 
 <nav class="sidebar-menu">
-
-<a href="dashboard.html">
-<i class="fa-solid fa-chart-line"></i> Dashboard
-</a>
-
-<a href="cadastro.html">
-<i class="fa-solid fa-clipboard-list"></i> Cadastro
-</a>
-
-<a href="alunos.html">
-<i class="fa-solid fa-user-graduate"></i> Alunos
-</a>
-
-<a href="carometro.html">
-<i class="fa-solid fa-id-badge"></i> Carômetro
-</a>
-
-<a href="irmaos.html">
-<i class="fa-solid fa-people-roof"></i> Irmãos
-</a>
-
-<a href="pais.html">
-<i class="fa-solid fa-people-roof"></i> Pais
-</a>
-
-<a href="relatorios.html">
-<i class="fa-solid fa-file-lines"></i> Relatórios
-</a>
-
-<a href="contato.html">
-    <i class="fa-brands fa-whatsapp"></i> Contato
-</a>
-
-<a href="declaracoes.html">
-<i class="fa-solid fa-file-signature"></i> Declarações
-</a>
-
-<a href="formularios.html">
-  <i class="fa-solid fa-folder-open"></i> Formulários
-</a>
-
-<a href="turmas.html" class="ativo">
-<i class="fa-solid fa-school"></i> Turmas
-</a>
-
-<a href="funcionarios.html">
-<i class="fa-solid fa-user-tie"></i> Funcionários
-</a>
-
-<a href="transporte.html">
-<i class="fa-solid fa-bus"></i> Transporte
-</a>
-
-<a href="cesta-basica.html">
-  <i class="fa-solid fa-basket-shopping"></i> Cesta Básica
-</a>
-
-<a href="saude.html">
-<i class="fa-solid fa-heart-pulse"></i> Saúde
-</a>
-
-<a href="configuracoes.html">
-<i class="fa-solid fa-gear"></i> Configurações
-</a>
-
+  <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+  <a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+  <a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+  <a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+  <a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+  <a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+  <a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+  <a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+  <a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+  <a href="formularios.html"><i class="fa-solid fa-folder-open"></i> Formulários</a>
+  <a href="turmas.html" class="ativo"><i class="fa-solid fa-school"></i> Turmas</a>
+  <a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+  <a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+  <a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+  <a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+  <a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+  <a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+  <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
 </nav>
-
 </aside>
 
-<!-- CONTEÚDO -->
 <main class="conteudo">
 
-<!-- CADASTRO -->
 <section class="card">
-
 <h2><i class="fa-solid fa-plus"></i> Nova Turma</h2>
 
 <form id="formTurma" class="form-aluno">
 
 <input type="text" id="nomeTurma" placeholder="Nome (ex: 3A)" required>
 
-<select id="serie" class="select-estilizado" required>
+<select id="serie" required>
 <option value="">Selecione a Série</option>
 <option>1º ANO</option>
 <option>2º ANO</option>
@@ -125,13 +106,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <option>3º EM</option>
 </select>
 
-<select id="tipoEnsino" class="select-estilizado" required>
+<select id="tipoEnsino" required>
 <option value="">Tipo de Ensino</option>
 <option>Ensino Fundamental de 9 anos</option>
 <option>Ensino Médio</option>
 </select>
 
-<select id="periodo" class="select-estilizado">
+<select id="periodo">
 <option>Manhã</option>
 <option>Tarde</option>
 <option>Integral</option>
@@ -139,64 +120,53 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </select>
 
 <input type="text" id="horario" placeholder="07:00 - 11:30">
-
 <input type="number" id="capacidade" placeholder="Capacidade máxima" required>
 
-<select id="statusTurma" class="select-estilizado">
-  <option>Ativa</option>
-  <option>Concluída</option>
-  <option>Inativa</option>
+<select id="statusTurma">
+<option>Ativa</option>
+<option>Concluída</option>
+<option>Inativa</option>
 </select>
 
 <input type="number" id="anoLetivoTurma" placeholder="Ano letivo">
-
 <input type="text" id="professorTurma" placeholder="Professor(a) da turma">
 
-<button type="submit">Salvar Turma</button>
+<button type="submit" class="btn-principal">
+  <i class="fa-solid fa-floppy-disk"></i>
+  Salvar Turma
+</button>
 
 </form>
-
 </section>
 
-
-
-<!-- LISTA -->
 <section class="card">
+<div class="cabecalho-secao">
+  <h2><i class="fa-solid fa-school"></i> Turmas Cadastradas</h2>
 
-<h2><i class="fa-solid fa-school"></i> Turmas Cadastradas</h2>
+  <div class="acoes-csv">
+    <button class="btn-sec" id="btnExportarTurmas">
+      <i class="fa-solid fa-file-csv"></i>
+      Exportar
+    </button>
+
+    <input type="file" id="importarTurmasCSV" accept=".csv" hidden>
+
+    <button class="btn-sec" id="btnImportarTurmas">
+      <i class="fa-solid fa-upload"></i>
+      Importar
+    </button>
+  </div>
+</div>
 
 <div id="listaTurmas"></div>
-
 </section>
 
-<!-- IMPORTAR E EXPORTAR CSV -->
-<div style="margin-bottom:10px; display:flex; gap:10px;">
-
-<button class="btn-sec" id="btnExportarTurmas">
-<i class="fa-solid fa-file-csv"></i> Exportar
-</button>
-
-<input type="file" id="importarTurmasCSV" accept=".csv" style="display:none">
-
-<button class="btn-sec" onclick="document.getElementById('importarTurmasCSV').click()">
-<i class="fa-solid fa-upload"></i> Importar
-</button>
-
-</div>
-
 </main>
-
 </div>
 
-<footer>
-<p>© 2026 – Sistema Escolar</p>
+<footer class="footer">
+  <p id="footerTexto"></p>
 </footer>
-
-<script>
-function toggleSidebar() {
-document.getElementById("sidebar").classList.toggle("aberta");
-}
-</script>
 
 <div class="modal" id="modalTurma">
 <div class="modal-conteudo">
@@ -260,42 +230,37 @@ document.getElementById("sidebar").classList.toggle("aberta");
 </div>
 
 <div class="campo-form">
-  <label>Status da Turma</label>
-  <select id="editStatusTurma">
-    <option>Ativa</option>
-    <option>Concluída</option>
-    <option>Inativa</option>
-  </select>
+<label>Status da Turma</label>
+<select id="editStatusTurma">
+<option>Ativa</option>
+<option>Concluída</option>
+<option>Inativa</option>
+</select>
 </div>
 
 <div class="campo-form">
-  <label>Ano Letivo</label>
-  <input type="number" id="editAnoLetivoTurma">
+<label>Ano Letivo</label>
+<input type="number" id="editAnoLetivoTurma">
 </div>
 
 <div class="campo-form">
-  <label>Professor(a) da Turma</label>
-  <input type="text" id="editProfessorTurma">
+<label>Professor(a) da Turma</label>
+<input type="text" id="editProfessorTurma">
 </div>
 
 <div class="modal-acoes">
-
-<button type="button"
-class="btn-danger"
->
-<i class="fa-solid fa-trash"></i> Excluir
+<button type="button" class="btn-danger">
+  <i class="fa-solid fa-trash"></i>
+  Excluir
 </button>
 
-<button type="button"
-class="btn-cancelar"
->
-Cancelar
+<button type="button" class="btn-cancelar">
+  Cancelar
 </button>
 
 <button type="submit" class="btn-sec">
-Salvar
+  Salvar
 </button>
-
 </div>
 
 </form>
@@ -303,6 +268,8 @@ Salvar
 </div>
 </div>
 
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
 <script type="module" src="js/modules/turmas.js"></script>
 
 </body>

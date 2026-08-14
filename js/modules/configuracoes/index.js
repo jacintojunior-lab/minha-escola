@@ -1,4 +1,4 @@
-import { abrirAbaConfig } from "./ui.js"
+import "./ui.js"
 import { salvarDadosEscola } from "./escola.js"
 
 import { 

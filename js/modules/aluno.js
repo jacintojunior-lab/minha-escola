@@ -406,10 +406,12 @@ document.getElementById(`irmao${numero}Turma`).value = aluno.turma
 // =========================
 async function abrirModalFoto(){
 
-  document.getElementById("modalFotoAluno").classList.add("ativo")
-
+  const modal = document.getElementById("modalFotoAluno")
   const preview = document.getElementById("previewFoto")
   const escola = JSON.parse(localStorage.getItem("escola")) || {}
+
+  modal.classList.add("ativo")
+  document.body.classList.add("modal-aberto")
 
   const foto = await buscarFotoAluno(rga)
 
@@ -424,7 +426,11 @@ async function abrirModalFoto(){
 }
 
 function fecharModalFoto(){
-  document.getElementById("modalFotoAluno").classList.remove("ativo")
+
+  const modal = document.getElementById("modalFotoAluno")
+
+  modal.classList.remove("ativo")
+  document.body.classList.remove("modal-aberto")
 }
 
 // =========================
@@ -505,8 +511,11 @@ document.getElementById("modalZoomFoto").addEventListener("click", fecharZoomFot
 document.addEventListener("keydown", function(e){
   if(e.key === "Escape"){
     fecharZoomFoto()
+    fecharModalFoto()
   }
 })
+
+
 
 // =========================
 // EXCLUIR FOTO
@@ -569,3 +578,13 @@ window.excluirFotoAluno = excluirFotoAluno
 window.abrirZoomFoto = abrirZoomFoto
 window.fecharZoomFoto = fecharZoomFoto
 window.preencherIrmao = preencherIrmao
+
+const modalFotoAluno = document.getElementById("modalFotoAluno")
+
+if(modalFotoAluno){
+  modalFotoAluno.addEventListener("click", function(e){
+    if(e.target === modalFotoAluno){
+      fecharModalFoto()
+    }
+  })
+}

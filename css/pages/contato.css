@@ -1,0 +1,112 @@
+.filtros-contato {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.filtros-contato .campo-select {
+  flex: 1;
+  min-width: 240px;
+}
+
+.lista-contatos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contato-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  padding: 18px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--sombra-card);
+  border-left: 5px solid #25D366;
+
+  transition: .2s;
+}
+
+.contato-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-hover);
+}
+
+.contato-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contato-nome {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--azul);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contato-telefone {
+  font-size: 14px;
+  color: var(--cinza-texto);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contato-acoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-whatsapp {
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  transition: .2s;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  transform: scale(1.04);
+}
+
+@media (max-width: 700px) {
+  .filtros-contato {
+    flex-direction: column;
+  }
+
+  .filtros-contato .campo-select {
+    width: 100%;
+  }
+
+  .contato-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contato-acoes {
+    justify-content: space-between;
+  }
+
+  .btn-whatsapp,
+  .contato-acoes .btn-sec {
+    flex: 1;
+    justify-content: center;
+  }
+}

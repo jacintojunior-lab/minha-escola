@@ -242,4 +242,18 @@ document.addEventListener("DOMContentLoaded", () => {
       
   });
 
+    modalResponsavel.addEventListener("click", function(e){
+    if(e.target === modalResponsavel){
+      fecharModal()
+    }
+  })
+
+  document.addEventListener("keydown", function(e){
+    if(e.key !== "Escape") return
+
+    if(modalResponsavel.classList.contains("ativo")){
+      fecharModal()
+    }
+  })
+
 })

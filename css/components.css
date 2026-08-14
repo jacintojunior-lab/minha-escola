@@ -1,0 +1,264 @@
+/* =====================
+   CARDS
+===================== */
+.card {
+  background: var(--branco);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: var(--sombra-card);
+}
+
+.card h2 {
+  color: var(--azul);
+  margin-bottom: 20px;
+}
+
+/* =====================
+   BOTÕES
+===================== */
+.btn-sec,
+.btn-principal,
+.btn-sair,
+.btn-danger,
+.btn-cancelar,
+.btn-acao {
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: .2s;
+}
+
+.btn-sec {
+  background: var(--amarelo);
+  color: var(--preto);
+  padding: 10px 16px;
+}
+
+.btn-sec:hover {
+  background: var(--amarelo-hover);
+}
+
+.btn-principal {
+  background: var(--amarelo);
+  color: var(--preto);
+  padding: 12px 22px;
+}
+
+.btn-sair {
+  background: var(--vermelho);
+  color: white;
+  padding: 10px 16px;
+}
+
+.btn-sair:hover {
+  background: var(--vermelho-hover);
+}
+
+.btn-danger,
+.btn-excluir {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.btn-danger:hover,
+.btn-excluir:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-acao {
+  width: 36px;
+  height: 36px;
+}
+
+.btn-editar {
+  background: var(--amarelo);
+  color: #000;
+}
+
+.btn-visualizar {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-whats {
+  background: #25D366;
+  color: white;
+}
+
+/* =====================
+   FORMULÁRIOS
+===================== */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px rgba(47,50,110,0.15);
+}
+
+select {
+  appearance: none;
+  background-color: white;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%232F326E' height='20' viewBox='0 0 20 20' width='20'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.campo-form,
+.campo,
+.campo-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-form label,
+.campo label,
+.campo-select label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul);
+}
+
+.form-grid,
+.form-aluno {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+/* =====================
+   TABELAS
+===================== */
+.tabela-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--azul);
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background: #eef1ff;
+}
+
+/* =====================
+   MODAL
+===================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 2000;
+}
+
+.modal.ativo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-conteudo {
+  background: white;
+  padding: 30px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+body.modal-aberto {
+  overflow: hidden;
+}
+
+/* =====================
+   STATUS
+===================== */
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.status-ativo,
+.status-ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-inativo {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.status-concluido{
+background:#ede9fe;
+color:#5b21b6;
+}
+
+.status-transferido {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-vermelho, .status-desistente {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-amarelo, .status-retido {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-nao{
+background:#f3f4f6;
+color:#111827;
+}

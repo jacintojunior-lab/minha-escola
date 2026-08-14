@@ -1,0 +1,154 @@
+/* =====================
+   ALUNOS - ATALHOS TURMAS
+===================== */
+
+.atalhos-turmas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.atalhos-turmas button {
+  background: var(--amarelo);
+  color: var(--preto);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  transition: .2s;
+}
+
+.atalhos-turmas button:hover {
+  background: var(--amarelo-hover);
+  transform: translateY(-1px);
+}
+
+.atalhos-turmas button.ativo {
+  background: var(--azul);
+  color: white;
+}
+
+.contador-turma {
+  background: var(--azul);
+  color: white;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.atalhos-turmas button.ativo .contador-turma {
+  background: var(--amarelo);
+  color: var(--preto);
+}
+
+/* =====================
+   ALUNOS - FILTROS SITUAÇÃO
+===================== */
+
+.filtros-situacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.filtros-situacao button {
+  background: #e5e7eb;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: .2s;
+}
+
+.filtros-situacao button:hover {
+  background: #d1d5db;
+}
+
+.filtros-situacao button.ativo {
+  background: var(--azul);
+  color: white;
+}
+
+.filtros-situacao span {
+  font-weight: normal;
+  opacity: .85;
+}
+
+/* =====================
+   ALUNOS - TABELA
+===================== */
+
+#listaAlunos td {
+  vertical-align: middle;
+}
+
+td a {
+  color: inherit;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+.acoes-aluno,
+.acoes-grupo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =====================
+   SELO ENE
+===================== */
+
+.selo-ene {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+/* =====================
+   RESPONSIVO
+===================== */
+
+@media (max-width: 768px) {
+  .filtros-situacao {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+  }
+
+  .filtros-situacao button {
+    white-space: nowrap;
+  }
+
+  .atalhos-turmas {
+    max-height: 260px;
+    overflow-y: auto;
+  }
+}

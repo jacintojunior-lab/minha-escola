@@ -1,0 +1,59 @@
+.descricao {
+  color: var(--cinza-texto);
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.acoes-relatorio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+
+  margin-top: 18px;
+  padding: 16px;
+
+  background: var(--cinza-card);
+  border-radius: var(--radius-lg);
+}
+
+.campo-relatorio {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 230px;
+}
+
+.campo-relatorio label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul);
+}
+
+.botoes-relatorio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.botoes-relatorio .btn-sec {
+  min-height: 42px;
+  text-transform: none;
+}
+
+.presenca-filtros {
+  margin-bottom: 14px;
+}
+
+@media (max-width: 700px) {
+  .acoes-relatorio {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .campo-relatorio,
+  .botoes-relatorio,
+  .botoes-relatorio .btn-sec {
+    width: 100%;
+  }
+}

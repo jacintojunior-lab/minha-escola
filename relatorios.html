@@ -1,264 +1,189 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Relatórios</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Relatórios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link id="favicon" rel="icon" type="image/png" href="data:,">
+<link id="favicon" rel="icon" type="image/png" href="data:,">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/relatorios.css">
 
-    <!-- Ícones -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 </head>
+
 <body>
 
-<!-- BOTÃO MOBILE -->
-<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
 
 <div class="layout">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-logo">
-            <img src="assets/logo.jpg" alt="Logo da Escola">
-            <span>Sistema Escolar</span>
-        </div>
+<aside class="sidebar" id="sidebar">
 
-        <nav class="sidebar-menu">
-            <a href="dashboard.html">
-                <i class="fa-solid fa-chart-line"></i> Dashboard
-            </a>
-            <a href="cadastro.html">
-                <i class="fa-solid fa-clipboard-list"></i> Cadastro
-            </a>
-            <a href="alunos.html">
-                <i class="fa-solid fa-user-graduate"></i> Alunos
-            </a>
-            <a href="carometro.html">
-            <i class="fa-solid fa-id-badge"></i> Carômetro
-            </a>
-            <a href="irmaos.html">
-            <i class="fa-solid fa-people-roof"></i> Irmãos
-            </a>
-            <a href="pais.html">
-            <i class="fa-solid fa-people-roof"></i> Pais
-            </a>
-            <a href="relatorios.html" class="ativo">
-                <i class="fa-solid fa-file-lines"></i> Relatórios
-            </a>
-            
-            <a href="contato.html">
-                <i class="fa-brands fa-whatsapp"></i> Contato
-            </a>
-            <a href="declaracoes.html">
-            <i class="fa-solid fa-file-signature"></i> Declarações
-            </a>
-            <a href="formularios.html">
-            <i class="fa-solid fa-folder-open"></i> Formulários
-            </a>
-            <a href="turmas.html">
-                <i class="fa-solid fa-school"></i> Turmas
-            </a>
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
 
-            <a href="funcionarios.html">
-            <i class="fa-solid fa-user-tie"></i> Funcionários
-            </a>
-            
-            <a href="transporte.html">
-                <i class="fa-solid fa-bus"></i> Transporte
-            </a>
+<nav class="sidebar-menu">
+  <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+  <a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+  <a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+  <a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+  <a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+  <a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+  <a href="relatorios.html" class="ativo"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+  <a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+  <a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+  <a href="formularios.html"><i class="fa-solid fa-folder-open"></i> Formulários</a>
+  <a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
+  <a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+  <a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+  <a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+  <a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+  <a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+  <a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+  <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
+</nav>
 
-            <a href="cesta-basica.html">
-                <i class="fa-solid fa-basket-shopping"></i> Cesta Básica
-            </a>
+</aside>
 
-            <a href="saude.html">
-                <i class="fa-solid fa-heart-pulse"></i> Saúde
-            </a>
-            <a href="configuracoes.html">
-                <i class="fa-solid fa-gear"></i> Configurações
-            </a>
-        </nav>
-    </aside>
+<main class="conteudo">
 
-    <!-- CONTEÚDO -->
-    <main class="conteudo">
+<section class="card">
+  <h2><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
 
-        <section class="card">
-            <h2>
-                <i class="fa-solid fa-file-lines"></i>
-                Relatórios
-            </h2>
+  <p class="descricao">
+    Gere relatórios e arquivos a partir dos alunos cadastrados.
+  </p>
 
-            <p class="descricao">
-                Gere relatórios e arquivos a partir dos alunos cadastrados.
-            </p>
+  <div class="acoes-relatorio">
 
-            <!-- AÇÕES -->
-            <div class="acoes-relatorio">
+    <div class="campo-relatorio">
+      <label for="turmaSelecionada">Turma</label>
+      <select id="turmaSelecionada">
+        <option value="">Selecione uma turma</option>
+      </select>
+    </div>
 
-                <div class="campo-relatorio">
-                    <label for="turmaSelecionada">Turma</label>
-                    <select id="turmaSelecionada">
-                        <option value="">Selecione uma turma</option>
-                    </select>
-                </div>
+    <div class="botoes-relatorio">
+      <button class="btn-sec" id="btnPDFGeral"><i class="fa-solid fa-file-pdf"></i> Lista piloto</button>
+      <button class="btn-sec" id="btnPDFTurma"><i class="fa-solid fa-filter"></i> Lista da turma</button>
+      <button class="btn-sec" id="btnExcel"><i class="fa-solid fa-file-excel"></i> Gerar CSV</button>
+      <button class="btn-sec" id="btnSaude"><i class="fa-solid fa-heart-pulse"></i> Relatório de DVAs</button>
+      <button class="btn-sec" id="btnCarometroGeral"><i class="fa-solid fa-id-badge"></i> Carômetro</button>
+      <button class="btn-sec" id="btnCarometroTurma"><i class="fa-solid fa-id-card"></i> Carômetro turma</button>
+      <button class="btn-sec" id="btnRGAEOLINEP"><i class="fa-solid fa-table"></i> RGA - EOL - INEP</button>
+      <button class="btn-sec" id="btnRGAEOLINEPTurma"><i class="fa-solid fa-filter"></i> RGA - EOL - INEP turma</button>
+      <button class="btn-sec" id="btnListaTelefonica"><i class="fa-solid fa-phone"></i> Lista telefônica</button>
+      <button class="btn-sec" id="btnListaTelefonicaTurma"><i class="fa-solid fa-phone-volume"></i> Lista telefônica turma</button>
+      <button class="btn-sec" id="btnSaidaGeral"><i class="fa-solid fa-person-walking-arrow-right"></i> Saída</button>
+      <button class="btn-sec" id="btnSaidaTurma"><i class="fa-solid fa-filter"></i> Saída turma</button>
+    </div>
 
-                <div class="botoes-relatorio">
-                    <!-- LISTA PILOTO - COMPLETA-->
-                    <button class="btn-sec" id="btnPDFGeral">
-                        <i class="fa-solid fa-file-pdf"></i>
-                        LISTA PILOTO
-                    </button>
+  </div>
+</section>
 
-                    <!-- LISTA PILOTO - TURMA-->
-                    <button class="btn-sec" id="btnPDFTurma">
-                        <i class="fa-solid fa-filter"></i>
-                        LISTA DA TURMA
-                    </button>
+<section class="card">
+  <h2><i class="fa-solid fa-clipboard-check"></i> Listas de Presença</h2>
 
-                    <!-- GERAR CSV-->
-                    <button class="btn-sec" id="btnExcel">
-                        <i class="fa-solid fa-file-excel"></i>
-                        GERAR CSV
-                    </button>
+  <p class="descricao">
+    Gere listas de chamada por etapa ou por turma.
+  </p>
 
-                    <!-- RELATÓRIO DE DVA-->
-                    <button class="btn-sec" id="btnSaude">
-                    <i class="fa-solid fa-heart-pulse"></i>
-                    RELATÓRIO DE DVAs
-                    </button>
+  <div class="acoes-relatorio presenca-filtros">
 
-                    <!-- CARÔMETRO COMPLETO-->
-                    <button class="btn-sec" id="btnCarometroGeral">
-                        <i class="fa-solid fa-id-badge"></i>
-                        CARÔMETRO
-                    </button>
+    <div class="campo-relatorio">
+      <label for="mesPresenca">Mês</label>
+      <select id="mesPresenca">
+        <option value="JANEIRO">Janeiro</option>
+        <option value="FEVEREIRO">Fevereiro</option>
+        <option value="MARÇO">Março</option>
+        <option value="ABRIL">Abril</option>
+        <option value="MAIO">Maio</option>
+        <option value="JUNHO">Junho</option>
+        <option value="JULHO">Julho</option>
+        <option value="AGOSTO">Agosto</option>
+        <option value="SETEMBRO">Setembro</option>
+        <option value="OUTUBRO">Outubro</option>
+        <option value="NOVEMBRO">Novembro</option>
+        <option value="DEZEMBRO">Dezembro</option>
+      </select>
+    </div>
 
-                    <!-- CARÔMETRO POR TURMA-->
-                    <button class="btn-sec" id="btnCarometroTurma">
-                        <i class="fa-solid fa-id-card"></i>
-                        CARÔMETRO (TURMA)
-                    </button>
+    <div class="campo-relatorio">
+      <label for="anoPresenca">Ano</label>
+      <select id="anoPresenca"></select>
+    </div>
 
-                    <!-- Nº DO ESTUDANTE -->
-                    <button class="btn-sec" id="btnRGAEOLINEP">
-                        <i class="fa-solid fa-table"></i>
-                        RGA - EOL - INEP
-                    </button>
+  </div>
 
-                    <!-- Nº DO ESTUDANTE - Turma -->
-                    <button class="btn-sec" id="btnRGAEOLINEPTurma">
-                        <i class="fa-solid fa-filter"></i>
-                        RGA - EOL - INEP (TURMA)
-                    </button>
+  <div class="botoes-relatorio">
+    <button class="btn-sec" id="btnPresencaFund1">
+      <i class="fa-solid fa-child-reaching"></i>
+      Presença Fund. I
+    </button>
 
-                    <!-- LISTA TELEFÔNICA -->
-                    <button class="btn-sec" id="btnListaTelefonica">
-                        <i class="fa-solid fa-phone"></i>
-                        LISTA TELEFÔNICA
-                    </button>
+    <button class="btn-sec" id="btnPresencaFund2">
+      <i class="fa-solid fa-user-graduate"></i>
+      Presença Fund. II
+    </button>
 
-                    <!-- LISTA TELEFÔNICA - Turma-->
-                    <button id="btnListaTelefonicaTurma" class="btn-sec">
-                    📞 LISTA TELEFÔNICA (TURMA)
-                    </button>
+    <button class="btn-sec" id="btnPresencaTurma">
+      <i class="fa-solid fa-filter"></i>
+      Presença turma
+    </button>
+  </div>
+</section>
 
-                    <!-- LISTA AUTORIZADOS PARA RETIRAR ESTUDANTE -->
-                    <button class="btn-sec" id="btnSaidaGeral">
-                        <i class="fa-solid fa-person-walking-arrow-right"></i>
-                        SAÍDA
-                    </button>
-
-                    <!-- LISTA AUTORIZADOS PARA RETIRAR ESTUDANTES - Turma-->
-                    <button class="btn-sec" id="btnSaidaTurma">
-                        <i class="fa-solid fa-filter"></i>
-                        SAÍDA (TURMA)
-                    </button>
-                    
-                </div>
-
-            </div>
-        </section>
-        <section class="card">
-        <h2>
-            <i class="fa-solid fa-clipboard-check"></i>
-            Listas de Presença
-        </h2>
-
-        <p class="descricao">
-            Gere listas de chamada por etapa ou por turma.
-        </p>
-
-        <div class="acoes-relatorio" style="margin-bottom:12px;">
-            <div class="campo-relatorio">
-                <label for="mesPresenca">Mês</label>
-                <select id="mesPresenca">
-                <option value="JANEIRO">Janeiro</option>
-                <option value="FEVEREIRO">Fevereiro</option>
-                <option value="MARÇO">Março</option>
-                <option value="ABRIL">Abril</option>
-                <option value="MAIO">Maio</option>
-                <option value="JUNHO">Junho</option>
-                <option value="JULHO">Julho</option>
-                <option value="AGOSTO">Agosto</option>
-                <option value="SETEMBRO">Setembro</option>
-                <option value="OUTUBRO">Outubro</option>
-                <option value="NOVEMBRO">Novembro</option>
-                <option value="DEZEMBRO">Dezembro</option>
-                </select>
-            </div>
-
-            <div class="campo-relatorio">
-                <label for="anoPresenca">Ano</label>
-                <select id="anoPresenca"></select>
-            </div>
-        </div>
-
-        <div class="botoes-relatorio">
-
-            <button class="btn-sec" id="btnPresencaFund1">
-            <i class="fa-solid fa-child-reaching"></i>
-            PRESENÇA FUND. I
-            </button>
-
-            <button class="btn-sec" id="btnPresencaFund2">
-            <i class="fa-solid fa-user-graduate"></i>
-            PRESENÇA FUND. II
-            </button>
-
-            <button class="btn-sec" id="btnPresencaTurma">
-            <i class="fa-solid fa-filter"></i>
-            PRESENÇA (TURMA)
-            </button>
-
-        </div>
-        </section>
-
-    </main>
+</main>
 </div>
 
-<footer>
-    <p>© 2026 – Sistema Escolar</p>
+<footer class="footer">
+  <p id="footerTexto"></p>
 </footer>
 
-<!-- SCRIPT MENU -->
-<script>
-function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("aberta");
-}
-</script>
-
-<!-- SCRIPT DA PÁGINA -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
 <script type="module" src="js/modules/relatorios.js"></script>
 
 </body>

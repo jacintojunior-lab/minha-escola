@@ -1,0 +1,266 @@
+.cabecalho-secao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.cabecalho-secao h2 {
+  margin-bottom: 0;
+}
+
+.acoes-csv {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.titulo-periodo {
+  margin: 20px 0 10px;
+  color: var(--azul);
+  font-size: 16px;
+}
+
+.grid-turmas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.turma-card {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: white;
+  border-radius: 12px;
+  border-left: 6px solid transparent;
+  box-shadow: var(--sombra-card);
+
+  padding: 18px 14px;
+  min-height: 145px;
+
+  cursor: pointer;
+  transition: .2s;
+}
+
+.barra{
+    margin:14px 0 6px;
+}
+
+.turma-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-hover);
+}
+
+.turma-card.status-ok {
+  border-left-color: #22c55e;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.turma-card.status-quase {
+  border-left-color: #f59e0b;
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.turma-card.status-lotada {
+  border-left-color: #ef4444;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.topo-turma {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+}
+
+.nome-turma {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--azul);
+}
+
+.qtd {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.info-turma {
+  font-size: 13px;
+  color: var(--cinza-texto);
+  margin-top: 6px;
+}
+
+.barra {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.barra-preenchida {
+  height: 100%;
+  background: var(--azul);
+  transition: .3s;
+}
+
+.rodape-turma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* centraliza Disponível / Quase cheia / Lotada */
+.status-linha {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.status-linha .status {
+  min-width: 110px;
+  text-align: center;
+}
+
+/* centraliza os botões */
+.acoes-turma {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Botões dos cards */
+
+.btn-acao{
+    width:36px;
+    height:36px;
+
+    border:none;
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.btn-acao i{
+    color:#fff;
+    font-size:14px;
+}
+
+.btn-acao.visualizar{
+    background:#2563eb;
+}
+
+.btn-acao.visualizar:hover{
+    background:#1d4ed8;
+}
+
+.btn-acao.editar{
+    background:#facc15;
+}
+
+.btn-acao.editar i{
+    color:#111827;
+}
+
+.btn-acao.editar:hover{
+    background:#eab308;
+}
+
+.btn-acao.excluir{
+    background:#dc2626;
+}
+
+.btn-acao.excluir:hover{
+    background:#b91c1c;
+}
+
+.btn-acao.excluir {
+  background: var(--vermelho);
+  color: white;
+}
+
+#modalTurma .modal-conteudo {
+  max-width: 760px;
+}
+
+#modalTurma h3 {
+  color: var(--azul);
+  text-align: center;
+}
+
+#modalTurma .modal-acoes {
+  grid-column: 1 / -1;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#modalTurma .modal-acoes button {
+  min-width: 120px;
+  height: 40px;
+}
+
+#modalTurma .btn-cancelar {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+#modalTurma .btn-cancelar:hover {
+  background: #d1d5db;
+}
+
+@media (max-width: 700px) {
+  .cabecalho-secao,
+  .acoes-csv {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes-csv button {
+    width: 100%;
+  }
+
+  .rodape-turma {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes-turma {
+    justify-content: space-between;
+  }
+
+  #modalTurma .modal-acoes {
+    flex-direction: column;
+  }
+
+  #modalTurma .modal-acoes button {
+    width: 100%;
+  }
+}
+
+.turma-card {
+  text-align: left;
+}
+
+.turma-card .barra {
+  width: 100%;
+}

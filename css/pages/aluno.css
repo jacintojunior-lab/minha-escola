@@ -1,0 +1,347 @@
+/* =====================
+   PERFIL DO ALUNO
+===================== */
+
+.perfil-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--sombra-card);
+}
+
+.perfil-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+}
+
+.perfil-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+}
+
+.btn-editar-foto {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--amarelo);
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.perfil-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perfil-nome {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--azul);
+}
+
+.perfil-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.perfil-item {
+  background: #f3f4f6;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* =====================
+   ABAS
+===================== */
+
+.abas-aluno {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.aba {
+  background: #e5e7eb;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  color: white;
+}
+
+.conteudo-aba {
+  display: none;
+}
+
+.conteudo-aba.ativo {
+  display: block;
+  animation: fadeSlide .2s ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================
+   FORMULÁRIO DO PERFIL
+===================== */
+
+#formAluno h3 {
+  margin-top: 25px;
+  margin-bottom: 12px;
+  color: var(--azul);
+}
+
+#aba-contato h4,
+.grupo-contato {
+  color: var(--azul);
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.linha-recado {
+  margin-top: 15px;
+}
+
+/* =====================
+   IRMÃOS
+===================== */
+
+.irmaos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.irmao-linha {
+  display: grid;
+  grid-template-columns: 150px 1fr 120px;
+  gap: 10px;
+}
+
+.lista-irmaos-auto {
+  margin-top: 10px;
+}
+
+/* =====================
+   MODAL FOTO
+===================== */
+
+.modal-foto {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-foto.ativo {
+  display: flex;
+}
+
+.modal-foto-content {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
+}
+
+.preview-foto {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.preview-foto img {
+  width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.acoes-modal {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+/* =====================
+   ZOOM FOTO
+===================== */
+
+.modal-zoom-foto {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.modal-zoom-foto.ativo {
+  display: flex;
+}
+
+.modal-zoom-foto img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,.5);
+}
+
+body.zoom-aberto {
+  overflow: hidden;
+}
+
+/* =====================
+   RESPONSIVO
+===================== */
+
+@media (max-width: 768px) {
+  .perfil-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .perfil-meta {
+    justify-content: center;
+  }
+
+  .irmao-linha {
+    grid-template-columns: 1fr;
+  }
+
+  .acoes-modal {
+    flex-direction: column;
+  }
+
+  .acoes-modal button {
+    width: 100%;
+  }
+}
+
+/* =====================
+   MODAL FOTO
+===================== */
+
+#modalFotoAluno .modal-conteudo{
+    max-width:430px;
+}
+
+#modalFotoAluno h3{
+    margin-bottom:12px;
+    text-align:center;
+}
+
+#modalFotoAluno .modal-foto{
+    text-align:center;
+}
+
+#modalFotoAluno #previewFoto{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+    margin:0 auto 18px;
+}
+
+#modalFotoAluno #inputFotoAluno{
+    margin-bottom:18px;
+}
+
+#modalFotoAluno .modal-acoes{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:10px;
+    margin-top:18px;
+
+    flex-wrap:wrap;
+
+}
+
+#modalFotoAluno .modal-acoes button{
+
+    width:110px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+    border-radius:8px;
+
+    font-size:14px;
+    font-weight:600;
+
+}
+
+#modalFotoAluno #btnExcluirFotoAluno{
+
+    background:var(--vermelho);
+    color:white;
+
+}
+
+#modalFotoAluno #btnExcluirFotoAluno:hover{
+
+    background:var(--vermelho-hover);
+
+}
+
+@media(max-width:480px){
+
+    #modalFotoAluno .modal-acoes{
+
+        flex-direction:column;
+
+    }
+
+    #modalFotoAluno .modal-acoes button{
+
+        width:100%;
+
+    }
+
+}

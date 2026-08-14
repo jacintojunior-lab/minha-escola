@@ -124,11 +124,10 @@ async function abrirModalFoto(matricula) {
   state.alunoSelecionado = state.alunos.find(a => a.matricula === matricula)
 
   const modal = document.getElementById("modalFoto")
-  modal.style.display = "flex"
-
-  document.body.classList.add("modal-aberto")
-
   const preview = document.getElementById("previewFoto")
+
+  modal.classList.add("ativo")
+  document.body.classList.add("modal-aberto")
 
   const fotoIndexedDB = await buscarFotoAluno(matricula)
 
@@ -139,10 +138,10 @@ async function abrirModalFoto(matricula) {
 }
 
 function fecharModalFoto() {
-  const modal = document.getElementById("modalFoto");
-  modal.style.display = "none";
+  const modal = document.getElementById("modalFoto")
 
-  document.body.classList.remove("modal-aberto");
+  modal.classList.remove("ativo")
+  document.body.classList.remove("modal-aberto")
 }
 
 const modal = document.getElementById("modalFoto");
@@ -248,88 +247,6 @@ function imprimirCarometro() {
   window.print();
 }
 
-// Criar PDF
-
-async function exportarPDF() {
-
-  const turma = filtroTurma.value;
-
-  if (!turma) {
-    alert("Selecione uma turma primeiro");
-    return;
-  }
-
-  const { jsPDF } = window.jspdf;
-
-  const area = document.getElementById("gridCarometro");
-
-  // 🔥 REMOVE dependência do título HTML
-  document.body.classList.add("pdf-mode");
-
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  // aguarda imagens
-  await Promise.all(
-    Array.from(area.querySelectorAll("img")).map(img => {
-      if (img.complete) return Promise.resolve();
-      return new Promise(resolve => {
-        img.onload = img.onerror = resolve;
-      });
-    })
-  );
-
-  const canvas = await html2canvas(area, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true
-  });
-
-  const imgData = canvas.toDataURL("image/jpeg", 1.0);
-
-  const pdf = new jsPDF("l", "mm", "a4");
-
-  const pageWidth = 297;
-  const pageHeight = 210;
-
-  const margin = 10;
-
-  // 🔥 TÍTULO DIRETO NO PDF
-  pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(16);
-  pdf.text(`Carômetro - Turma ${turma}`, pageWidth / 2, 15, {
-    align: "center"
-  });
-
-  // espaço abaixo do título
-  const contentTop = 25;
-
-  const imgWidth = pageWidth - (margin * 2);
-  const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-  let heightLeft = imgHeight;
-  let position = contentTop;
-
-  // primeira página
-  pdf.addImage(imgData, "JPEG", margin, position, imgWidth, imgHeight);
-  heightLeft -= (pageHeight - contentTop);
-
-  // páginas extras
-  while (heightLeft > 0) {
-
-    position = heightLeft - imgHeight + contentTop;
-
-    pdf.addPage();
-
-    pdf.addImage(imgData, "JPEG", margin, position, imgWidth, imgHeight);
-
-    heightLeft -= pageHeight;
-  }
-
-  pdf.save(`carometro-${turma}.pdf`);
-
-  document.body.classList.remove("pdf-mode");
-}
-
 // =========================
 // ZOOM FOTO
 // =========================
@@ -384,6 +301,3 @@ document.getElementById("btnFecharModal")
 
 document.getElementById("btnImprimir")
   .addEventListener("click", imprimirCarometro)
-
-document.getElementById("btnPDF")
-  .addEventListener("click", exportarPDF)

@@ -227,10 +227,6 @@ document.getElementById("countSemDVA").textContent = countSemDVA
 document.getElementById("countEmDia").textContent = countEmDia
 document.getElementById("countProxima").textContent = countProxima
 document.getElementById("countVencida").textContent = countVencida
-document.getElementById("limparFiltros").addEventListener("click", () => {
-  localStorage.removeItem(STORAGE_KEY)
-  location.reload()
-})
 
 // renderizar
 filtrados.forEach(a => {
@@ -328,6 +324,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }else{
     listar()
   }
+
+  document.getElementById("limparFiltros")
+  ?.addEventListener("click", () => {
+    localStorage.removeItem(STORAGE_KEY)
+    location.reload()
+  })
 
 })
 

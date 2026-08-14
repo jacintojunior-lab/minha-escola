@@ -41,6 +41,12 @@ function bindEventos(){
 
   document.getElementById("importarCSV")
     ?.addEventListener("change", importarCSV)
+
+  document.getElementById("btnImportarCSV")
+  ?.addEventListener("click", () => {
+    document.getElementById("importarCSV").click()
+  })
+  
 }
 
 // =========================

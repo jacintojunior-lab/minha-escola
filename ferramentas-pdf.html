@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Ferramentas PDF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/ferramentas-pdf.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar" id="sidebar">
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
+
+<nav class="sidebar-menu">
+  <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+  <a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+  <a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+  <a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+  <a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+  <a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+  <a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+  <a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+  <a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+  <a href="formularios.html"><i class="fa-solid fa-folder-open"></i> Formulários</a>
+  <a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
+  <a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+  <a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+  <a href="ferramentas-pdf.html" class="ativo"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+  <a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+  <a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+  <a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+  <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
+</nav>
+</aside>
+
+<main class="conteudo">
+
+<section class="cabecalho-pdf">
+  <div>
+    <span class="etiqueta-pdf">
+      <i class="fa-solid fa-file-pdf"></i>
+      Processamento local
+    </span>
+    <h1>Ferramentas PDF</h1>
+    <p>Junte, divida, extraia, rotacione, exclua e reorganize páginas sem enviar documentos para a internet.</p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="modos-pdf" role="tablist" aria-label="Ferramenta PDF">
+    <button class="modo-pdf ativo" data-modo="juntar">
+      <i class="fa-solid fa-link"></i>
+      <span>Juntar PDF</span>
+    </button>
+
+    <button class="modo-pdf" data-modo="dividir">
+      <i class="fa-solid fa-scissors"></i>
+      <span>Dividir PDF</span>
+    </button>
+
+    <button class="modo-pdf" data-modo="rotacionar">
+      <i class="fa-solid fa-rotate"></i>
+      <span>Rotacionar PDF</span>
+    </button>
+  </div>
+
+  <div id="descricaoModo" class="descricao-modo">
+    Adicione dois ou mais PDFs e organize as páginas na ordem desejada.
+  </div>
+</section>
+
+<section class="card">
+  <label id="dropZone" class="drop-zone" for="arquivoPdf">
+    <input id="arquivoPdf" type="file" accept=".pdf,application/pdf" multiple hidden>
+    <span class="drop-icone"><i class="fa-solid fa-cloud-arrow-up"></i></span>
+    <strong>Arraste seus arquivos PDF aqui</strong>
+    <span>ou clique para selecionar</span>
+    <small id="textoLimite">Você pode adicionar vários PDFs.</small>
+  </label>
+
+  <div id="listaArquivos" class="lista-arquivos" hidden></div>
+</section>
+
+<section class="card" id="cardControles" hidden>
+  <div class="barra-superior-pdf">
+    <div>
+      <h2><i class="fa-solid fa-table-cells-large"></i> Páginas</h2>
+      <p id="resumoPaginas">0 páginas</p>
+    </div>
+
+    <div class="acoes-gerais-pdf">
+      <button id="btnSelecionarTodas" class="btn-secundario">
+        <i class="fa-regular fa-square-check"></i>
+        Selecionar todas
+      </button>
+
+      <button id="btnLimparSelecao" class="btn-secundario">
+        <i class="fa-regular fa-square"></i>
+        Limpar seleção
+      </button>
+
+      <button id="btnRotacionarEsquerda" class="btn-icone-texto" title="Rotacionar selecionadas 90° para a esquerda">
+        <i class="fa-solid fa-rotate-left"></i>
+        -90°
+      </button>
+
+      <button id="btnRotacionarDireita" class="btn-icone-texto" title="Rotacionar selecionadas 90° para a direita">
+        <i class="fa-solid fa-rotate-right"></i>
+        +90°
+      </button>
+
+      <button id="btnExcluirSelecionadas" class="btn-icone-texto perigo" title="Excluir páginas selecionadas">
+        <i class="fa-solid fa-trash"></i>
+        Excluir
+      </button>
+    </div>
+  </div>
+
+  <div id="controlesDividir" class="controles-dividir" hidden>
+    <div class="opcoes-dividir">
+      <label class="opcao-radio">
+        <input type="radio" name="tipoDivisao" value="todas" checked>
+        <span>
+          <strong>Dividir todas as páginas</strong>
+          <small>Cria um PDF para cada página e baixa tudo em um arquivo ZIP.</small>
+        </span>
+      </label>
+
+      <label class="opcao-radio">
+        <input type="radio" name="tipoDivisao" value="selecionadas">
+        <span>
+          <strong>Criar PDF com páginas selecionadas</strong>
+          <small>Gera um novo PDF contendo somente as páginas escolhidas.</small>
+        </span>
+      </label>
+    </div>
+
+    <label class="campo-paginas">
+      <span>Páginas</span>
+      <input id="campoPaginas" type="text" placeholder="Ex.: 1-3, 5, 8-10">
+      <button id="btnAplicarPaginas" type="button" class="btn-secundario">
+        Aplicar
+      </button>
+    </label>
+  </div>
+
+  <div class="aviso-reordenar">
+    <i class="fa-solid fa-grip"></i>
+    Arraste as miniaturas para alterar a ordem das páginas.
+  </div>
+
+  <div id="gradePaginas" class="grade-paginas"></div>
+</section>
+
+<section class="card barra-execucao" id="barraExecucao" hidden>
+  <div class="resumo-execucao">
+    <span id="statusExecucao">Pronto para executar.</span>
+    <small id="detalheExecucao"></small>
+  </div>
+
+  <div class="acoes-execucao">
+    <button id="btnLimparTudo" class="btn-secundario">
+      <i class="fa-solid fa-broom"></i>
+      Limpar
+    </button>
+
+    <button id="btnExecutar" class="btn-principal">
+      <i class="fa-solid fa-play"></i>
+      <span>Juntar PDFs</span>
+    </button>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer class="footer">
+  <p id="footerTexto"></p>
+</footer>
+
+<div id="modalPreview" class="modal-preview" hidden>
+  <div class="modal-preview-backdrop" data-fechar-preview></div>
+
+  <section class="modal-preview-caixa" role="dialog" aria-modal="true" aria-label="Visualização da página">
+    <header class="modal-preview-topo">
+      <div>
+        <strong id="modalTitulo">Página</strong>
+        <small id="modalArquivo"></small>
+      </div>
+
+      <button id="btnFecharPreview" class="btn-modal-icone" title="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+
+    <div class="modal-preview-conteudo">
+      <button id="btnPreviewAnterior" class="btn-navegacao-preview" title="Página anterior">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="preview-canvas-wrap">
+        <canvas id="canvasPreview"></canvas>
+      </div>
+
+      <button id="btnPreviewProxima" class="btn-navegacao-preview" title="Próxima página">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <footer class="modal-preview-acoes">
+      <button id="btnPreviewRotacionar" class="btn-secundario">
+        <i class="fa-solid fa-rotate-right"></i>
+        Rotacionar
+      </button>
+
+      <button id="btnPreviewExcluir" class="btn-secundario perigo">
+        <i class="fa-solid fa-trash"></i>
+        Excluir página
+      </button>
+    </footer>
+  </section>
+</div>
+
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
+
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script type="module" src="js/modules/ferramentas-pdf.js"></script>
+</body>
+</html>

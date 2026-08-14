@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Login - Sistema Escolar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link id="favicon" rel="icon" type="image/png" href="data:,">
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages/login.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="login-body">
+
+<div class="login-card">
+
+  <div class="login-logo">
+    <img src="assets/logo.jpg" alt="Sistema Escolar">
+  </div>
+
+  <h1>Sistema Escolar</h1>
+  <p>Acesse sua conta</p>
+
+  <form id="formLogin" class="login-form">
+    <div class="campo-login">
+      <i class="fa-solid fa-envelope"></i>
+      <input type="email" id="email" placeholder="E-mail" required>
+    </div>
+
+    <div class="campo-login">
+      <i class="fa-solid fa-lock"></i>
+      <input type="password" id="senha" placeholder="Senha" required>
+    </div>
+
+    <button type="submit" class="btn-login">
+      <i class="fa-solid fa-right-to-bracket"></i>
+      Entrar
+    </button>
+  </form>
+
+  <div id="erroLogin" class="login-erro"></div>
+
+</div>
+
+<script type="module" src="js/modules/login.js"></script>
+
+</body>
+</html>

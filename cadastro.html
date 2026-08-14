@@ -1,172 +1,216 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Cadastro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Cadastro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link id="favicon" rel="icon" type="image/png" href="data:,">
+<link id="favicon" rel="icon" type="image/png" href="data:,">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/cadastro.css">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
-<!-- BOTÃO MOBILE -->
-<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
 
 <div class="layout">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-logo">
-            <img src="assets/logo.jpg" alt="Logo da Escola">
-            <span>Sistema Escolar</span>
-        </div>
+  <aside class="sidebar" id="sidebar">
 
-        <nav class="sidebar-menu">
-            <a href="dashboard.html">
-                <i class="fa-solid fa-chart-line"></i> Dashboard
-            </a>
-            <a href="cadastro.html" class="ativo">
-                <i class="fa-solid fa-clipboard-list"></i> Cadastro
-            </a>
-            <a href="alunos.html">
-                <i class="fa-solid fa-user-graduate"></i> Alunos
-            </a>
-            <a href="carometro.html">
-            <i class="fa-solid fa-id-badge"></i> Carômetro
-            </a>
-            <a href="irmaos.html">
-            <i class="fa-solid fa-people-roof"></i> Irmãos
-            </a>
-            <a href="pais.html">
-            <i class="fa-solid fa-people-roof"></i> Pais
-            </a>
-            <a href="relatorios.html">
-                <i class="fa-solid fa-file-lines"></i> Relatórios
-            </a>
-            <a href="contato.html">
-                <i class="fa-brands fa-whatsapp"></i> Contato
-            </a>
-            <a href="declaracoes.html">
-            <i class="fa-solid fa-file-signature"></i> Declarações
-            </a>
-            <a href="formularios.html">
-            <i class="fa-solid fa-folder-open"></i> Formulários
-            </a>
-            <a href="turmas.html">
-                <i class="fa-solid fa-school"></i> Turmas
-            </a>
-            <a href="funcionarios.html">
-                <i class="fa-solid fa-user-tie"></i> Funcionários
-            </a>
-            <a href="transporte.html">
-                <i class="fa-solid fa-bus"></i> Transporte
-            </a>
-            <a href="cesta-basica.html">
-            <i class="fa-solid fa-basket-shopping"></i> Cesta Básica
-            </a>
-            <a href="saude.html">
-                <i class="fa-solid fa-heart-pulse"></i> Saúde
-            </a>
-            <a href="configuracoes.html">
-                <i class="fa-solid fa-gear"></i> Configurações
-            </a>
-        </nav>
-    </aside>
+    <button id="btnFecharMenu" class="btn-fechar-menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
 
-    <!-- CONTEÚDO -->
-    <main class="conteudo">
+    <nav class="sidebar-menu">
 
-        <!-- CADASTRO -->
-        <section class="card">
-            <h2>Cadastro de Aluno</h2>
+      <a href="dashboard.html">
+        <i class="fa-solid fa-chart-line"></i> Dashboard
+      </a>
 
-            <form id="formAluno" class="form-aluno">
-                <input type="text" id="nome" placeholder="Nome do aluno" required>
-                <input type="text" id="matricula" placeholder="Matrícula" required>
-                <select id="turma" required><option value="">Selecione a turma</option></select>
+      <a href="cadastro.html" class="ativo">
+        <i class="fa-solid fa-clipboard-list"></i> Cadastro
+      </a>
 
-                <button type="submit" class="btn-principal">
-                    Salvar
-                </button>
-            </form>
-        </section>
+      <a href="alunos.html">
+        <i class="fa-solid fa-user-graduate"></i> Alunos
+      </a>
 
-        <!-- BUSCA -->
-        <section class="card">
-            <h2>Buscar Aluno</h2>
+      <a href="carometro.html">
+        <i class="fa-solid fa-id-badge"></i> Carômetro
+      </a>
 
-            <input
-                type="search"
-                id="buscaAluno"
-                class="campo-busca"
-                placeholder="Digite nome ou matrícula">
-        </section>
+      <a href="irmaos.html">
+        <i class="fa-solid fa-people-roof"></i> Irmãos
+      </a>
 
-        <!-- LISTAGEM -->
-        <section class="card">
-            <h2>Alunos Cadastrados</h2>
+      <a href="pais.html">
+        <i class="fa-solid fa-people-roof"></i> Pais
+      </a>
 
-            <div class="tabela-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Matrícula</th>
-                            <th>Turma</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaAlunos">
-                        <!-- preenchido via JS -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
+      <a href="relatorios.html">
+        <i class="fa-solid fa-file-lines"></i> Relatórios
+      </a>
 
-    </main>
+      <a href="contato.html">
+        <i class="fa-brands fa-whatsapp"></i> Contato
+      </a>
+
+      <a href="declaracoes.html">
+        <i class="fa-solid fa-file-signature"></i> Declarações
+      </a>
+
+      <a href="formularios.html">
+        <i class="fa-solid fa-folder-open"></i> Formulários
+      </a>
+
+      <a href="turmas.html">
+        <i class="fa-solid fa-school"></i> Turmas
+      </a>
+
+      <a href="funcionarios.html">
+        <i class="fa-solid fa-user-tie"></i> Funcionários
+      </a>
+      <a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+      <a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+      <a href="transporte.html">
+        <i class="fa-solid fa-bus"></i> Transporte
+      </a>
+
+      <a href="cesta-basica.html">
+        <i class="fa-solid fa-basket-shopping"></i> Cesta Básica
+      </a>
+
+      <a href="saude.html">
+        <i class="fa-solid fa-heart-pulse"></i> Saúde
+      </a>
+
+      <a href="configuracoes.html">
+        <i class="fa-solid fa-gear"></i> Configurações
+      </a>
+
+    </nav>
+  </aside>
+
+  <main class="conteudo">
+
+    <section class="card">
+      <h2><i class="fa-solid fa-user-plus"></i> Cadastro de Aluno</h2>
+
+      <form id="formAluno" class="form-aluno">
+        <input type="text" id="nome" placeholder="Nome do aluno" required>
+        <input type="text" id="matricula" placeholder="Matrícula" required>
+        <select id="turma" required>
+          <option value="">Selecione a turma</option>
+        </select>
+
+        <button type="submit" class="btn-principal">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Salvar
+        </button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2><i class="fa-solid fa-magnifying-glass"></i> Buscar Aluno</h2>
+
+      <input
+        type="search"
+        id="buscaAluno"
+        class="campo-busca"
+        placeholder="Digite nome ou matrícula">
+    </section>
+
+    <section class="card">
+      <h2><i class="fa-solid fa-list"></i> Alunos Cadastrados</h2>
+
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Matrícula</th>
+              <th>Turma</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="listaAlunos"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
 </div>
 
-<footer>
-    <p>© 2026 – Sistema Escolar</p>
+<footer class="footer">
+  <p id="footerTexto"></p>
 </footer>
 
-<!-- MODAL EDITAR -->
 <div id="modalEditar" class="modal">
-    <div class="modal-conteudo">
-        <h3>Editar Aluno</h3>
+  <div class="modal-conteudo">
+    <h3>Editar Aluno</h3>
 
-        <form id="formEditar" class="form-aluno">
-            <input type="text" id="editarNome" placeholder="Nome do aluno" required>
-            <input type="text" id="editarMatricula" placeholder="Matrícula" required>
-            <select id="editarTurma" required><option value="">Selecione a turma</option></select>
+    <form id="formEditar" class="form-aluno">
+      <input type="text" id="editarNome" placeholder="Nome do aluno" required>
+      <input type="text" id="editarMatricula" placeholder="Matrícula" required>
+      <select id="editarTurma" required>
+        <option value="">Selecione a turma</option>
+      </select>
 
-            <div class="modal-acoes">
-                <button type="submit" class="btn-sec">
-                    Salvar
-                </button>
-                <button type="button" class="btn-cancelar" onclick="fecharModal()">
-                    Cancelar
-                </button>
-            </div>
-        </form>
-    </div>
+      <div class="modal-acoes">
+        <button type="submit" class="btn-sec">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Salvar
+        </button>
+
+        <button type="button" class="btn-cancelar" onclick="fecharModal()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
-<!-- SCRIPT MENU -->
-<script>
-function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("aberta");
-}
-</script>
-
-<!-- SCRIPT PRINCIPAL -->
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
 <script type="module" src="js/modules/cadastro.js"></script>
 
 </body>

@@ -411,6 +411,11 @@ document.addEventListener("DOMContentLoaded", () => {
     importarCSV
   )
 
+  document.getElementById("btnImportarCSV")
+  ?.addEventListener("click", () => {
+    importarCSVInput.click()
+  })
+
 })
 
 function exportarCSV(){

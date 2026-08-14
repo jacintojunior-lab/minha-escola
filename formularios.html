@@ -6,7 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="favicon" rel="icon" type="image/png" href="data:,">
-<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/formularios.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -14,36 +19,66 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <body>
 
-<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
 
 <div class="layout">
 
 <aside class="sidebar" id="sidebar">
 
-<div class="sidebar-logo">
-<img src="assets/logo.jpg">
-<span>Sistema Escolar</span>
-</div>
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
 
 <nav class="sidebar-menu">
-
-<a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-<a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
-<a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
-<a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
-<a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
-<a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
-<a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
-<a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
-<a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
-<a href="formularios.html" class="ativo"><i class="fa-solid fa-folder-open"></i> Formulários</a>
-<a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
-<a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
-<a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
-<a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
-<a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
-<a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
-
+  <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+  <a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+  <a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+  <a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+  <a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+  <a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+  <a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+  <a href="contato.html"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+  <a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+  <a href="formularios.html" class="ativo"><i class="fa-solid fa-folder-open"></i> Formulários</a>
+  <a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
+  <a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+  <a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+  <a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+  <a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+  <a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+  <a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+  <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
 </nav>
 
 </aside>
@@ -51,172 +86,156 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <main class="conteudo">
 
 <section class="card">
-<h2><i class="fa-solid fa-folder-open"></i> Formulários</h2>
+  <h2><i class="fa-solid fa-folder-open"></i> Formulários</h2>
 
-<div class="form-aluno">
+  <div class="form-aluno">
+    <div class="campo-form">
+      <label>Turma</label>
+      <select id="selectTurma">
+        <option value="">Selecione a turma</option>
+      </select>
+    </div>
 
-<div class="campo-form">
-<label>Turma</label>
-<select id="selectTurma">
-<option value="">Selecione a turma</option>
-</select>
-</div>
+    <div class="campo-form">
+      <label>Estudante</label>
+      <select id="selectAluno">
+        <option value="">Selecione o estudante</option>
+      </select>
+    </div>
 
-<div class="campo-form">
-<label>Estudante</label>
-<select id="selectAluno">
-<option value="">Selecione o estudante</option>
-</select>
-</div>
-
-<div class="campo-form">
-<label>Tipo de impressão</label>
-<select id="selectTipoImpressao">
-<option value="dados">Com dados do estudante</option>
-<option value="branco">Formulário em branco</option>
-</select>
-</div>
-
-</div>
-
+    <div class="campo-form">
+      <label>Tipo de impressão</label>
+      <select id="selectTipoImpressao">
+        <option value="dados">Com dados do estudante</option>
+        <option value="branco">Formulário em branco</option>
+      </select>
+    </div>
+  </div>
 </section>
 
 <section class="card">
-
-<h2>Formulários disponíveis</h2>
-
-<div class="grid-cards">
-
-<div class="card-declaracao" data-formulario="ficha-matricula">
-  <i class="fa-solid fa-address-card"></i>
-  <h3>Ficha de Matrícula</h3>
-  <p>Ensino Fundamental Regular</p>
-</div>
-
-<div class="card-declaracao" data-formulario="termo-saida">
-  <i class="fa-solid fa-person-walking-arrow-right"></i>
-  <h3>Termo de Saída (Padrão)</h3>
-  <p>Autorização para retirada do estudante</p>
-</div>
-
-<div class="card-declaracao" data-formulario="termo-saida-fund1">
-  <i class="fa-solid fa-child-reaching"></i>
-  <h3>Termo de Saída (Fund. I)</h3>
-  <p>Termo de Saída - 1º ao 5º ano</p>
-</div>
-
-<div class="card-declaracao" data-formulario="termo-saida-fund2">
-  <i class="fa-solid fa-user-graduate"></i>
-  <h3>Termo de Saída (Fund. 2)</h3>
-  <p>Termo de Saída - 6º ao 9º ano</p>
-</div>
-
-<div class="card-declaracao" data-formulario="uso-imagem">
-<i class="fa-solid fa-camera"></i>
-<h3>Termo de Uso de Imagem</h3>
-<p>Autorização de imagem e áudio</p>
-</div>
-
-<div class="card-declaracao" data-formulario="termo-responsabilidade">
-  <i class="fa-solid fa-file-signature"></i>
-  <h3>Termo de Responsabilidade</h3>
-  <p>Regras escolares e direitos dos alunos</p>
-</div>
-
-<div class="card-declaracao" data-formulario="ficha-saude-b">
-  <i class="fa-solid fa-notes-medical"></i>
-  <h3>Ficha de Saúde B</h3>
-  <p>EMEI / EMEF - 4 a 14 anos</p>
-</div>
-
-<div class="card-declaracao" data-formulario="ficha-saude-e">
-  <i class="fa-solid fa-wheelchair"></i>
-  <h3>Ficha de Saúde E</h3>
-  <p>Educandos com deficiência</p>
-</div>
-
-<div class="card-declaracao" data-formulario="dva">
-<i class="fa-solid fa-syringe"></i>
-<h3>Notificação DVA</h3>
-<p>Declaração de Vacinação Atualizada</p>
-</div>
-
-</div>
-
-</section>
-<section class="card">
-
-  <h2>Formulários para Impressão</h2>
+  <h2><i class="fa-solid fa-file-lines"></i> Formulários disponíveis</h2>
 
   <div class="grid-cards">
 
-    <div class="card-declaracao" data-formulario-manual="apresentacao-aluno-novo">
+    <div class="card-formulario" data-formulario="ficha-matricula">
+      <i class="fa-solid fa-address-card"></i>
+      <h3>Ficha de Matrícula</h3>
+      <p>Ensino Fundamental Regular</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="termo-saida">
+      <i class="fa-solid fa-person-walking-arrow-right"></i>
+      <h3>Termo de Saída (Padrão)</h3>
+      <p>Autorização para retirada do estudante</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="termo-saida-fund1">
+      <i class="fa-solid fa-child-reaching"></i>
+      <h3>Termo de Saída (Fund. I)</h3>
+      <p>Termo de Saída - 1º ao 5º ano</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="termo-saida-fund2">
+      <i class="fa-solid fa-user-graduate"></i>
+      <h3>Termo de Saída (Fund. II)</h3>
+      <p>Termo de Saída - 6º ao 9º ano</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="uso-imagem">
+      <i class="fa-solid fa-camera"></i>
+      <h3>Termo de Uso de Imagem</h3>
+      <p>Autorização de imagem e áudio</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="termo-responsabilidade">
+      <i class="fa-solid fa-file-signature"></i>
+      <h3>Termo de Responsabilidade</h3>
+      <p>Regras escolares e direitos dos alunos</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="ficha-saude-b">
+      <i class="fa-solid fa-notes-medical"></i>
+      <h3>Ficha de Saúde B</h3>
+      <p>EMEI / EMEF - 4 a 14 anos</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="ficha-saude-e">
+      <i class="fa-solid fa-wheelchair"></i>
+      <h3>Ficha de Saúde E</h3>
+      <p>Educandos com deficiência</p>
+    </div>
+
+    <div class="card-formulario" data-formulario="dva">
+      <i class="fa-solid fa-syringe"></i>
+      <h3>Notificação DVA</h3>
+      <p>Declaração de Vacinação Atualizada</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="card">
+  <h2><i class="fa-solid fa-print"></i> Formulários para Impressão</h2>
+
+  <div class="grid-cards">
+
+    <div class="card-formulario" data-formulario-manual="apresentacao-aluno-novo">
       <i class="fa-solid fa-user-plus"></i>
       <h3>Apresentação de Estudante Novo</h3>
       <p>Para preenchimento manual no guichê</p>
     </div>
 
-    <div class="card-declaracao" data-formulario-manual="atualizacao-dados-cadastrais">
+    <div class="card-formulario" data-formulario-manual="atualizacao-dados-cadastrais">
       <i class="fa-solid fa-address-book"></i>
       <h3>Atualização de Dados</h3>
       <p>Atualização cadastral do estudante</p>
     </div>
 
-    <div class="card-declaracao" data-formulario-manual="solicitacao-bilhete-unico">
+    <div class="card-formulario" data-formulario-manual="solicitacao-bilhete-unico">
       <i class="fa-solid fa-id-card"></i>
       <h3>Solicitação Bilhete Único</h3>
       <p>Cadastro manual para Bilhete Único</p>
     </div>
 
-    <div class="card-declaracao"
-        data-formulario-manual="ficha-cadastro"
-        data-tipo="pdf">
-        <i class="fa-solid fa-file-pdf"></i>
-        <h3>Ficha de Cadastro</h3>
-        <p>Modelo oficial da SME</p>
+    <div class="card-formulario" data-formulario-manual="ficha-cadastro" data-tipo="pdf">
+      <i class="fa-solid fa-file-pdf"></i>
+      <h3>Ficha de Cadastro</h3>
+      <p>Modelo oficial da SME</p>
     </div>
 
   </div>
-
 </section>
 
 </main>
-
 </div>
 
-<footer>
-<p>© 2026 – Sistema Escolar</p>
+<footer class="footer">
+  <p id="footerTexto"></p>
 </footer>
 
-<!-- MODAL RESPONSÁVEL -->
 <div class="modal" id="modalResponsavel">
+  <div class="modal-conteudo">
 
-<div class="modal-conteudo">
+    <h3>Quem irá assinar?</h3>
 
-<h3>Quem irá assinar?</h3>
+    <p class="descricao">
+      Selecione o nome que deverá aparecer no formulário.
+    </p>
 
-<p class="descricao">
-Selecione o nome que deverá aparecer no formulário.
-</p>
-<br>
-<div id="opcoesResponsavel" class="form-aluno"></div>
+    <div id="opcoesResponsavel" class="opcoes-responsavel"></div>
 
-<div class="modal-acoes">
-<button class="btn-cancelar" id="btnCancelarModal">
-Cancelar
-</button>
+    <div class="modal-acoes">
+      <button class="btn-cancelar" id="btnCancelarModal">
+        Cancelar
+      </button>
+    </div>
+
+  </div>
 </div>
 
-</div>
-
-</div>
-
-<script>
-function toggleSidebar() {
-document.getElementById("sidebar").classList.toggle("aberta");
-}
-</script>
-
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
 <script type="module" src="js/modules/formularios.js"></script>
 
 </body>

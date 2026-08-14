@@ -7,86 +7,78 @@
 
 <link id="favicon" rel="icon" type="image/png" href="data:,">
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/contato.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 </head>
+
 <body>
 
-<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<header class="topbar">
+  <div class="topbar-left">
+    <button id="btnMenu">☰</button>
+
+    <div class="topbar-logo">
+      <img src="assets/logo.jpg" alt="Logo">
+      <h2>Sistema Escolar</h2>
+    </div>
+  </div>
+
+  <div class="busca-global">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input
+      type="search"
+      id="buscaGlobal"
+      placeholder="Buscar aluno por nome ou RGA..."
+      autocomplete="off">
+    <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="usuario-info">
+      <div id="usuarioNome"></div>
+      <small id="usuarioPerfil"></small>
+    </div>
+
+    <button id="btnSair" class="btn-sair">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Sair
+    </button>
+  </div>
+</header>
 
 <div class="layout">
 
 <aside class="sidebar" id="sidebar">
 
-<div class="sidebar-logo">
-<img src="assets/logo.jpg">
-<span>Sistema Escolar</span>
-</div>
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
 
 <nav class="sidebar-menu">
-<a href="dashboard.html">
-    <i class="fa-solid fa-chart-line"></i> Dashboard
-</a>
-
-<a href="cadastro.html">
-<i class="fa-solid fa-clipboard-list"></i> Cadastro
-</a>
-
-<a href="alunos.html">
-<i class="fa-solid fa-user-graduate"></i> Alunos
-</a>
-
-<a href="carometro.html">
-<i class="fa-solid fa-id-badge"></i> Carômetro
-</a>
-
-<a href="irmaos.html">
-<i class="fa-solid fa-people-roof"></i> Irmãos
-</a>
-
-<a href="pais.html">
-<i class="fa-solid fa-people-roof"></i> Pais
-</a>
-
-<a href="relatorios.html">
-<i class="fa-solid fa-file-lines"></i> Relatórios
-</a>
-
-<a href="contato.html" class="ativo">
-<i class="fa-brands fa-whatsapp"></i> Contato
-</a>
-
-<a href="declaracoes.html">
-<i class="fa-solid fa-file-signature"></i> Declarações
-</a>
-<a href="formularios.html">
-  <i class="fa-solid fa-folder-open"></i> Formulários
-</a>
-<a href="turmas.html">
-<i class="fa-solid fa-school"></i> Turmas
-</a>
-
-<a href="funcionarios.html">
-<i class="fa-solid fa-user-tie"></i> Funcionários
-</a>
-
-<a href="transporte.html">
-    <i class="fa-solid fa-bus"></i> Transporte
-</a>
-<a href="cesta-basica.html">
-  <i class="fa-solid fa-basket-shopping"></i> Cesta Básica
-</a>
-<a href="saude.html">
-  <i class="fa-solid fa-heart-pulse"></i> Saúde
-</a>
-
-<a href="configuracoes.html">
-<i class="fa-solid fa-gear"></i> Configurações
-</a>
-
+  <a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+  <a href="cadastro.html"><i class="fa-solid fa-clipboard-list"></i> Cadastro</a>
+  <a href="alunos.html"><i class="fa-solid fa-user-graduate"></i> Alunos</a>
+  <a href="carometro.html"><i class="fa-solid fa-id-badge"></i> Carômetro</a>
+  <a href="irmaos.html"><i class="fa-solid fa-people-roof"></i> Irmãos</a>
+  <a href="pais.html"><i class="fa-solid fa-people-roof"></i> Pais</a>
+  <a href="relatorios.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
+  <a href="contato.html" class="ativo"><i class="fa-brands fa-whatsapp"></i> Contato</a>
+  <a href="declaracoes.html"><i class="fa-solid fa-file-signature"></i> Declarações</a>
+  <a href="formularios.html"><i class="fa-solid fa-folder-open"></i> Formulários</a>
+  <a href="turmas.html"><i class="fa-solid fa-school"></i> Turmas</a>
+  <a href="funcionarios.html"><i class="fa-solid fa-user-tie"></i> Funcionários</a>
+  <a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+  <a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
+  <a href="transporte.html"><i class="fa-solid fa-bus"></i> Transporte</a>
+  <a href="cesta-basica.html"><i class="fa-solid fa-basket-shopping"></i> Cesta Básica</a>
+  <a href="saude.html"><i class="fa-solid fa-heart-pulse"></i> Saúde</a>
+  <a href="configuracoes.html"><i class="fa-solid fa-gear"></i> Configurações</a>
 </nav>
 
 </aside>
@@ -94,43 +86,38 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <main class="conteudo">
 
 <section class="card">
+  <h2><i class="fa-brands fa-whatsapp"></i> Contato Rápido</h2>
 
-<h2>Contato Rápido</h2>
+  <div class="filtros-contato">
 
-<!-- FILTROS -->
-<div class="filtros-contato">
+    <div class="campo-select">
+      <label>Turma</label>
+      <select id="turmaSelect"></select>
+    </div>
 
-<div class="campo-select">
-<label>Turma</label>
-<select id="turmaSelect"></select>
-</div>
+    <div class="campo-select">
+      <label>Aluno</label>
+      <select id="alunoSelect"></select>
+    </div>
 
-<div class="campo-select">
-<label>Aluno</label>
-<select id="alunoSelect"></select>
-</div>
-
-</div>
-
+  </div>
 </section>
 
-<!-- RESULTADO -->
 <section class="card">
+  <h2><i class="fa-solid fa-address-book"></i> Contatos</h2>
 
-<h2>Contatos</h2>
-
-<div id="contatos"></div>
-
+  <div id="contatos" class="lista-contatos"></div>
 </section>
-
 
 </main>
 </div>
 
-<footer>
-<p>© 2026 – Sistema Escolar</p>
+<footer class="footer">
+  <p id="footerTexto"></p>
 </footer>
 
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
 <script type="module" src="js/modules/contato.js"></script>
 
 </body>

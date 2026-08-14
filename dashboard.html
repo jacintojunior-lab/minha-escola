@@ -7,25 +7,64 @@
 
 <link id="favicon" rel="icon" type="image/png" href="data:,">
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="css/pages/dashboard.css">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 <body>
+  <header class="topbar">
 
-<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-left">
+          <button id="btnMenu">☰</button>
+
+          <div class="topbar-logo">
+              <img src="assets/logo.jpg" alt="Logo">
+              <h2>Sistema Escolar</h2>
+          </div>
+      </div>
+
+      <div class="busca-global">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="search"
+          id="buscaGlobal"
+          placeholder="Buscar aluno por nome ou RGA..."
+          autocomplete="off">
+        <div id="resultadoBuscaGlobal" class="resultado-busca-global"></div>
+      </div>
+
+      <div class="topbar-right">
+
+          <div class="usuario-info">
+              <div id="usuarioNome"></div>
+              <small id="usuarioPerfil"></small>
+          </div>
+
+          <button id="btnSair" class="btn-sair">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              Sair
+          </button>
+
+      </div>
+
+  </header>
+
+
 
 <div class="layout">
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
 
-<div class="sidebar-logo">
-<img src="assets/logo.jpg">
-<span>Sistema Escolar</span>
-</div>
+<button id="btnFecharMenu" class="btn-fechar-menu">
+  <i class="fa-solid fa-xmark"></i>
+</button>
 
 <nav class="sidebar-menu">
 
@@ -74,6 +113,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <a href="funcionarios.html">
 <i class="fa-solid fa-user-tie"></i> Funcionários
 </a>
+
+<a href="leitura-doc.html"><i class="fa-solid fa-newspaper"></i> Leitura DOC</a>
+<a href="ferramentas-pdf.html"><i class="fa-solid fa-file-pdf"></i> Ferramentas PDF</a>
 
 <a href="transporte.html">
 <i class="fa-solid fa-bus"></i> Transporte
@@ -207,16 +249,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </div>
 
-<footer>
-<p>© 2026 – Sistema Escolar</p>
+<footer class="footer">
+  <p id="footerTexto"></p>
 </footer>
 
-<script>
-function toggleSidebar() {
-document.getElementById("sidebar").classList.toggle("aberta");
-}
-</script>
-
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/core/layout.js"></script>
 <script type="module" src="js/modules/dashboard.js"></script>
 
 </body>

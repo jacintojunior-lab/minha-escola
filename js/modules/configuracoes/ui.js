@@ -4,40 +4,37 @@
 
 export function abrirAbaConfig(nome, el){
 
-  // esconder conteúdos
   document.querySelectorAll(".conteudo-aba").forEach(div => {
     div.classList.remove("ativo")
   })
 
-  // remover ativo dos botões
-  document.querySelectorAll(".abas-aluno .aba").forEach(btn => {
+  document.querySelectorAll(".abas-config .aba").forEach(btn => {
     btn.classList.remove("ativa")
   })
 
-  // ativar conteúdo
-  document.getElementById("aba-" + nome).classList.add("ativo")
+  const aba = document.getElementById("aba-" + nome)
 
-  // 🔥 usar o elemento recebido
+  if(aba){
+    aba.classList.add("ativo")
+  }
+
   if(el){
     el.classList.add("ativa")
   }
 
-  // salvar aba
   localStorage.setItem("abaConfig", nome)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  const abas = document.querySelectorAll(".abas-aluno .aba")
+  const abas = document.querySelectorAll(".abas-config .aba")
 
   abas.forEach(btn => {
     btn.addEventListener("click", () => {
-      const nome = btn.dataset.aba
-      abrirAbaConfig(nome, btn)
+      abrirAbaConfig(btn.dataset.aba, btn)
     })
   })
 
-  // restaurar aba salva
   const abaSalva = localStorage.getItem("abaConfig") || "geral"
 
   const btnAtivo = [...abas].find(btn => btn.dataset.aba === abaSalva)

@@ -258,22 +258,19 @@ function abrirDeclaracaoImpressao(){
 
 // MODAL TRANSFERÊNCIA
 function abrirModalTransferenciaEscolar(){
-const modal = document.getElementById("modalTransferenciaEscolar")
+  const modal = document.getElementById("modalTransferenciaEscolar")
 
-modal.style.display = "flex"
-
-// 🔥 trava rolagem
-document.body.style.overflow = "hidden"
+  modal.classList.add("ativo")
+  document.body.classList.add("modal-aberto")
 }
 
 function fecharModalTransferenciaEscolar(){
-const modal = document.getElementById("modalTransferenciaEscolar")
+  const modal = document.getElementById("modalTransferenciaEscolar")
 
-modal.style.display = "none"
-
-// 🔥 libera rolagem
-document.body.style.overflow = "auto"
+  modal.classList.remove("ativo")
+  document.body.classList.remove("modal-aberto")
 }
+
 
 window.addEventListener("click", function(e){
 
@@ -283,6 +280,19 @@ const modal = document.getElementById("modalTransferenciaEscolar")
 if(e.target === modal){
 fecharModalTransferenciaEscolar()
 }
+
+})
+
+// Fechar modal com a tecla ESC
+document.addEventListener("keydown", function(e){
+
+  if(e.key !== "Escape") return
+
+  const modal = document.getElementById("modalTransferenciaEscolar")
+
+  if(modal.classList.contains("ativo")){
+    fecharModalTransferenciaEscolar()
+  }
 
 })
 

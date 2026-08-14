@@ -1,0 +1,71 @@
+.cabecalho-secao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.cabecalho-secao h2 {
+  margin-bottom: 0;
+}
+
+.acoes-csv {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.acoes-funcionario {
+  width: 120px;
+}
+
+.acoes-funcionario .acoes-turma {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acoes-funcionario .btn-acao {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: .2s;
+}
+
+.acoes-funcionario .btn-editar {
+  background: var(--amarelo);
+  color: #111827;
+}
+
+.acoes-funcionario .btn-excluir {
+  background: var(--vermelho);
+  color: white;
+}
+
+.acoes-funcionario .btn-editar:hover {
+  background: var(--amarelo-hover);
+}
+
+.acoes-funcionario .btn-excluir:hover {
+  background: var(--vermelho-hover);
+}
+
+@media (max-width: 700px) {
+  .cabecalho-secao,
+  .acoes-csv {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .acoes-csv button {
+    width: 100%;
+  }
+}

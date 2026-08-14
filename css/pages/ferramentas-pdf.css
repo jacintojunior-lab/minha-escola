@@ -1,0 +1,848 @@
+.cabecalho-pdf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cabecalho-pdf h1 {
+  margin: 8px 0 6px;
+}
+
+.cabecalho-pdf p {
+  margin: 0;
+  color: #667085;
+  max-width: 760px;
+}
+
+.etiqueta-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #eef4ff;
+  color: #3157a4;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* =========================
+   MODOS DA FERRAMENTA
+========================= */
+
+.modos-pdf {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.modo-pdf {
+  min-height: 74px;
+  border: 1px solid #dfe3ea;
+  border-radius: 14px;
+  background: #fff;
+  color: #344054;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 700;
+  transition: 0.18s ease;
+}
+
+.modo-pdf:hover {
+  transform: translateY(-1px);
+  border-color: #aebfe4;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}
+
+.modo-pdf.ativo {
+  color: #1f4fa3;
+  border-color: #7da0e8;
+  background: #f5f8ff;
+  box-shadow: inset 0 0 0 1px #7da0e8;
+}
+
+.modo-pdf i {
+  font-size: 1.2rem;
+}
+
+.descricao-modo {
+  margin-top: 14px;
+  color: #667085;
+  font-size: 0.92rem;
+}
+
+/* =========================
+   ÁREA DE UPLOAD
+========================= */
+
+.drop-zone {
+  min-height: 210px;
+  border: 2px dashed #c8d2e2;
+  border-radius: 18px;
+  background: #fafcff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 26px;
+  text-align: center;
+  transition: 0.18s ease;
+}
+
+.drop-zone:hover,
+.drop-zone.arrastando {
+  border-color: #5f83cc;
+  background: #f4f8ff;
+}
+
+.drop-zone .drop-icone {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #e9f0ff;
+  color: #3157a4;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.drop-zone span,
+.drop-zone small {
+  color: #667085;
+}
+
+.lista-arquivos {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arquivo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 11px;
+  border: 1px solid #e1e6ee;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.84rem;
+}
+
+.arquivo-chip i {
+  color: #c63d4c;
+}
+
+/* =========================
+   BARRA SUPERIOR DAS PÁGINAS
+========================= */
+
+.barra-superior-pdf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.barra-superior-pdf h2 {
+  margin: 0 0 4px;
+}
+
+.barra-superior-pdf p {
+  margin: 0;
+  color: #667085;
+  font-size: 0.9rem;
+}
+
+.acoes-gerais-pdf {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   SELECIONAR TODAS /
+   LIMPAR SELEÇÃO
+========================= */
+
+#btnSelecionarTodas,
+#btnLimparSelecao {
+  min-height: 38px;
+  padding: 0 13px;
+  border-radius: 9px;
+  border: 1px solid #d7dfeb;
+  background: #ffffff;
+  color: #344054;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+#btnSelecionarTodas i {
+  color: #3157a4;
+}
+
+#btnLimparSelecao i {
+  color: #667085;
+}
+
+#btnSelecionarTodas:hover {
+  border-color: #7695d4;
+  background: #f4f7ff;
+  color: #1f4fa3;
+  transform: translateY(-1px);
+}
+
+#btnLimparSelecao:hover {
+  border-color: #aeb7c5;
+  background: #f8fafc;
+  color: #344054;
+  transform: translateY(-1px);
+}
+
+#btnSelecionarTodas:active,
+#btnLimparSelecao:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   BOTÕES DE ROTAÇÃO / EXCLUSÃO
+========================= */
+
+.btn-icone-texto,
+.btn-modal-icone {
+  border: 1px solid #d9e0ea;
+  background: #fff;
+  color: #344054;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.btn-icone-texto {
+  min-height: 38px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: all 0.18s ease;
+}
+
+.btn-icone-texto:hover {
+  border-color: #aeb9ca;
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.perigo {
+  color: #b42318 !important;
+}
+
+/* =========================
+   DIVIDIR PDF
+========================= */
+
+.controles-dividir {
+  border: 1px solid #dde4ee;
+  border-radius: 16px;
+  background: #f8fafc;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.opcoes-dividir {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.opcao-radio {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 96px;
+  padding: 18px;
+  background: #ffffff;
+  border: 1px solid #dce3ed;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.opcao-radio:hover {
+  border-color: #9db2dd;
+  background: #fbfcff;
+  box-shadow: 0 5px 14px rgba(16, 24, 40, 0.06);
+  transform: translateY(-1px);
+}
+
+.opcao-radio input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: #3157a4;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.opcao-radio span {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.opcao-radio strong {
+  color: #1d2939;
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.opcao-radio small {
+  color: #667085;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+/* destaque da opção selecionada */
+
+.opcao-radio:has(input:checked) {
+  border-color: #4f78c8;
+  background: #f3f7ff;
+  box-shadow: inset 0 0 0 1px #4f78c8;
+}
+
+.opcao-radio:has(input:checked) strong {
+  color: #1f4fa3;
+}
+
+/* =========================
+   CAMPO DE PÁGINAS
+========================= */
+
+.campo-paginas {
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid #e3e8ef;
+  display: grid;
+  grid-template-columns: auto minmax(200px, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.campo-paginas > span {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #344054;
+}
+
+.campo-paginas input {
+  height: 42px;
+  min-height: 42px;
+  border: 1px solid #d0d7e2;
+  border-radius: 10px;
+  padding: 0 13px;
+  background: #ffffff;
+  color: #344054;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.18s ease;
+}
+
+.campo-paginas input::placeholder {
+  color: #98a2b3;
+}
+
+.campo-paginas input:hover {
+  border-color: #aeb8c7;
+}
+
+.campo-paginas input:focus {
+  border-color: #5d82cf;
+  box-shadow: 0 0 0 3px rgba(49, 87, 164, 0.12);
+}
+
+/* botão Aplicar */
+
+#btnAplicarPaginas {
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid #3157a4;
+  border-radius: 10px;
+  background: #3157a4;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+#btnAplicarPaginas:hover {
+  background: #27498c;
+  border-color: #27498c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(49, 87, 164, 0.18);
+}
+
+#btnAplicarPaginas:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* =========================
+   AVISO DE REORDENAÇÃO
+========================= */
+
+.aviso-reordenar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #667085;
+  font-size: 0.87rem;
+  margin-bottom: 12px;
+}
+
+/* =========================
+   GRADE DE PÁGINAS
+========================= */
+
+.grade-paginas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+.pagina-card {
+  position: relative;
+  border: 1px solid #dfe4ec;
+  border-radius: 13px;
+  background: #fff;
+  padding: 9px;
+  cursor: grab;
+  transition: 0.16s ease;
+}
+
+.pagina-card:hover {
+  border-color: #9cb2dd;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.07);
+}
+
+.pagina-card.selecionada {
+  border-color: #4b75c4;
+  box-shadow: inset 0 0 0 1px #4b75c4;
+  background: #f6f9ff;
+}
+
+.pagina-card.arrastando {
+  opacity: 0.45;
+}
+
+.pagina-card.alvo-drop {
+  outline: 2px dashed #4b75c4;
+  outline-offset: 3px;
+}
+
+.pagina-check {
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  accent-color: #3157a4;
+}
+
+.pagina-preview {
+  height: 190px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #eef1f5;
+  display: grid;
+  place-items: center;
+  cursor: zoom-in;
+}
+
+.pagina-preview canvas {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  transition: transform 0.18s ease;
+}
+
+.pagina-info {
+  padding: 8px 2px 2px;
+}
+
+.pagina-info strong,
+.pagina-info small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pagina-info small {
+  margin-top: 2px;
+  color: #667085;
+  font-size: 0.75rem;
+}
+
+.pagina-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.pagina-acao {
+  width: 33px;
+  height: 33px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #dce2eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #475467;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.pagina-acao:hover {
+  background: #f8fafc;
+  border-color: #aeb9c8;
+}
+
+.pagina-acao.excluir {
+  color: #b42318;
+}
+
+/* =========================
+   BARRA DE EXECUÇÃO
+========================= */
+
+.barra-execucao {
+  position: sticky;
+  bottom: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-shadow: 0 10px 34px rgba(16, 24, 40, 0.13);
+}
+
+.resumo-execucao {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.resumo-execucao small {
+  color: #667085;
+}
+
+.acoes-execucao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================
+   BOTÃO LIMPAR
+========================= */
+
+#btnLimparTudo {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid #cfd6e2;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #475467;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+#btnLimparTudo i {
+  color: #667085;
+}
+
+#btnLimparTudo:hover {
+  background: #f8fafc;
+  border-color: #98a2b3;
+  color: #344054;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(16, 24, 40, 0.08);
+}
+
+#btnLimparTudo:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* =========================
+   MODAL DE PRÉ-VISUALIZAÇÃO
+========================= */
+
+.modal-preview[hidden] {
+  display: none;
+}
+
+.modal-preview {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+}
+
+.modal-preview-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.72);
+}
+
+.modal-preview-caixa {
+  position: relative;
+  z-index: 1;
+  width: min(980px, calc(100vw - 32px));
+  height: min(860px, calc(100vh - 32px));
+  border-radius: 16px;
+  background: #fff;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+}
+
+.modal-preview-topo,
+.modal-preview-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-bottom: 1px solid #e5e9ef;
+}
+
+.modal-preview-topo small {
+  display: block;
+  color: #667085;
+  margin-top: 2px;
+}
+
+.btn-modal-icone {
+  width: 38px;
+  height: 38px;
+}
+
+.modal-preview-conteudo {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  background: #eef1f5;
+}
+
+.preview-canvas-wrap {
+  height: 100%;
+  min-height: 0;
+  padding: 18px;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+}
+
+.preview-canvas-wrap canvas {
+  max-width: 100%;
+  max-height: 100%;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(16, 24, 40, 0.16);
+}
+
+.btn-navegacao-preview {
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: #475467;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+.btn-navegacao-preview:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.modal-preview-acoes {
+  border-top: 1px solid #e5e9ef;
+  border-bottom: 0;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 14px 16px;
+
+  background: #ffffff;
+}
+
+/* =========================
+   BOTÕES DO MODAL
+========================= */
+
+#btnPreviewRotacionar,
+#btnPreviewExcluir {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-size: 0.88rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+/* Rotacionar */
+
+#btnPreviewRotacionar {
+  border: 1px solid #3157a4;
+  background: #ffffff;
+  color: #3157a4;
+}
+
+#btnPreviewRotacionar i {
+  color: #3157a4;
+}
+
+#btnPreviewRotacionar:hover {
+  background: #f3f7ff;
+  border-color: #27498c;
+  color: #27498c;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 10px
+    rgba(49, 87, 164, 0.12);
+}
+
+#btnPreviewRotacionar:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Excluir página */
+
+#btnPreviewExcluir {
+  border: 1px solid #f0b9b4;
+  background: #fff7f6;
+  color: #b42318 !important;
+}
+
+#btnPreviewExcluir i {
+  color: #b42318;
+}
+
+#btnPreviewExcluir:hover {
+  background: #feeceb;
+  border-color: #e38b83;
+  color: #912018 !important;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 10px
+    rgba(180, 35, 24, 0.10);
+}
+
+#btnPreviewExcluir:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 900px) {
+  .modos-pdf,
+  .opcoes-dividir {
+    grid-template-columns: 1fr;
+  }
+
+  .barra-superior-pdf,
+  .barra-execucao {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .acoes-gerais-pdf,
+  .acoes-execucao {
+    justify-content: flex-start;
+  }
+
+  .grade-paginas {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
+
+  .pagina-preview {
+    height: 165px;
+  }
+}
+
+@media (max-width: 600px) {
+  .campo-paginas {
+    grid-template-columns: 1fr;
+  }
+
+  #btnAplicarPaginas {
+    width: 100%;
+  }
+
+  #btnSelecionarTodas,
+  #btnLimparSelecao,
+  .btn-icone-texto {
+    flex: 1 1 auto;
+  }
+
+  .modal-preview-conteudo {
+    grid-template-columns: 38px 1fr 38px;
+  }
+
+  .grade-paginas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

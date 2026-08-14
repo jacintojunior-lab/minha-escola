@@ -47,6 +47,11 @@ function bindEventos(){
   document.getElementById("importarTurmasCSV")
     ?.addEventListener("change", importarTurmasCSV)
 
+  document.getElementById("btnImportarTurmas")
+  .addEventListener("click", () => {
+    document.getElementById("importarTurmasCSV").click()
+  })
+
 }
 
 function onSubmitTurma(e){

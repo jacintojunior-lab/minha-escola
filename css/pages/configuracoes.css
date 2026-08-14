@@ -1,0 +1,365 @@
+/* =====================
+   ABAS CONFIGURAÇÕES
+===================== */
+
+.abas-config {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.abas-config .aba {
+  background: #e5e7eb;
+  color: #374151;
+
+  border: none;
+  border-radius: 999px;
+
+  padding: 10px 16px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.abas-config .aba:hover {
+  background: #d1d5db;
+  transform: translateY(-1px);
+}
+
+.abas-config .aba.ativa {
+  background: var(--azul);
+  color: white;
+}
+
+.conteudo-aba {
+  display: none;
+}
+
+.conteudo-aba.ativo {
+  display: block;
+  animation: fadeConfig .2s ease;
+}
+
+@keyframes fadeConfig {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================
+   FORMULÁRIOS
+===================== */
+
+.dados-escola {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 16px;
+  color: var(--azul);
+
+  margin-top: 24px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+
+  border-bottom: 2px solid #eef1ff;
+}
+
+.dados-escola:first-of-type {
+  margin-top: 0;
+}
+
+#formEscola input {
+  background: #fafafa;
+}
+
+#formEscola input:hover {
+  border-color: var(--azul);
+}
+
+.acoes-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+/* =====================
+   UPLOADS
+===================== */
+
+.upload-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.upload-grid .campo-form {
+  min-width: 260px;
+}
+
+.upload-ui {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: fit-content;
+  max-width: 100%;
+
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  padding: 10px;
+  transition: .2s;
+}
+
+.upload-ui:hover {
+  background: white;
+  border-color: var(--azul);
+}
+
+.upload-ui input {
+  display: none;
+}
+
+.btn-upload {
+  background: var(--amarelo);
+  color: var(--preto);
+
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-upload:hover {
+  background: var(--amarelo-hover);
+}
+
+.nome-arquivo {
+  font-size: 13px;
+  color: var(--cinza-texto);
+
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-foto-padrao {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+
+  margin-top: 10px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  border: 2px solid #e5e7eb;
+}
+
+/* =====================
+   PREVIEW ESCOLA
+===================== */
+
+.preview-escola {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  padding: 25px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.relatorio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+}
+
+.relatorio-header img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.relatorio-info {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.preview-corpo {
+  min-height: 130px;
+  padding: 20px 0;
+}
+
+.preview-corpo h4 {
+  text-align: center;
+}
+
+.preview-corpo p {
+  margin-top: 15px;
+  text-align: justify;
+}
+
+.relatorio-footer {
+  margin-top: 20px;
+  padding-top: 10px;
+
+  border-top: 1px solid #000;
+
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* =====================
+   IMPORTAÇÃO / BACKUP
+===================== */
+
+.descricao {
+  color: var(--cinza-texto);
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.importacao-box,
+.backup-acoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.importacao-box input[type="file"] {
+  max-width: 360px;
+}
+
+.backup-acoes .btn-sec,
+.backup-acoes .btn-danger,
+.importacao-box .btn-sec {
+  min-height: 42px;
+}
+
+.card-perigo {
+  border-left: 5px solid var(--vermelho);
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media (max-width: 700px) {
+  .abas-config {
+    flex-direction: column;
+  }
+
+  .abas-config .aba {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .upload-grid,
+  .importacao-box,
+  .backup-acoes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upload-ui,
+  .importacao-box input[type="file"],
+  .backup-acoes button,
+  .backup-acoes label,
+  .importacao-box button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .relatorio-header {
+    gap: 8px;
+  }
+
+  .relatorio-header img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .relatorio-info {
+    font-size: 11px;
+  }
+}
+
+/* =====================
+   BOTÕES DE PERIGO
+===================== */
+
+.card-perigo .backup-acoes {
+  margin-top: 18px;
+}
+
+.card-perigo .btn-danger {
+  background: var(--vermelho);
+  color: white;
+
+  min-height: 42px;
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-weight: 700;
+  white-space: nowrap;
+
+  transition: .2s;
+}
+
+.card-perigo .btn-danger:hover {
+  background: var(--vermelho-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, .25);
+}
+
+.card-perigo #btnResetarSistema {
+  background: #7f1d1d;
+}
+
+.card-perigo #btnResetarSistema:hover {
+  background: #991b1b;
+}
+
+@media (max-width: 700px) {
+  .card-perigo .btn-danger {
+    width: 100%;
+  }
+}

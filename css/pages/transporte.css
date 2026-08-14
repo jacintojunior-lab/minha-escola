@@ -1,0 +1,60 @@
+.filtros-transporte {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 15px;
+  align-items: end;
+}
+
+.campo-busca-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-busca-wrap label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--azul);
+}
+
+#listaTransporte td {
+  vertical-align: middle;
+}
+
+#listaTransporte .btn-sec {
+  min-width: 70px;
+  height: 34px;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
+.status-azul {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-amarelo {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status-vermelho {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-roxo {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.status-cinza {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+@media (max-width: 700px) {
+  .filtros-transporte {
+    grid-template-columns: 1fr;
+  }
+}
